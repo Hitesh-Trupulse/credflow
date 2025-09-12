@@ -4,11 +4,6 @@ const CTASection = () => {
   return (
     <section
       className="relative w-full py-32 text-center text-white flex flex-col items-center justify-center"
-      style={{
-        backgroundImage: "url('/images/blackbg.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
     >
       <h2 className="text-4xl md:text-6xl font-light mb-4">
         Credentialing Is Now Made <br /> Easy With{" "}

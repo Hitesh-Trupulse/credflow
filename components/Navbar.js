@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <nav className="relative w-full m-auto flex justify-center">
-      <div className=" w-full max-w-[90vw] m-auto flex fixed top-10 z-20 items-center justify-between bg-white/5 text-white px-8 py-3 rounded-full shadow-md">
+      <div className=" w-full max-w-[90vw] m-auto backdrop-blur-xl flex fixed top-10 z-20 items-center justify-between bg-black/20 border border-gray-600 text-white px-8 py-3 rounded-full shadow-md">
       {/* Logo Section */}
       <div className="flex items-center space-x-3">
         {/* Replace with your actual logo SVG/image */}

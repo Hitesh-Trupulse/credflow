@@ -27,11 +27,11 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center max-w-5xl mx-auto">
+      <div className="relative z-10 text-center max-w-6xl mx-auto">
         {/* Main Heading */}
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-          <span className="block">Credentialing Made Easy.</span>
-          <span className="block bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          <span className="block mb-2">Credentialing Made Easy.</span>
+          <span className="block bg-gradient-to-r from-purple-400 via-purple-500 to-blue-500 bg-clip-text text-transparent">
             Right Provider.
           </span>
         </h1>
@@ -44,7 +44,7 @@ const Hero = () => {
         </p>
 
         {/* CTA Button */}
-        <button className="bg-white text-gray-900 px-8 py-4 rounded-lg font-medium text-lg hover:bg-gray-100 transition-colors duration-200 shadow-lg">
+        <button className="bg-white text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors duration-200 shadow-lg">
           Join The Waitlist
         </button>
       </div>

@@ -12,11 +12,6 @@ const Footer = () => {
   return (
     <footer
       className="relative w-full text-white"
-      style={{
-        backgroundImage: "url('/images/blackbg.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
     >
       {/* Top Section */}
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
