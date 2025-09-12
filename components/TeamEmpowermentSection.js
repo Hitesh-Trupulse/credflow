@@ -16,7 +16,7 @@ const TeamEmpowermentSection = () => {
         <div className="max-w-4xl mx-auto space-y-6 text-lg md:text-xl text-gray-300 leading-relaxed">
           <p>
             Your Admins And Coordinators Know The Workflows, Payers, And Providers Better Than Anyone. 
-            What They Don't Need? Endless Forms And Follow-Ups.
+            What They Don&apos;t Need? Endless Forms And Follow-Ups.
           </p>
           
           <p>

@@ -22,7 +22,7 @@ const PlatformSection = () => {
             <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
               Our platform provides comprehensive network intelligence that tracks credentialing 
               status across all payers in real-time. Get instant updates, automated alerts, 
-              and complete visibility into your provider network's credentialing pipeline.
+              and complete visibility into your provider network&apos;s credentialing pipeline.
             </p>
 
             <div className="space-y-6">
