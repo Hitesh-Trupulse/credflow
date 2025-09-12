@@ -50,7 +50,7 @@ const Footer = () => {
         {/* Logo */}
         <div className="flex items-center cursor-pointer space-x-3 relative z-10">
           <Image
-            src="/images/wrap.png"
+            src="/images/fulllogo.png"
             alt="Credflow Logo"
             width={200}
             height={100}
