@@ -7,48 +7,48 @@ const cards = [
     description:
       "Large Networks Needing Streamlined Operations And Compliance At Scale.",
     gradient: "from-purple-700/10 to-purple-700/10",
-    animation: "fade-right",
+    animation: "fade-down",
   },
   {
     title: "Physician Groups",
     description:
       "Clinics Seeking Smoother Scheduling, Billing, And Patient Flow.",
     gradient: "from-gray-700/10 to-gray-700/10",
-    animation: "fade-down",
+    animation: "fade-up",
   },
   {
     title: "Payers",
     description:
       "We Work With Health Plans To Streamline Credentialing And Enable AI Tools In Their Workflow. Our Proprietary Data-Lake Optimizes No Surprises Act Directory Compliance.",
     gradient: "from-blue-700/10 to-blue-700/10",
-    animation: "fade-left",
+    animation: "fade-down",
   },
   {
     title: "RCM Organizations",
     description:
       "Billing Experts Focused On Speed, Accuracy, And Revenue Protection.",
     gradient: "from-gray-700/10 to-gray-700/10",
-    animation: "fade-up-right",
+    animation: "fade-up",
   },
   {
     title: "Telehealth Providers",
     description:
       "Digital Care Platforms Needing Seamless, Reliable Integrations.",
     gradient: "from-emerald-600/10 to-emerald-700/10",
-    animation: "fade-up",
+    animation: "fade-down",
   },
   {
     title: "Ambulatory Surgery Centers (ASCs)",
     description:
       "Same-Day Surgical Facilities Balancing Efficiency, Cost, And Compliance.",
     gradient: "from-gray-700/10 to-gray-700/10",
-    animation: "fade-up-left",
+    animation: "fade-up",
   },
 ];
 
 export default function WhoWeHelpSection() {
   return (
-    <section className="bg-black py-20 text-white">
+    <section id="who-we-help" className="bg-black py-20 text-white">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 data-aos="fade-down" className="text-4xl md:text-6xl mb-4">
           Who We{" "}

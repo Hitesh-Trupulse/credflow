@@ -16,7 +16,7 @@ export default function Home() {
     <div className="min-h-screen">
       <Navbar />
       <Hero />
-      <VideoSection />
+      {/* <VideoSection /> */}
       <StatsSection />
       <ProblemSection />
       <AIFeaturesSection />

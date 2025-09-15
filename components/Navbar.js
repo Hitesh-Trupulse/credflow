@@ -17,41 +17,41 @@ export default function Navbar() {
       <div className="w-full max-w-[90vw] xl:max-w-[90vw] m-auto backdrop-blur-xl flex fixed top-4 xl:top-10 z-20 items-center justify-between bg-black/20 border border-gray-600 text-white px-4 sm:px-6 lg:px-8 py-3 rounded-full shadow-md">
         {/* Logo Section */}
         <div className="flex items-center space-x-3">
-          <div className="flex items-center cursor-pointer space-x-3 relative z-10">
+          <Link href="/" className="flex items-center cursor-pointer space-x-3 relative z-10">
             <Image
-              src="/images/logoo.png"
+              src="/images/new.png"
               alt="Credflow Logo"
               width={120}
               height={60}
               className="w-24 sm:w-32 lg:w-40 xl:w-[200px] h-auto"
             />
-          </div>
+          </Link>
         </div>
 
         {/* Desktop Navigation Links */}
         <div className="hidden xl:flex space-x-10 text-sm">
           <Link 
-            href="/" 
+            href="/#home" 
             className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"
           >
             <span className="group-hover:-translate-x-1 transition-transform duration-500 ease-out">Home</span>
             <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
           </Link>
           <Link 
-            href="/product" 
+            href="/#product" 
             className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"
           >
             <span className="group-hover:-translate-x-1 transition-transform duration-500 ease-out">Product</span>
             <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
           </Link>
           <Link 
-            href="/who-we-help" 
+            href="/#who-we-help" 
             className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"
           >
             <span className="group-hover:-translate-x-1 transition-transform duration-500 ease-out">Who We Help</span>
             <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
           </Link>
-          <Link 
+          {/* <Link 
             href="/about" 
             className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"
           >
@@ -64,12 +64,12 @@ export default function Navbar() {
           >
             <span className="group-hover:-translate-x-1 transition-transform duration-500 ease-out">Resources</span>
             <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
-          </Link>
+          </Link> */}
         </div>
 
         {/* Desktop CTA Button */}
-        <div className="hidden lg:block ml-6">
-          <Button href="/waitlist" variant="primary" size="md" className="rounded-full">
+        <div className="hidden xl:block ml-6">
+          <Button variant="primary" size="md" className="rounded-full">
             Join The Waitlist
           </Button>
         </div>
@@ -100,20 +100,20 @@ export default function Navbar() {
                   Home
                 </Link>
                 <Link 
-                  href="/product" 
+                  href="/#product" 
                   className="block text-white hover:text-blue-700 transition-colors duration-300 py-2"
                   onClick={toggleMenu}
                 >
                   Product
                 </Link>
                 <Link 
-                  href="/who-we-help" 
+                  href="/#who-we-help" 
                   className="block text-white hover:text-blue-700 transition-colors duration-300 py-2"
                   onClick={toggleMenu}
                 >
                   Who We Help
                 </Link>
-                <Link 
+                {/* <Link 
                   href="/about" 
                   className="block text-white hover:text-blue-700 transition-colors duration-300 py-2"
                   onClick={toggleMenu}
@@ -126,11 +126,11 @@ export default function Navbar() {
                   onClick={toggleMenu}
                 >
                   Resources
-                </Link>
+                </Link> */}
               </div>
 
               {/* Mobile CTA Button */}
-              <Button href="/waitlist" variant="primary" size="md" className="rounded-full w-full">
+              <Button variant="primary" size="md" className="rounded-full w-full">
                 Join The Waitlist
               </Button>
             </div>

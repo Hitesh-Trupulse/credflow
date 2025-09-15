@@ -29,7 +29,7 @@ const VideoSection = () => {
               className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl"
               data-aos="fade-up"
             >
-              {/* Video Thumbnail */}
+              {/* Video Thumbnail */} 
               <Image
                 src="/images/videobg.png"
                 alt="Credflow AI Demo Video"

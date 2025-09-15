@@ -18,25 +18,25 @@ const cards = [
   {
     number: "2",
     title: "Adaptive Operations",
-    subtitle: "Streamlined & Efficient",
+    subtitle: "Workflows That Fit Reality",
     description:
-      "Workflows that fit reality Dynamic processes adapt by payer, state, provider type, and historical outcomes. Nothing slips. Be confident in new enrolments, location adds, re-credentialing, and directory attestation cycles.",
+      "Dynamic processes adapt by payer, state, provider type, and historical outcomes. Nothing slips. Be confident in new enrolments, location adds, re-credentialing, and directory attestation cycles.",
     imageSrc: "/images/12.png",
   },
   {
     number: "3",
     title: "Continous Verification",
-    subtitle: "Always Up-to-Date",
+    subtitle: "Confidence From The Start ",
     description:
-      "Confidence from the start Licenses, DEA, and sanctions checks are pulled automatically and monitored continuously. Evidence artefacts are saved for audit, turning compliance into a background process rather than a fire drill.",
+      "Licenses, DEA, and sanctions checks are pulled automatically and monitored continuously. Evidence artefacts are saved for audit, turning compliance into a background process rather than a fire drill.",
   imageSrc: "/images/11.png",
   },
   {
     number: "4",
-    title: "Continious Revenue",
-    subtitle: "Data-Driven Insights",
+    title: "Connected Revenue",
+    subtitle: "Credentialing And Claims On The Same Page",
     description:
-      "Credentialing and claims on the same page The only Credentialing Platform built to support Revenue Cycle Revenue.",
+      "The only Credentialing Platform built to support Revenue Cycle Revenue.",
    imageSrc: "/images/13.png",
   },
 ];

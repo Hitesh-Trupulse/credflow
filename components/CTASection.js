@@ -15,7 +15,7 @@ const CTASection = () => {
         Be Among The First To Experience AI-Powered Credentialing.
       </p>
 
-        <Button href="/waitlist" variant="primary" size="md" className="rounded-full">
+        <Button variant="primary" size="md" className="rounded-full">
           Join The Waitlist
         </Button>
     </section>

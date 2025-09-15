@@ -1,5 +1,6 @@
-import Link from "next/link";
+"use client";
 import { FaArrowRight } from "react-icons/fa6";
+import toast from "react-hot-toast";
 
 const Button = ({ 
   children, 
@@ -29,6 +30,31 @@ const Button = ({
 
   const buttonClasses = `${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`;
 
+  const handleClick = (e) => {
+    // Show success toast
+    toast.success('Success! Thank you for your interest.', {
+      duration: 3000,
+      position: 'top-right',
+      style: {
+        background: '#10B981',
+        color: '#fff',
+        borderRadius: '12px',
+        fontSize: '14px',
+        fontWeight: '500',
+        padding: '12px 16px',
+      },
+      iconTheme: {
+        primary: '#fff',
+        secondary: '#10B981',
+      },
+    });
+
+    // Call original onClick if provided
+    if (onClick) {
+      onClick(e);
+    }
+  };
+
   const buttonContent = (
     <>
       <span className="group-hover:-translate-x-1 transition-transform  duration-500 ease-out">
@@ -38,18 +64,10 @@ const Button = ({
     </>
   );
 
-  if (href && !disabled) {
-    return (
-      <Link href={href} className={buttonClasses} {...props}>
-        {buttonContent}
-      </Link>
-    );
-  }
-
   return (
     <button 
       className={buttonClasses} 
-      onClick={onClick} 
+      onClick={handleClick} 
       disabled={disabled}
       {...props}
     >

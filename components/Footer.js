@@ -15,17 +15,17 @@ const Footer = () => {
       className="relative w-full bg-black text-white"
     >
       {/* Top Section */}
-      <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+      <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col text-center gap-4 sm:flex-row justify-between items-center">
         {/* Call */}
-        <div>
+        {/* <div>
           <p className="text-gray-400">Call us at</p>
           <p className="text-lg font-medium">+91 000 000 0000</p>
-        </div>
+        </div> */}
 
         {/* Email */}
         <div>
-          <p className="text-gray-400">Message us at</p>
-          <p className="text-lg font-medium">hello@credflowai.co</p>
+          <p className="text-gray-400">Mail us at</p>
+          <p className="text-lg font-medium">hello@credflow.ai</p>
         </div>
 
         {/* Newsletter */}
@@ -37,9 +37,9 @@ const Footer = () => {
               placeholder="Enter your email"
               className="flex-1 px-4 py-2 text-white focus:outline-none"
             />
-            <Button href="/waitlist" variant="primary" size="md" className="rounded-full mr-2 !py-1">
+            <button variant="primary" size="md" className="rounded-full hover:bg-blue-500 hover:text-white duration-300 bg-white px-2 py-1 cursor-pointer text-black mr-2">
           Join Us
-        </Button>
+        </button>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@ const Footer = () => {
         {/* Logo */}
         <div className="flex items-center cursor-pointer space-x-3 relative z-10">
           <Image
-            src="/images/logoo.png"
+            src="/images/new.png"
             alt="Credflow Logo"
             width={200}
             height={100}
@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
 
         {/* Navigation */}
-        <div className="flex space-x-8 text-sm text-gray-300">
+        {/* <div className="flex space-x-8 text-sm text-gray-300">
           <Link href="/product" className="hover:text-white">
             Product
           </Link>
@@ -72,11 +72,11 @@ const Footer = () => {
           <Link href="/resources" className="hover:text-white">
             Resources
           </Link>
-        </div>
+        </div> */}
 
         {/* Social Icons */}
-        <div className="flex space-x-4 text-xl">
-          <Link
+        <div className="flex space-x-4 text-md">
+          {/* <Link
             href="/"
             className="p-2 border rounded-full hover:bg-white hover:text-black transition"
           >
@@ -99,7 +99,9 @@ const Footer = () => {
             className="p-2 border rounded-full hover:bg-white hover:text-black transition"
           >
             <FaLinkedinIn />
-          </Link>
+          </Link> */}
+          <div className="cursor-pointer">Terms & Conditions</div>
+          <div className="cursor-pointer">Privacy Policy</div>
         </div>
 
         {/* Background Logo (large faint logo at bottom) */}

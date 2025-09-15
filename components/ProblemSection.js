@@ -46,7 +46,7 @@ const ProblemSection = () => {
           {problems.map((problem, index) => {
             const IconComponent = problem.icon;
             return (
-              <div key={index} className="text-center border-t border-b border-r border-gray-400/30 last:border-r-1 first:border-l-1 py-12 bg-gray-900/20 backdrop-blur-sm">
+              <div key={index} className="text-center border border-gray-400/30 py-12 bg-gray-900/20 backdrop-blur-sm">
                 {/* Icon Container */}
                 <div data-aos="fade-up"  className="w-16 h-16 mx-auto mb-6 rounded-full border border-white/20 flex items-center justify-center bg-white/5 backdrop-blur-sm">
                   <IconComponent className="w-8 h-8 text-white" />

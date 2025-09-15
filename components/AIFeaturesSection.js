@@ -1,29 +1,42 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import Button from './common/Button';
 
 const AIFeaturesSection = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
 
   // Individual feature component
   const FeatureItem = ({ feature, index }) => {
-    const isHovered = hoveredIndex === index;
+    const { ref, inView } = useInView({
+      threshold: 0.5,
+      rootMargin: '-30% 0px -30% 0px',
+      triggerOnce: false
+    });
+
+    // Update active index when element comes into view
+    useEffect(() => {
+      if (inView) {
+        setActiveIndex(index);
+      }
+    }, [inView, index]);
+
+    const isActive = activeIndex === index;
 
     return (
       <div 
-        className="border-b border-gray-600/30 pb-8 last:border-b-0 min-h-[100px] flex flex-col justify-center cursor-pointer hover:bg-gray-800/20 transition-colors duration-200 rounded-lg px-4 py-2"
-        onMouseEnter={() => setHoveredIndex(index)}
-        onMouseLeave={() => setHoveredIndex(null)}
+        ref={ref}
+        className="border-b border-gray-600/30 pb-8 last:border-b-0 min-h-[100px] flex flex-col justify-center transition-colors duration-200 rounded-lg px-4 py-2"
       >
         <h3 className={`text-2xl md:text-4xl mb-4 transition-colors duration-300 ${
-          isHovered ? 'text-white' : 'text-gray-400'
+          isActive ? 'text-white' : 'text-gray-400'
         }`}>
           {feature.title}
         </h3>
         
-        <div className={`transition-all duration-300 ease-out ${
-          isHovered 
+        <div className={`transition-all duration-500 ease-out ${
+          isActive 
             ? 'opacity-100 max-h-96 translate-y-0' 
             : 'opacity-0 max-h-0 -translate-y-2 overflow-hidden'
         }`}>
@@ -91,13 +104,13 @@ const AIFeaturesSection = () => {
               We Deliver Tailored Marketing Solutions Designed To Scale Your Brand And Drive Measurable Results
             </p>
 
-            <Button href="/waitlist" variant="primary" size="md" className="rounded-full w-fit">
+            <Button variant="primary" size="md" className="rounded-full w-fit">
               Join The Waitlist
             </Button>
           </div>
 
           {/* Right Side - Scrollable Features List */}
-          <div data-aos="fade-left" className="h-[500px] overflow-y-auto scrollbar-hide">
+          <div data-aos="zoom-in" className="h-[500px] overflow-y-auto scrollbar-hide">
             <div className="space-y-8 pr-4">
               {features.map((feature, index) => (
                 <FeatureItem key={index} feature={feature} index={index} />
