@@ -1,56 +1,66 @@
 import React from 'react';
-import { Gauge, Target, Shield } from 'lucide-react';
+import { Clock, Target, Settings } from 'lucide-react';
 
 const WhyCredflowSection = () => {
   const benefits = [
     {
-      icon: <Gauge className="w-8 h-8" />,
+      icon: <Clock className="w-6 h-6" />,
       title: "Speed",
-      description: "Lightning-fast credentialing processes"
+      subtitle: "10x Team Throughput"
     },
     {
-      icon: <Target className="w-8 h-8" />,
+      icon: <Target className="w-6 h-6" />,
       title: "Accuracy",
-      description: "Precision-driven automation"
+      subtitle: "Real-Time Data & Monitoring"
     },
     {
-      icon: <Shield className="w-8 h-8" />,
+      icon: <Settings className="w-6 h-6" />,
       title: "Control",
-      description: "Complete oversight and management"
+      subtitle: "Human-In-The-Loop Oversight"
     }
   ];
 
   return (
-    <section className="py-20 px-6 ">
-      <div className="max-w-7xl mx-auto text-center">
+    <section className="py-20 px-6 bg-black">
+      <div className="max-w-7xl mx-auto">
         {/* Headline */}
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-          Why{" "}
-          <span className="bg-gradient-to-r from-purple-400 via-purple-500 to-blue-500 bg-clip-text text-transparent">
-            Credflow AI
-          </span>
-        </h2>
-        
-        <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
-          The only AI-powered credentialing platform that combines speed, accuracy, and control 
-          to transform your provider onboarding process.
-        </p>
+        <div data-aos="fade-down" className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight">
+            Why{" "}
+            <span className="bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
+              Credflow AI
+            </span>
+          </h2>
+          
+          <p className="text-md md:text-lg  text-gray-500 max-w-4xl mx-auto leading-relaxed">
+            Legacy Tools Track Tasks. Credflow AI Completes Them.
+          </p>
+        </div>
 
         {/* Benefits Grid */}
-        <div className="grid md:grid-cols-3 gap-16">
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
           {benefits.map((benefit, index) => (
-            <div key={index} className="text-center">
-              <div className="w-24 h-24 mx-auto mb-8 rounded-full border-2 border-purple-400/40 flex items-center justify-center text-white shadow-xl bg-black/20 backdrop-blur-sm">
+            <div data-aos="fade-up" key={index} className="bg-black backdrop-blur-sm border border-gray-600/30 rounded-full p-6 flex items-center justify-center gap-4">
+              <div data-aos="fade-right" className="w-12 h-12 rounded-full border border-gray-400/40 flex items-center justify-center text-white flex-shrink-0">
                 {benefit.icon}
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">
-                {benefit.title}
-              </h3>
-              <p className="text-gray-300">
-                {benefit.description}
-              </p>
+              <div className="text-left">
+                <h3 className="text-lg font-bold text-white mb-1">
+                  {benefit.title}
+                </h3>
+                <p data-aos="fade-up" className="text-gray-400 text-sm">
+                  {benefit.subtitle}
+                </p>
+              </div>
             </div>
           ))}
+        </div>
+
+        {/* Bottom Statement */}
+        <div data-aos="fade-up" className="text-center">
+          <p className="text-gray-400 text-md md:text-lg leading-relaxed max-w-4xl mx-auto">
+            Bring CredFlow To Your Existing Team And 10x Your Team. Don&apos;t Outsource And Lose Control—Own Your Process And Outcomes With Real, Visible AI Tools.
+          </p>
         </div>
       </div>
     </section>

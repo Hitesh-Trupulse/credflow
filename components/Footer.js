@@ -7,11 +7,12 @@ import {
   FaInstagram,
   FaLinkedinIn,
 } from "react-icons/fa6";
+import Button from "./common/Button";
 
 const Footer = () => {
   return (
     <footer
-      className="relative w-full text-white"
+      className="relative w-full bg-black text-white"
     >
       {/* Top Section */}
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
@@ -30,15 +31,15 @@ const Footer = () => {
         {/* Newsletter */}
         <div>
           <p className="text-gray-400 mb-2">Subscribe to our Newsletter</p>
-          <div className="flex items-center py-2 border-white border rounded-full overflow-hidden max-w-80">
+          <div className="flex items-center py-1 border-white border rounded-full overflow-hidden max-w-96">
             <input
               type="email"
               placeholder="Enter your email"
               className="flex-1 px-4 py-2 text-white focus:outline-none"
             />
-            <button className="px-5 py-2 mx-2 bg-white text-black rounded-full hover:bg-gray-800 transition">
-              Join Us
-            </button>
+            <Button href="/waitlist" variant="primary" size="md" className="rounded-full mr-2 !py-1">
+          Join Us
+        </Button>
           </div>
         </div>
       </div>

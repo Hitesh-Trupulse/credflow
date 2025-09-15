@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FaArrowRight } from "react-icons/fa6";
+import Button from "./common/Button";
 
 export default function Navbar() {
   return (
@@ -20,30 +22,49 @@ export default function Navbar() {
 
       {/* Navigation Links */}
       <div className="hidden md:flex space-x-10 text-sm">
-        <Link href="/" className="hover:text-gray-300">
-          Home
+        <Link 
+          href="/" 
+          className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"
+        >
+          <span className="group-hover:-translate-x-1 transition-transform duration-500 ease-out">Home</span>
+          <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
         </Link>
-        <Link href="/product" className="hover:text-gray-300">
-          Product
+        <Link 
+          href="/product" 
+          className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"
+        >
+          <span className="group-hover:-translate-x-1 transition-transform duration-500 ease-out">Product</span>
+          <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
         </Link>
-        <Link href="/who-we-help" className="hover:text-gray-300">
-          Who We Help
+        <Link 
+          href="/who-we-help" 
+          className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"
+        >
+          <span className="group-hover:-translate-x-1 transition-transform duration-500 ease-out">Who We Help</span>
+          <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
         </Link>
-        <Link href="/about" className="hover:text-gray-300">
-          About Us
+        <Link 
+          href="/about" 
+          className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"
+        >
+          <span className="group-hover:-translate-x-1 transition-transform duration-500 ease-out">About Us</span>
+          <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
         </Link>
-        <Link href="/resources" className="hover:text-gray-300">
-          Resources
+        <Link 
+          href="/resources" 
+          className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"
+        >
+          <span className="group-hover:-translate-x-1 transition-transform duration-500 ease-out">Resources</span>
+          <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
         </Link>
       </div>
 
       {/* CTA Button */}
-      <Link
-        href="/waitlist"
-        className="ml-6 bg-white text-black px-5 py-2 rounded-full font-medium hover:bg-gray-200 transition"
-      >
-        Join The Waitlist
-      </Link>
+      <div className="ml-6">
+        <Button href="/waitlist" variant="primary" size="md" className="rounded-full">
+          Join The Waitlist
+        </Button>
+      </div>
       </div>
     </nav>
   );

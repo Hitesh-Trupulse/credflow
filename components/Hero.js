@@ -1,7 +1,25 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Button from "./common/Button";
 
 const Hero = () => {
+  const [currentText, setCurrentText] = useState("Provider");
+  
+  const textOptions = ["Time", "Provider", "Place"];
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentText(prevText => {
+        const currentIndex = textOptions.indexOf(prevText);
+        const nextIndex = (currentIndex + 1) % textOptions.length;
+        return textOptions[nextIndex];
+      });
+    }, 2000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden">
       {/* Main Background */}
@@ -29,24 +47,24 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto">
         {/* Main Heading */}
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-          <span className="block mb-2">Credentialing Made Easy.</span>
-          <span className="block bg-gradient-to-r from-purple-400 via-purple-500 to-blue-500 bg-clip-text text-transparent">
-            Right Provider.
+        <h1 className="text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight">
+          <span className="block mb-2 ">Credentialing Made Easy.</span>
+          <span className="block bg-gradient-to-r from-[#5063C6] from-20% to-[#B71CD2]  bg-clip-text text-transparent transition-all duration-500 ease-in-out">
+            Right {currentText}.
           </span>
         </h1>
 
         {/* Sub-heading */}
-        <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
+        <p className="text-lg md:text-xl  text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
           Your Credentialing & Enrollment AI Agent That Learns Your Process,
           Follows Your Rules, And Accelerates Provider Onboarding—So Revenue
           Never Waits.
         </p>
 
         {/* CTA Button */}
-        <button className="bg-white text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors duration-200 shadow-lg">
+        <Button href="/waitlist" variant="primary" size="md" className="rounded-full">
           Join The Waitlist
-        </button>
+        </Button>
       </div>
     </section>
   );

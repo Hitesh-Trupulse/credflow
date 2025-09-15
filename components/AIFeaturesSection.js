@@ -1,71 +1,108 @@
-import React from 'react';
-import { CheckCircle, FileText, CreditCard, Monitor } from 'lucide-react';
+"use client";
+
+import React, { useState } from 'react';
+import Button from './common/Button';
 
 const AIFeaturesSection = () => {
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  // Individual feature component
+  const FeatureItem = ({ feature, index }) => {
+    const isHovered = hoveredIndex === index;
+
+    return (
+      <div 
+        className="border-b border-gray-600/30 pb-8 last:border-b-0 min-h-[100px] flex flex-col justify-center cursor-pointer hover:bg-gray-800/20 transition-colors duration-200 rounded-lg px-4 py-2"
+        onMouseEnter={() => setHoveredIndex(index)}
+        onMouseLeave={() => setHoveredIndex(null)}
+      >
+        <h3 className={`text-2xl md:text-4xl mb-4 transition-colors duration-300 ${
+          isHovered ? 'text-white' : 'text-gray-400'
+        }`}>
+          {feature.title}
+        </h3>
+        
+        <div className={`transition-all duration-300 ease-out ${
+          isHovered 
+            ? 'opacity-100 max-h-96 translate-y-0' 
+            : 'opacity-0 max-h-0 -translate-y-2 overflow-hidden'
+        }`}>
+          <p className="text-white text-sm md:text-base leading-relaxed">
+            {feature.description}
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   const features = [
     {
-      icon: <FileText className="w-6 h-6" />,
-      title: "Credentialing / PSV"
+      title: "Credentialing / PSV",
+      description: "Automated credentialing workflows that streamline provider verification processes. Our AI agent handles complex PSV requirements, reducing manual errors and accelerating approval timelines."
     },
     {
-      icon: <CreditCard className="w-6 h-6" />,
-      title: "Payor Enrolment"
+      title: "Payer Enrolment",
+      description: "Our Web Agent Completes Payer Applications End-To-End, With Automated AI Telecaller Follow-Ups. Single Provider Timelines Keep Real Go-Live Dates On Track. Sync Provider Data Or New Locations To CAQH With One Click—Driven By Your Credentialing Agent Actions."
     },
     {
-      icon: <Monitor className="w-6 h-6" />,
-      title: "Monitoring"
+      title: "Monitoring",
+      description: "Real-time monitoring and tracking of credentialing status across all payers. Get instant notifications for status changes, expiration alerts, and compliance updates."
     },
     {
-      icon: <CheckCircle className="w-6 h-6" />,
-      title: "Compliance Tracking"
+      title: "Dashboard",
+      description: "Comprehensive dashboard providing complete visibility into your credentialing pipeline. Track progress, identify bottlenecks, and optimize workflows with actionable insights."
     },
     {
-      icon: <FileText className="w-6 h-6" />,
-      title: "Document Management"
+      title: "Roster Automation",
+      description: "Automated roster management that keeps provider networks up-to-date. Seamlessly sync provider data across multiple systems and maintain accurate network directories."
     },
     {
-      icon: <Monitor className="w-6 h-6" />,
-      title: "Real-time Updates"
+      title: "AI Communication Center",
+      description: "Centralized communication hub powered by AI to manage all credentialing-related correspondence. Automated follow-ups, status updates, and stakeholder notifications."
+    },
+    {
+      title: "AI Telecaller",
+      description: "Intelligent telecalling system that handles payer follow-ups automatically. Our AI agent makes calls, gathers information, and updates status without human intervention."
+    },
+    {
+      title: "Revenue-At-Risk Dashboard",
+      description: "Advanced analytics dashboard that identifies revenue at risk due to credentialing delays. Track financial impact and prioritize high-value provider onboarding."
     }
   ];
 
+
   return (
-    <section className="py-20 px-6 ">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-20 items-center">
+    <section className="py-20 px-6 bg-black ">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16">
           {/* Left Side - Content */}
-          <div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+          <div data-aos="fade-right" className="flex flex-col justify-center space-y-8 h-full">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-tight">
               The{" "}
-              <span className="bg-gradient-to-r from-purple-400 via-purple-500 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
                 AI Agent
-              </span>{" "}
-              That Finishes The Work.
+              </span>
+              <div>
+                That Finishes The Work.
+              </div>
             </h2>
             
-            <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
-              Our intelligent AI agent automates every aspect of credentialing and enrollment. 
-              It learns your specific processes, adapts to your workflows, and handles the tedious 
-              tasks so your team can focus on what matters most.
+            <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
+              We Deliver Tailored Marketing Solutions Designed To Scale Your Brand And Drive Measurable Results
             </p>
 
-            <button className="bg-white text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transition-colors duration-200 shadow-lg">
-              Learn More
-            </button>
+            <Button href="/waitlist" variant="primary" size="md" className="rounded-full w-fit">
+              Join The Waitlist
+            </Button>
           </div>
 
-          {/* Right Side - Features List */}
-          <div className="grid grid-cols-2 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="flex flex-col items-center text-center space-y-4">
-                <div className="w-16 h-16 rounded-full border-2 border-white/30 flex items-center justify-center text-white bg-black/20 backdrop-blur-sm">
-                  {feature.icon}
-                </div>
-                <span className="text-white text-lg font-medium">
-                  {feature.title}
-                </span>
-              </div>
-            ))}
+          {/* Right Side - Scrollable Features List */}
+          <div data-aos="fade-left" className="h-[500px] overflow-y-auto scrollbar-hide">
+            <div className="space-y-8 pr-4">
+              {features.map((feature, index) => (
+                <FeatureItem key={index} feature={feature} index={index} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
