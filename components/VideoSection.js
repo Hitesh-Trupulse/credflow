@@ -15,7 +15,7 @@ const VideoSection = () => {
             Meet Credflow AI
           </h2>
           <h3 
-            className="text-3xl md:text-4xl lg:text-5xl mb-16 leading-tight"
+            className="text-3xl md:text-4xl text-white lg:text-5xl mb-16 leading-tight"
             data-aos="fade-down"
           >
             <span className="">

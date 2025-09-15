@@ -121,18 +121,18 @@ export default function PlatformSection() {
   }, []);
 
   return (
-    <section className="bg-black pt-20 text-white">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="bg-black pt-16 sm:pt-20 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center">
-          <div className="text-sm text-gray-400 mb-4 tracking-widest">FEATURES</div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl mb-4 leading-tight">
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+          <div className="text-xs sm:text-sm text-gray-400 mb-4 tracking-widest">FEATURES</div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 leading-tight">
             <div className="text-white">Your All-in-One</div>
             <span className="bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
               AI Credentialing{" "}
-              </span>
+            </span>
             <span>Platform</span>
-            </h2>
+          </h2>
         </div>
 
         {/* Features Container */}
@@ -143,7 +143,7 @@ export default function PlatformSection() {
               className="feature-card absolute inset-0 flex items-center justify-center"
               style={{ zIndex: i === 0 ? 10 : 1 }}
             >
-              <div className="w-full max-h-[80vh] relative">
+              <div className="w-full max-h-[85vh] sm:max-h-[80vh] relative px-2 sm:px-4">
                 <PlatformCard
                   number={card.number}
                   title={card.title}

@@ -77,17 +77,17 @@ const providerData = [
 // Individual Provider Card Component
 function ProviderCard({ name, npi, icon, payers = [] }) {
   return (
-    <div className="bg-gradient-to-r from-[#5063C6]/10 from-20% to-[#B71CD2]/10 text-white rounded-2xl p-6 md:p-8 shadow-lg w-full max-w-md mx-auto mb-6">
+    <div className="bg-gradient-to-r from-[#5063C6]/10 from-20% to-[#B71CD2]/10 text-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-lg w-full max-w-sm sm:max-w-md mx-auto mb-4 sm:mb-6">
       {/* Top Section */}
-      <div className="flex items-center gap-4 mb-6">
+      <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
         {/* Icon */}
-        <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-[#292437] text-white text-xl font-bold">
+        <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-[#292437] text-white text-lg sm:text-xl font-bold flex-shrink-0">
           {icon}
         </div>
 
-        <div>
-          <h3 className="text-lg font-semibold">{name}</h3>
-          <p className="text-gray-400 text-sm">
+        <div className="min-w-0 flex-1">
+          <h3 className="text-base sm:text-lg font-semibold truncate">{name}</h3>
+          <p className="text-gray-400 text-xs sm:text-sm">
             <span className="font-semibold text-white">NPI:</span> {npi}
           </p>
         </div>
@@ -95,8 +95,8 @@ function ProviderCard({ name, npi, icon, payers = [] }) {
 
       {/* Payer Chips */}
       <div>
-        <h4 className="text-sm font-semibold text-white mb-3">Payer Chips</h4>
-        <ul className="space-y-2 text-gray-400 text-sm">
+        <h4 className="text-xs sm:text-sm font-semibold text-white mb-2 sm:mb-3">Payer Chips</h4>
+        <ul className="space-y-1 sm:space-y-2 text-gray-400 text-xs sm:text-sm">
           {payers.map((payer, i) => (
             <li
               key={i}
@@ -163,7 +163,7 @@ export default function ScrollableProviderCards() {
   }, []);
 
   return (
-    <div className="relative h-96 overflow-hidden">
+    <div className="relative h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden">
       <div ref={containerRef} className="relative">
         {providerData.map((provider, index) => (
           <ProviderCard
