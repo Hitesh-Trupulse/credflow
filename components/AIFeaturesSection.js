@@ -54,7 +54,7 @@ const AIFeaturesSection = () => {
       description: "Automated credentialing workflows that streamline provider verification processes. Our AI agent handles complex PSV requirements, reducing manual errors and accelerating approval timelines."
     },
     {
-      title: "Payer Enrolment",
+      title: "Payer Enrollment",
       description: "Our Web Agent Completes Payer Applications End-To-End, With Automated AI Telecaller Follow-Ups. Single Provider Timelines Keep Real Go-Live Dates On Track. Sync Provider Data Or New Locations To CAQH With One Click—Driven By Your Credentialing Agent Actions."
     },
     {
