@@ -136,3 +136,15 @@
     font-weight:300;
   }
 }
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth !important;
+}
+
+/* Ensure smooth scrolling works with fixed navbar */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

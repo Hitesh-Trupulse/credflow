@@ -38,7 +38,7 @@ const Hero = () => {
   }, [displayedText, currentWordIndex, isDeleting, textOptions]);
 
   return (
-    <section id="home" className="scroll-mt-24 relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden">
+    <section id="home" className="scroll-mt-32 relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden">
       {/* Main Background */}
       <div className="absolute inset-0">
         <Image

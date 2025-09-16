@@ -48,7 +48,7 @@ const cards = [
 
 export default function WhoWeHelpSection() {
   return (
-    <section id="who-we-help" className="scroll-mt-24 bg-black py-20 text-white">
+    <section id="who-we-help" className="scroll-mt-32 bg-black py-20 text-white">
       <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 data-aos="fade-down" className="text-5xl sm:text-6xl lg:text-7xl mb-4">
           Who We{" "}

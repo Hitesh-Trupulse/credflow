@@ -25,9 +25,9 @@ const AIFeaturesSection = () => {
     const isActive = activeIndex === index;
 
     return (
-      <div   id="product" 
+      <div
         ref={ref}
-        className="border-b scroll-mt-24 border-gray-600/30 pb-8 last:border-b-0 min-h-[100px] flex flex-col justify-center transition-colors duration-200 rounded-lg px-4 py-2"
+        className="border-b border-gray-600/30 pb-8 last:border-b-0 min-h-[100px] flex flex-col justify-center transition-colors duration-200 rounded-lg px-4 py-2"
       >
         <h3 className={`text-2xl sm:text-4xl mb-4 transition-colors duration-300 ${
           isActive ? 'text-white' : 'text-gray-400'
