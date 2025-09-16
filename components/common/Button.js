@@ -1,6 +1,7 @@
 "use client";
 import { FaArrowRight } from "react-icons/fa6";
-import toast from "react-hot-toast";
+import { useContext } from "react";
+import { ContactFormContext } from "./ContactFormContext";
 
 const Button = ({ 
   children, 
@@ -12,6 +13,7 @@ const Button = ({
   disabled = false,
   ...props 
 }) => {
+  const { openContactForm } = useContext(ContactFormContext);
   const baseClasses = "group cursor-pointer inline-flex items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
   
   const variants = {
@@ -31,23 +33,8 @@ const Button = ({
   const buttonClasses = `${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`;
 
   const handleClick = (e) => {
-    // Show success toast
-    toast.success('Success! Thank you for your interest.', {
-      duration: 3000,
-      position: 'top-right',
-      style: {
-        background: '#10B981',
-        color: '#fff',
-        borderRadius: '12px',
-        fontSize: '14px',
-        fontWeight: '500',
-        padding: '12px 16px',
-      },
-      iconTheme: {
-        primary: '#fff',
-        secondary: '#10B981',
-      },
-    });
+    // Open contact form modal
+    openContactForm();
 
     // Call original onClick if provided
     if (onClick) {
@@ -77,3 +64,6 @@ const Button = ({
 };
 
 export default Button;
+
+
+

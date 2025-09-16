@@ -39,7 +39,7 @@ const StatsSection = () => {
           {stats.map((stat, index) => (
             <div key={index} className="text-center flex-1 max-w-sm">
               {/* Circular Stat Container */}
-              <div data-aos="zoom-in"
+              <div data-aos="zoom-in-up"
                 className={`w-[300px] h-[300px] lg:w-[350px] lg:h-[350px] xl:w-[430px] xl:h-[430px] mx-auto mb-8 rounded-full border-2 ${stat.borderColor} border-[0.5px] bg-gray-900/50 backdrop-blur-sm shadow-2xl flex flex-col items-center justify-center relative overflow-hidden`}
               >
                 {/* Subtle inner glow effect */}

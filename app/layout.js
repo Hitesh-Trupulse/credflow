@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AOSWrapper from "../components/AOSWrapper";
 import { Toaster } from "react-hot-toast";
+import { ContactFormProvider } from "../components/common/ContactFormContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,9 +25,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AOSWrapper>
-          {children}
-        </AOSWrapper>
+        <ContactFormProvider>
+          <AOSWrapper>
+            {children}
+          </AOSWrapper>
+        </ContactFormProvider>
         <Toaster 
           position="top-right"
           toastOptions={{
