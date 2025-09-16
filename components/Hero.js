@@ -8,7 +8,7 @@ const Hero = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   
-  const textOptions = ["Time", "Provider", "Place"];
+  const textOptions = ["Time.", "Provider.", "Place."];
   
   useEffect(() => {
     const currentWord = textOptions[currentWordIndex];
@@ -38,7 +38,7 @@ const Hero = () => {
   }, [displayedText, currentWordIndex, isDeleting, textOptions]);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden">
+    <section id="home" className="scroll-mt-24 relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden">
       {/* Main Background */}
       <div className="absolute inset-0">
         <Image
@@ -64,7 +64,7 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Heading */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl text-white mb-6 leading-tight">
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light text-white mb-6 leading-tight">
           <span className="block mb-2">Credentialing Made Easy.</span>
           <span className="block bg-gradient-to-r from-[#5063C6] from-20% to-[#B71CD2] bg-clip-text text-transparent flex items-center justify-center">
             <span className="inline-block min-w-[300px] sm:min-w-[350px] md:min-w-[400px] lg:min-w-[450px] xl:min-w-[500px] text-center">

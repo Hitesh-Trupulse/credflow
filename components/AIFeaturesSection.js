@@ -25,11 +25,11 @@ const AIFeaturesSection = () => {
     const isActive = activeIndex === index;
 
     return (
-      <div 
+      <div   id="product" 
         ref={ref}
-        className="border-b border-gray-600/30 pb-8 last:border-b-0 min-h-[100px] flex flex-col justify-center transition-colors duration-200 rounded-lg px-4 py-2"
+        className="border-b scroll-mt-24 border-gray-600/30 pb-8 last:border-b-0 min-h-[100px] flex flex-col justify-center transition-colors duration-200 rounded-lg px-4 py-2"
       >
-        <h3 className={`text-2xl md:text-4xl mb-4 transition-colors duration-300 ${
+        <h3 className={`text-2xl sm:text-4xl mb-4 transition-colors duration-300 ${
           isActive ? 'text-white' : 'text-gray-400'
         }`}>
           {feature.title}
@@ -40,7 +40,7 @@ const AIFeaturesSection = () => {
             ? 'opacity-100 max-h-96 translate-y-0' 
             : 'opacity-0 max-h-0 -translate-y-2 overflow-hidden'
         }`}>
-          <p className="text-white text-sm md:text-base leading-relaxed">
+          <p className="text-white text-xs md:text-sm leading-relaxed">
             {feature.description}
           </p>
         </div>
@@ -90,7 +90,7 @@ const AIFeaturesSection = () => {
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left Side - Content */}
           <div data-aos="fade-right" className="flex flex-col justify-center space-y-8 h-full">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-white leading-tight">
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl text-white font-light leading-tight">
               The{" "}
               <span className="bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
                 AI Agent

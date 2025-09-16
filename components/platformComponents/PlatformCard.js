@@ -7,7 +7,7 @@ const PlatformCard = ({
   title = "Real-Time Network Intelligence", 
   subtitle = "Always Current, Always Verified",
   description = "CredFlow Works Directly With Payers To Ingest Provider Data. Decisions Are Based On Today's Real-Time Data—Not A Spreadsheet From Last Year.",
-  imageSrc = "/images/globe.png",
+  imageSrc = "/images/gif.gif",
   imageAlt = "Network Intelligence Visualization",
   showScrollingCards = false
 }) => {
@@ -42,14 +42,14 @@ const PlatformCard = ({
               <Image
                 width={1000} 
                 height={1000}
-                src="/images/globe.png"
+                src="/images/gif.gif"
                 alt="Globe Background"
                 className="w-full h-full object-cover"
               />
             </div>
             
             {/* Overlay Content - Scrollable Cards or Feature Image */}
-            <div className="relative w-full h-full z-10 flex items-center justify-center p-2 sm:p-4">
+            <div className="relative w-full h-full z-10 flex items-center shadow-2xl justify-center p-2 sm:p-4">
               {showScrollingCards ? (
                 // Show scrolling provider cards for first card
                 <ScrollableProviderCards />

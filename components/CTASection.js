@@ -6,7 +6,7 @@ const CTASection = () => {
     <section
       className="relative w-full py-32 text-center bg-black text-white flex flex-col items-center justify-center"
     >
-      <h2 className="text-4xl md:text-6xl font-light mb-4">
+      <h2 className="text-5xl sm:text-6xl lg:text-7xl mb-4">
         Credentialing Is Now Made <br /> {" "}
         <span className="leading-relaxed">Easy With Credflow AI.</span>
       </h2>

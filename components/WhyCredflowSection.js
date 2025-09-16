@@ -21,11 +21,11 @@ const WhyCredflowSection = () => {
   ];
 
   return (
-    <section id="product" className="py-20 px-6 bg-black">
+    <section className=" py-20 px-6 bg-black">
       <div className="max-w-7xl mx-auto">
         {/* Headline */}
         <div data-aos="fade-down" className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl text-white mb-6 leading-tight">
+          <h2 className="text-5xl sm:text-6xl lg:text-7xl text-white mb-6 leading-tight">
             Why{" "}
             <span className="bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
               Credflow AI

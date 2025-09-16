@@ -37,7 +37,7 @@ const TeamEmpowermentSection = () => {
     <section ref={sectionRef} className="py-20 px-6 bg-black text-white">
       <div className="max-w-7xl mx-auto text-start">
         {/* Headline */}
-        <h2 className="text-4xl md:text-xl lg:text-6xl font-bold mb-12 leading-tight">
+        <h2 className="text-3xl md:text-6xl lg:text-7xl font-bold mb-12 leading-tight">
           Enable Your Team. 
           <div>Make Them AI-Powered Superstars.</div>
         </h2>

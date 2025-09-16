@@ -29,10 +29,11 @@ const ProblemSection = () => {
     <section className="py-20 px-6 bg-black">
       <div className="max-w-7xl mx-auto text-center">
         {/* Headline */}
-        <h2 data-aos="fade-down" className="text-4xl md:text-5xl lg:text-6xl text-white mb-4 leading-tight">
-          <div className="bg-gradient-to-r from-[#5063C6] from-20% to-[#B71CD2]  bg-clip-text text-transparent">
-            Credentialing Shouldn&apos;t 
-          </div>
+        <h2 data-aos="fade-down" className="text-5xl sm:text-6xl lg:text-7xl font-light text-white mb-4 leading-tight">
+          <span className="bg-gradient-to-r from-[#5063C6] from-20% to-[#B71CD2]  bg-clip-text text-transparent">
+            Credentialing 
+          </span>
+          <span className="text-white"> Shouldn&apos;t</span>
           <div className="text-white"> Be This Hard.</div>
         </h2>
 
@@ -53,12 +54,12 @@ const ProblemSection = () => {
                 </div>
                 
                 {/* Title */}
-                <h3 data-aos="fade-up"  className="text-xl font-bold max-w-48 mx-auto text-white mb-3">
+                <h3 data-aos="fade-up"  className="text-xl max-w-48 mx-auto text-white mb-3">
                   {problem.title}
                 </h3>
                 
                 {/* Description */}
-                <p data-aos="fade-up"  className="text-white text-sm font-medium">
+                <p data-aos="fade-up"  className="text-gray-500 text-sm font-medium">
                   {problem.description}
                 </p>
               </div>
