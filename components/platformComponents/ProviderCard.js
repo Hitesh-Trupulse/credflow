@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import { motion, useAnimation, useInView } from "framer-motion";
 
 // Dummy data for provider cards
 const providerData = [
@@ -77,13 +77,9 @@ const providerData = [
 // Individual Provider Card Component
 function ProviderCard({ name, npi, icon, payers = [] }) {
   return (
-    <div className="backdrop-blur-xl bg-blur text-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-lg w-full max-w-sm sm:max-w-md mx-auto mb-4 sm:mb-6">
+    <div className="backdrop-blur-xl bg-blur border  border-gray-600 text-white rounded-2xl p-4 sm:px-6 md:px-8 shadow-lg w-full max-w-sm sm:max-w-md mx-auto mb-4 sm:mb-6">
       {/* Top Section */}
       <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-        {/* Icon */}
-        <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-[#292437] text-white text-lg sm:text-xl font-bold flex-shrink-0">
-          {icon}
-        </div>
 
         <div className="min-w-0 flex-1">
           <h3 className="text-base sm:text-lg font-semibold truncate">{name}</h3>
@@ -96,14 +92,14 @@ function ProviderCard({ name, npi, icon, payers = [] }) {
       {/* Payer Chips */}
       <div>
         <h4 className="text-xs sm:text-sm font-semibold text-white mb-2 sm:mb-3">Payer Chips</h4>
-        <ul className="space-y-1 sm:space-y-2 text-gray-400 text-xs sm:text-sm">
+        <ul className="space-y-1 sm:space-y-2  text-xs sm:text-sm">
           {payers.map((payer, i) => (
             <li
               key={i}
               className={
                 payer.type === "alert"
-                  ? "text-red-400 font-medium"
-                  : "text-gray-400"
+                  ? "text-red-500 font-medium"
+                  : "text-white"
               }
             >
               {payer.label}
@@ -119,53 +115,32 @@ function ProviderCard({ name, npi, icon, payers = [] }) {
 export default function ScrollableProviderCards() {
   const containerRef = useRef(null);
 
+  const controls = useAnimation();
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false });
+
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    // Create duplicate cards for seamless infinite loop
-    const cards = Array.from(container.children);
-    const totalCards = cards.length;
-    
-    // Duplicate cards for infinite scroll
-    cards.forEach((card, index) => {
-      const clone = card.cloneNode(true);
-      clone.style.marginTop = '0';
-      container.appendChild(clone);
-    });
-
-    // Create infinite upward scrolling animation
-    const allCards = Array.from(container.children);
-    const cardHeight = cards[0].offsetHeight + 24; // Height + margin
-    
-    gsap.set(allCards, { y: 0 });
-    
-    const tl = gsap.timeline({ repeat: -1 });
-    
-    // Animate all cards upward
-    tl.to(allCards, {
-      y: -cardHeight * totalCards,
-      duration: totalCards * 3, // 3 seconds per card
-      ease: "none",
-      stagger: 0.2
-    });
-
-    // Reset position for seamless loop
-    tl.set(allCards, { y: cardHeight * totalCards });
-    tl.to(allCards, {
-      y: 0,
-      duration: 0
-    });
-
-    return () => {
-      tl.kill();
-    };
-  }, []);
+    if (isInView) {
+      controls.start({
+        y: -1000,
+        transition: {
+          duration: providerData.length * 3,
+          ease: "linear",
+          repeat: Infinity,
+          repeatType: "loop"
+        }
+      });
+    }
+  }, [isInView, controls]);
 
   return (
-    <div className="relative h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden">
-      <div ref={containerRef} className="relative">
-        {providerData.map((provider, index) => (
+    <div ref={ref} className="relative h-48 sm:h-64 md:h-80 lg:h-96 overflow-hidden">
+      <motion.div 
+        animate={controls}
+        className="relative"
+      >
+        {/* Duplicate the cards for seamless infinite loop */}
+        {[...providerData, ...providerData].map((provider, index) => (
           <ProviderCard
             key={index}
             name={provider.name}
@@ -174,7 +149,7 @@ export default function ScrollableProviderCards() {
             payers={provider.payers}
           />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 }

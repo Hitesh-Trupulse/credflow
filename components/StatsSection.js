@@ -47,7 +47,7 @@ const StatsSection = () => {
                 
                 <div className="relative z-10 text-center px-8">
                   {/* Large Value with CountUp Animation */}
-                  <div data-aos="fade-up" className="text-6xl lg:text-7xl font-light text-white mb-4 tracking-tight">
+                  <div data-aos="fade-up" className="text-6xl lg:text-7xl font-medium text-white mb-4 tracking-tight">
                     {inView && (
                       <CountUp
                         start={0}

@@ -1,6 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
 import ScrollableProviderCards from './ProviderCard';
+import EnrollmentFlowCard from './EnrollmentFlowCard';
+import CredentialsCard from './CredentialsCard';
+import MetricChipsCard from './MetricChipsCard';
 
 const PlatformCard = ({ 
   number = "1", 
@@ -9,10 +12,13 @@ const PlatformCard = ({
   description = "CredFlow Works Directly With Payers To Ingest Provider Data. Decisions Are Based On Today's Real-Time Data—Not A Spreadsheet From Last Year.",
   imageSrc = "/images/gif.gif",
   imageAlt = "Network Intelligence Visualization",
-  showScrollingCards = false
+  showScrollingCards = false,
+  showEnrollmentFlow = false,
+  showCredentials = false,
+  showMetricChips = false
 }) => {
   return (
-    <div className="w-full max-w-6xl mx-auto backdrop-blur-sm rounded-2xl border border-gray-700/50 p-4 sm:p-6 md:p-8 lg:p-10">
+    <div className="w-full max-w-6xl mx-auto bg-black/90 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-4 sm:p-6 md:p-8 lg:p-10">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-12 items-center">
         {/* Left Side - Content */}
         <div className="space-y-4 sm:space-y-6 flex flex-col justify-center lg:col-span-2 order-2 lg:order-1">
@@ -36,9 +42,9 @@ const PlatformCard = ({
 
         {/* Right Side - Background Globe with Overlay Content */}
         <div className="relative flex lg:col-span-3 order-1 lg:order-2">
-          <div className="relative w-full justify-center items-center aspect-video mx-auto max-h-[50vh] sm:max-h-[60vh] lg:max-h-none">
+          <div className="relative w-full justify-center items-center aspect-video mx-auto max-h-[50vh] sm:max-h-[60vh] lg:max-h-none overflow-hidden">
             {/* Background Globe Image - Always present */}
-            <div className="absolute w-full h-full opacity-30">
+            <div className="absolute w-full h-full">
               <Image
                 width={1000} 
                 height={1000}
@@ -48,11 +54,28 @@ const PlatformCard = ({
               />
             </div>
             
-            {/* Overlay Content - Scrollable Cards or Feature Image */}
-            <div className="relative w-full h-full z-10 flex items-center shadow-2xl justify-center p-2 sm:p-4">
+            {/* Overlay Content - Scrollable Cards, Enrollment Flow, Credentials, Metric Chips, or Feature Image */}
+            <div className="relative w-full h-full z-10 flex items-center shadow-2xl justify-center p-2 sm:p-3 md:p-4">
               {showScrollingCards ? (
                 // Show scrolling provider cards for first card
-                <ScrollableProviderCards />
+                <div className="w-full h-full flex items-center justify-center">
+                  <ScrollableProviderCards />
+                </div>
+              ) : showEnrollmentFlow ? (
+                // Show enrollment flow for second card
+                <div className="w-full h-full flex items-center justify-center">
+                  <EnrollmentFlowCard />
+                </div>
+              ) : showCredentials ? (
+                // Show credentials card for third card
+                <div className="w-full h-full flex items-center justify-center">
+                  <CredentialsCard />
+                </div>
+              ) : showMetricChips ? (
+                // Show metric chips for fourth card
+                <div className="w-full h-full flex items-center justify-center">
+                  <MetricChipsCard />
+                </div>
               ) : (
                 // Show feature image for other cards
                 <Image

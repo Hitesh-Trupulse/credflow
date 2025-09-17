@@ -77,7 +77,7 @@ const Hero = () => {
         </h1>
 
         {/* Sub-heading */}
-        <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl text-gray-200 mb-8 max-w-4xl mx-auto leading-relaxed">
           Your Credentialing & Enrollment AI Agent That Learns Your Process,
           Follows Your Rules, And Accelerates Provider Onboarding—So Revenue
           Never Waits.
