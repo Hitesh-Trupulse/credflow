@@ -214,6 +214,75 @@ export default function PlatformSection() {
     offset: ["start 0%", "end 70%"]
   });
 
+  // Create individual transform hooks for each card - must be at component level
+  const card0Progress = useTransform(scrollYProgress, [0.05 / cards.length, 0.95 / cards.length], [0, 1]);
+  const card1Progress = useTransform(scrollYProgress, [1.05 / cards.length, 1.95 / cards.length], [0, 1]);
+  const card2Progress = useTransform(scrollYProgress, [2.05 / cards.length, 2.95 / cards.length], [0, 1]);
+  const card3Progress = useTransform(scrollYProgress, [3.05 / cards.length, 3.95 / cards.length], [0, 1]);
+
+  // Card 0 transforms
+  const card0isActive = useTransform(card0Progress, (value) => value > 0.1);
+  const card0x = useTransform(card0Progress, [0, 0.5, 1], [0, 0, 0]);
+  const card0y = useTransform(card0Progress, [0, 0.5, 1], [0, 0, -100]);
+  const card0rotateZ = useTransform(card0Progress, [0, 0.5, 1], [0, 0, -15]);
+  const card0rotateX = useTransform(card0Progress, [0, 0.5, 1], [0, 0, 30]);
+  const card0scale = useTransform(card0Progress, [0, 0.5, 1], [0.95, 1, 0.9]);
+  const card0opacity = useTransform(card0Progress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
+  const card0zIndex = useTransform(card0Progress, (value) => {
+    if (value < 0.3) return cards.length - 0;
+    if (value > 0.6) return 1000 + 0;
+    return 100;
+  });
+
+  // Card 1 transforms
+  const card1isActive = useTransform(card1Progress, (value) => value > 0.1);
+  const card1x = useTransform(card1Progress, [0, 0.5, 1], [0, 0, 0]);
+  const card1y = useTransform(card1Progress, [0, 0.5, 1], [8, 0, -100]);
+  const card1rotateZ = useTransform(card1Progress, [0, 0.5, 1], [2, 0, -15]);
+  const card1rotateX = useTransform(card1Progress, [0, 0.5, 1], [0, 0, 30]);
+  const card1scale = useTransform(card1Progress, [0, 0.5, 1], [0.95, 1, 0.9]);
+  const card1opacity = useTransform(card1Progress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
+  const card1zIndex = useTransform(card1Progress, (value) => {
+    if (value < 0.3) return cards.length - 1;
+    if (value > 0.6) return 1000 + 1;
+    return 100;
+  });
+
+  // Card 2 transforms
+  const card2isActive = useTransform(card2Progress, (value) => value > 0.1);
+  const card2x = useTransform(card2Progress, [0, 0.5, 1], [0, 0, 0]);
+  const card2y = useTransform(card2Progress, [0, 0.5, 1], [16, 0, -100]);
+  const card2rotateZ = useTransform(card2Progress, [0, 0.5, 1], [4, 0, -15]);
+  const card2rotateX = useTransform(card2Progress, [0, 0.5, 1], [0, 0, 30]);
+  const card2scale = useTransform(card2Progress, [0, 0.5, 1], [0.95, 1, 0.9]);
+  const card2opacity = useTransform(card2Progress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
+  const card2zIndex = useTransform(card2Progress, (value) => {
+    if (value < 0.3) return cards.length - 2;
+    if (value > 0.6) return 1000 + 2;
+    return 100;
+  });
+
+  // Card 3 transforms
+  const card3isActive = useTransform(card3Progress, (value) => value > 0.1);
+  const card3x = useTransform(card3Progress, [0, 0.5, 1], [0, 0, 0]);
+  const card3y = useTransform(card3Progress, [0, 0.5, 1], [24, 0, -100]);
+  const card3rotateZ = useTransform(card3Progress, [0, 0.5, 1], [6, 0, -15]);
+  const card3rotateX = useTransform(card3Progress, [0, 0.5, 1], [0, 0, 30]);
+  const card3scale = useTransform(card3Progress, [0, 0.5, 1], [0.95, 1, 0.9]);
+  const card3opacity = useTransform(card3Progress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
+  const card3zIndex = useTransform(card3Progress, (value) => {
+    if (value < 0.3) return cards.length - 3;
+    if (value > 0.6) return 1000 + 3;
+    return 100;
+  });
+
+  const cardTransforms = [
+    { x: card0x, y: card0y, rotateZ: card0rotateZ, rotateX: card0rotateX, scale: card0scale, opacity: card0opacity, zIndex: card0zIndex },
+    { x: card1x, y: card1y, rotateZ: card1rotateZ, rotateX: card1rotateX, scale: card1scale, opacity: card1opacity, zIndex: card1zIndex },
+    { x: card2x, y: card2y, rotateZ: card2rotateZ, rotateX: card2rotateX, scale: card2scale, opacity: card2opacity, zIndex: card2zIndex },
+    { x: card3x, y: card3y, rotateZ: card3rotateZ, rotateX: card3rotateX, scale: card3scale, opacity: card3opacity, zIndex: card3zIndex }
+  ];
+
   return (
     <section ref={containerRef} className="bg-black pt-16 sm:pt-20 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -242,54 +311,20 @@ export default function PlatformSection() {
             }}
           >
             {cards.map((card, i) => {
-              // Calculate scroll progress for this card - first card stays much longer
-              const cardProgress = useTransform(
-                scrollYProgress,
-                [(i + 0.05) / cards.length, (i + 0.95) / cards.length],
-                [0, 1]
-              );
-              
-              // Physical stacking effect - cards stack on top of each other
-              const stackOffset = i * 8; // Each card is 8px higher than the previous
-              const stackRotation = i * 2; // Slight rotation for each card
-              
-              // When this card becomes active (progress > 0), it moves to front
-              const isActive = useTransform(cardProgress, (value) => value > 0.1);
-              const isRemoving = useTransform(cardProgress, (value) => value > 0.8);
-              
-              // Position: Cards start stacked, active card moves to center
-              const x = useTransform(cardProgress, [0, 0.5, 1], [0, 0, 0]);
-              const y = useTransform(cardProgress, [0, 0.5, 1], [stackOffset, 0, -100]);
-              
-              // Rotation: Cards start slightly rotated, active card is flat
-              const rotateZ = useTransform(cardProgress, [0, 0.5, 1], [stackRotation, 0, -15]);
-              const rotateX = useTransform(cardProgress, [0, 0.5, 1], [0, 0, 30]);
-              
-              // Scale: Active cards are full size
-              const scale = useTransform(cardProgress, [0, 0.5, 1], [0.95, 1, 0.9]);
-              
-              // Opacity: First card stays visible much longer
-              const opacity = useTransform(cardProgress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
-              
-              // Z-index: Ensure proper stacking without overlap
-              const zIndex = useTransform(cardProgress, (value) => {
-                if (value < 0.3) return cards.length - i; // Initial stack order
-                if (value > 0.6) return 1000 + i; // Moving away - high z-index
-                return 100; // Active card comes to front
-              });
+              const transforms = cardTransforms[i];
               
               return (
                 <motion.div
                   key={i}
                   className="absolute inset-0 flex items-center justify-center pointer-events-auto"
                   style={{
-                    x,
-                    y,
-                    rotateZ,
-                    rotateX,
-                    scale,
-                    opacity,
-                    zIndex,
+                    x: transforms.x,
+                    y: transforms.y,
+                    rotateZ: transforms.rotateZ,
+                    rotateX: transforms.rotateX,
+                    scale: transforms.scale,
+                    opacity: transforms.opacity,
+                    zIndex: transforms.zIndex,
                     transformStyle: 'preserve-3d',
                   }}
                 >

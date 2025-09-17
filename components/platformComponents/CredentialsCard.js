@@ -109,7 +109,9 @@ export default function CredentialsCard() {
     <div className="backdrop-blur-xl bg-black/60 border border-gray-600 text-white rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-lg w-full max-w-[200px] sm:max-w-sm mx-auto">
       {/* Header */}
       <div className="text-center mb-2 sm:mb-3 md:mb-4">
-        <h2 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white mb-1 sm:mb-2">Amanda Johnson, MD</h2>
+        <h2 className="text-start text-base sm:text-lg lg:text-xl font-bold text-white">Amanda Johnson, MD</h2>
+        <h2 className="text-sm sm:text-lg text-start  text-gray-500 mb-1 sm:mb-2">Verify Credentials/PSV</h2>
+
       </div>
 
       {/* Image Container */}

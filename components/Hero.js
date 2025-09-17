@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Button from "./common/Button";
 
@@ -8,7 +8,7 @@ const Hero = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   
-  const textOptions = ["Time.", "Provider.", "Place."];
+  const textOptions = useMemo(() => ["Time.", "Provider.", "Place."], []);
   
   useEffect(() => {
     const currentWord = textOptions[currentWordIndex];
