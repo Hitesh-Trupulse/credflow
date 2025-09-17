@@ -27,7 +27,7 @@ const AIFeaturesSection = () => {
     return (
       <div
         ref={ref}
-        className="border-b border-gray-600/30 pb-8 last:border-b-0 min-h-[100px] flex flex-col justify-center transition-colors duration-200 rounded-lg px-4 py-2"
+        className="border-b  border-gray-600/30 pb-8 last:border-b-0 min-h-[100px] flex flex-col justify-center transition-colors duration-200 rounded-lg px-4 py-2"
       >
         <h3 className={`text-2xl sm:text-4xl mb-4 transition-colors duration-300 ${
           isActive ? 'text-white' : 'text-gray-400'
@@ -85,7 +85,8 @@ const AIFeaturesSection = () => {
 
 
   return (
-    <section className="py-20 px-6 bg-black ">
+    <section       id="product"
+    className="py-20 scroll-mt-24 px-6 bg-black ">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Left Side - Content */}

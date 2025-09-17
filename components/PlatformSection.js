@@ -284,7 +284,7 @@ export default function PlatformSection() {
   ];
 
   return (
-    <section ref={containerRef} className="bg-black pt-16 sm:pt-20 text-white">
+    <section id="features" ref={containerRef} className="bg-black pt-16 sm:pt-20 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
@@ -347,7 +347,7 @@ export default function PlatformSection() {
                         showMetricChips={i === 3}
                       />
             </div>
-                  </div>
+          </div>
                 </motion.div>
               );
             })}

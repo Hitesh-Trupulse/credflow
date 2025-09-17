@@ -6,42 +6,42 @@ const cards = [
     title: "Hospitals & Health Systems",
     description:
       "Large Networks Needing Streamlined Operations And Compliance At Scale.",
-    gradient: "from-purple-700/10 to-purple-700/10",
+    gradient: "from-[#454545]/10 to-[#2A154E]/40",
     animation: "fade-down",
   },
   {
     title: "Physician Groups",
     description:
       "Clinics Seeking Smoother Scheduling, Billing, And Patient Flow.",
-    gradient: "from-gray-700/10 to-gray-700/10",
+    gradient: "from-[#454545]/10 to-gray-700/20",
     animation: "fade-up",
   },
   {
     title: "Payers",
     description:
       "We Work With Health Plans To Streamline Credentialing And Enable AI Tools In Their Workflow. Our Proprietary Data-Lake Optimizes No Surprises Act Directory Compliance.",
-    gradient: "from-blue-700/10 to-blue-700/10",
+    gradient: "from-[#15204E]/40 to-[#454545]/10",
     animation: "fade-down",
   },
   {
     title: "RCM Organizations",
     description:
       "Billing Experts Focused On Speed, Accuracy, And Revenue Protection.",
-    gradient: "from-gray-700/10 to-gray-700/10",
+    gradient: "from-[#454545]/40 to-black",
     animation: "fade-up",
   },
   {
     title: "Telehealth Providers",
     description:
       "Digital Care Platforms Needing Seamless, Reliable Integrations.",
-    gradient: "from-emerald-600/10 to-emerald-700/10",
+    gradient: "from-[#454545]/10 to-[#114131]/40",
     animation: "fade-down",
   },
   {
     title: "Ambulatory Surgery Centers (ASCs)",
     description:
       "Same-Day Surgical Facilities Balancing Efficiency, Cost, And Compliance.",
-    gradient: "from-gray-700/10 to-gray-700/10",
+    gradient: "from-black to-[#454545]/20",
     animation: "fade-up",
   },
 ];
@@ -73,19 +73,19 @@ export default function WhoWeHelpSection() {
             >
               {/* Decorative borders */}
               {i === 1 || i === 0 ? (
-                <div className="absolute top-1/4 right-0 w-px h-1/2 bg-gradient-to-b from-purple-500/30 to-blue-500/30"></div>
+                <div data-aos="zoom-in" className="absolute hidden lg:block top-1/4 right-0 w-px h-1/2 bg-gradient-to-b from-purple-500/30 to-blue-500/30"></div>
               ) : null}
 
               {i === 4 || i === 5 ? (
-                <div className="absolute top-1/4 left-0 w-px h-1/2 bg-gradient-to-b from-blue-500/30 to-emerald-500/30"></div>
+                <div data-aos="zoom-in" className=" hidden lg:block absolute top-1/4 left-0 w-px h-1/2 bg-gradient-to-b from-blue-500/30 to-emerald-500/30"></div>
               ) : null}
 
               {/* Icon */}
               <div
                 data-aos="zoom-in"
-                className={`flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br ${card.gradient} border border-gray-700 mb-6 mx-auto`}
+                className={`flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br ${card.gradient} border border-gray-700 mb-6 mx-auto`}
               >
-                <Clock className="w-6 h-6 text-gray-300" />
+                <Clock className="w-7 h-7 text-gray-300" />
               </div>
 
               {/* Title */}

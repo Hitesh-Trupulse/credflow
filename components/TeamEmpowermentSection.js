@@ -1,68 +1,128 @@
 "use client";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 const TeamEmpowermentSection = () => {
   const sectionRef = useRef(null);
-  const [opacity, setOpacity] = useState(0.3);
+  const isInView = useInView(sectionRef, { 
+    threshold: 0.3,
+    triggerOnce: false 
+  });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
+  // Animation variants for line-by-line reveal
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.8,
+        delayChildren: 0.5
+      }
+    },
+    exit: {
+      opacity: 0.3,
+      transition: {
+        staggerChildren: 0.3,
+        staggerDirection: -1
+      }
+    }
+  };
 
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      
-      // Calculate distance from center of screen
-      const sectionCenter = rect.top + rect.height / 2;
-      const screenCenter = windowHeight / 2;
-      const distanceFromCenter = Math.abs(sectionCenter - screenCenter);
-      
-      // Calculate opacity based on distance from center
-      // When in center (distance = 0), opacity = 1
-      // When far from center, opacity approaches 0.3
-      const maxDistance = windowHeight / 2; // Maximum distance for calculation
-      const normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
-      const newOpacity = 1 - (normalizedDistance * 0.7); // 0.7 = difference between 1 and 0.3
-      
-      setOpacity(Math.max(newOpacity, 0.3)); // Minimum opacity of 0.3
-    };
+  const lineVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 80,
+      filter: "blur(6px)"
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 1.5,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    },
+    exit: {
+      opacity: 0.3,
+      y: -30,
+      filter: "blur(3px)",
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
+  };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial calculation
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const headlineVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.92
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 1.8,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    },
+    exit: {
+      opacity: 0.3,
+      y: -25,
+      scale: 0.95,
+      transition: {
+        duration: 1,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    }
+  };
 
   return (
     <section ref={sectionRef} className="py-20 px-6 bg-black text-white">
-      <div className="max-w-7xl mx-auto text-start">
+      <motion.div 
+        className="max-w-7xl mx-auto text-start"
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "exit"}
+      >
         {/* Headline */}
-        <h2 className="text-3xl md:text-6xl lg:text-7xl font-bold mb-12 leading-tight">
+        <motion.h2 
+          className="text-3xl md:text-6xl lg:text-7xl font-bold mb-12 leading-tight"
+          variants={headlineVariants}
+        >
           Enable Your Team. 
-          <div>Make Them AI-Powered Superstars.</div>
-        </h2>
+          <motion.div variants={headlineVariants}>
+            Make Them AI-Powered Superstars.
+          </motion.div>
+        </motion.h2>
 
         {/* Content */}
-        <div 
-          className="max-w-7xl mx-auto space-y-8 text-2xl md:text-4xl leading-relaxed transition-opacity duration-300 ease-out"
-          style={{ opacity }}
+        <motion.div 
+          className="max-w-7xl mx-auto space-y-8 text-2xl md:text-4xl leading-relaxed"
+          variants={containerVariants}
         >
-          <p>
+          <motion.p variants={lineVariants}>
             Your Admins And Coordinators Know The Workflows, Payers, And Providers Better Than Anyone. 
             What They Don&apos;t Need? Endless Forms And Follow-Ups.
-          </p>
+          </motion.p>
           
-          <p>
+          <motion.p variants={lineVariants}>
             <strong>CredFlow AI</strong> Takes The Manual Grind Off Their Plate While Keeping Their Expertise At The Center. 
             No Outsourcing. No Losing Control. Just <strong>AI Agents</strong> Working Behind The Scenes So Your Team Can 
             Shine Where It Matters Most.
-          </p>
+          </motion.p>
           
-          <p className="text-2xl md:text-4xl">
+          <motion.p 
+            className="text-2xl md:text-4xl"
+            variants={lineVariants}
+          >
             <strong>Your Team</strong> Is Your Advantage—<strong>CredFlow AI</strong> Makes Them <strong>Unstoppable</strong>.
-          </p>
-        </div>
-      </div>
+          </motion.p>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

@@ -44,10 +44,10 @@ const Footer = () => {
         </div>
       </div>
 
-      <hr className="border-gray-700" />
+      <hr className="border-[#454545] max-w-[80vw] mx-auto" />
 
       {/* Bottom Section */}
-      <div className="max-w-7xl py-10 mx-auto px-6  pb-60 flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 relative">
+      <div className="max-w-7xl overflow-hidden py-10 mx-auto px-6  pb-60 flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 relative">
         {/* Logo */}
         <div className="flex items-center cursor-pointer space-x-3 relative z-10">
           <Image
@@ -105,7 +105,7 @@ const Footer = () => {
         </div>
 
         {/* Background Logo (large faint logo at bottom) */}
-        <div className="absolute top-10 inset-0 flex justify-center items-center">
+        <div className="absolute top-60 inset-0 flex justify-center items-center">
           <Image
             src="/images/logoshadow.png"
             alt="Background Logo"

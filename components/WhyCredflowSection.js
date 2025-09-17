@@ -21,7 +21,7 @@ const WhyCredflowSection = () => {
   ];
 
   return (
-    <section  id="product"  className=" scroll-mt-24 py-20 px-6 bg-black">
+    <section  id="why-credflow"  className=" scroll-mt-24 py-20 px-6 bg-black">
       <div className="max-w-7xl mx-auto">
         {/* Headline */}
         <div data-aos="fade-down" className="text-center mb-16">
