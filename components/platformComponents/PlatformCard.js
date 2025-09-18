@@ -21,7 +21,7 @@ const PlatformCard = ({
     <div className="w-full max-w-6xl mx-auto bg-black/90 backdrop-blur-sm border border-[#454545] p-4 sm:p-6 md:p-8 lg:p-10">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-12 items-center">
         {/* Left Side - Content */}
-        <div className="space-y-4 sm:px-10 sm:space-y-6 flex flex-col justify-center lg:col-span-2 order-2 lg:order-1">
+        <div className="space-y-4 sm:px-10 min-h-[300px] sm:space-y-6 flex flex-col justify-center lg:col-span-2 order-2 lg:order-1">
           <div className="flex flex-col items-start space-y-4 sm:space-y-0 sm:space-x-4">
             <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full border border-white/20 flex items-center justify-center bg-gradient-to-b from-white/10 via-black to-white/10 backdrop-blur-sm flex-shrink-0">
               <span className="text-xl sm:text-3xl font-bold text-white">{number}</span>

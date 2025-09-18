@@ -31,9 +31,9 @@ const MetricChipsCard = () => {
        <div className="w-full lg:hidden relative h-full">
         <Image
         fill
-          src="/images/new2.png" 
+          src="/images/123.png" 
           alt="Metric Chips Visualization" 
-          className="w-full h-full object-cover scale-110  rounded-lg"
+          className="w-full h-full object-cover rounded-lg"
         /></div>
       <div className="w-full lg:block hidden max-w-xl h-full">
         {/* Main Card Container - Fixed 320px height */}

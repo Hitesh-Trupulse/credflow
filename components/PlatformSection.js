@@ -472,7 +472,7 @@ export default function PlatformSection() {
                       }}
                     >
                       <div className="w-full max-h-[85vh] sm:max-h-[90vh] relative px-1 sm:px-2">
-                        <div className="relative transform-gpu rounded-lg sm:rounded-xl overflow-hidden bg-black h-full w-full">
+                        <div className="relative transform-gpu sm:rounded-xl overflow-hidden bg-black h-full w-full">
                           <PlatformCard
                             number={card.number}
                             title={card.title}
