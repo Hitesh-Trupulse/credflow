@@ -74,7 +74,7 @@ function CredentialTab({ title, status, action, index }) {
   return (
     <motion.div
       className={`
-        backdrop-blur-sm bg-black/30 border border-gray-600/50 
+        backdrop-blur-sm bg-black/30 border border-[#454545] 
         text-white rounded-xl px-4 py-3 shadow-lg flex items-center gap-3
         ${getStatusColor(status)}
         cursor-pointer hover:bg-black/40 transition-all duration-300
@@ -106,7 +106,7 @@ function CredentialTab({ title, status, action, index }) {
 // Main Credentials Card Component
 export default function CredentialsCard() {
   return (
-    <div className="backdrop-blur-xl bg-black/60 border border-gray-600 text-white rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-lg w-full max-w-[200px] sm:max-w-sm mx-auto">
+    <div className="backdrop-blur-xl bg-black/60 border border-[#454545] text-white rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-lg w-full max-w-[200px] sm:max-w-sm mx-auto">
       {/* Header */}
       <div className="text-center mb-2 sm:mb-3 md:mb-4">
         <h2 className="text-start text-base sm:text-lg lg:text-xl font-bold text-white">Amanda Johnson, MD</h2>
@@ -115,11 +115,11 @@ export default function CredentialsCard() {
       </div>
 
       {/* Image Container */}
-      <div className="relative h-32 sm:h-40 md:h-48 lg:h-56 flex items-center justify-center">
+      <div className="relative h-32 sm:h-40 md:h-48 lg:h-52 flex items-center justify-center">
         <Image
           src="/images/1111.png"
           alt="Credentials"
-          width={450}
+          width={400}
           height={400}
           className="w-full h-full object-cover rounded-md sm:rounded-lg md:rounded-xl"
         />

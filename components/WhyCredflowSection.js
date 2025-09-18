@@ -40,8 +40,8 @@ const WhyCredflowSection = () => {
         {/* Benefits Grid */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {benefits.map((benefit, index) => (
-            <div data-aos="fade-up" key={index} className="bg-black backdrop-blur-sm border border-gray-600/30 rounded-full p-6 flex items-center justify-center gap-4">
-              <div data-aos="fade-right" className="w-12 h-12 rounded-full border border-gray-400/40 flex items-center justify-center text-white flex-shrink-0">
+            <div data-aos="fade-up" key={index} className="bg-black backdrop-blur-sm border border-[#454545] rounded-full p-6 flex items-center justify-center gap-4">
+              <div data-aos="fade-right" className="w-12 h-12 rounded-full border border-[#454545] flex items-center justify-center text-white flex-shrink-0">
                 {benefit.icon}
               </div>
               <div className="text-left">

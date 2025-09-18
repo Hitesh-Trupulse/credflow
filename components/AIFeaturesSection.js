@@ -1,17 +1,19 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import Button from './common/Button';
 
 const AIFeaturesSection = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollContainerRef = useRef(null);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   // Individual feature component
   const FeatureItem = ({ feature, index }) => {
     const { ref, inView } = useInView({
-      threshold: 0.5,
-      rootMargin: '-30% 0px -30% 0px',
+      threshold: 0.3,
+      rootMargin: '-20% 0px -20% 0px',
       triggerOnce: false
     });
 
@@ -27,20 +29,38 @@ const AIFeaturesSection = () => {
     return (
       <div
         ref={ref}
-        className="border-b  border-gray-600/30 pb-8 last:border-b-0 min-h-[100px] flex flex-col justify-center transition-colors duration-200 rounded-lg px-4 py-2"
+        className="border-b border-[#454545] pb-8 last:border-b-0 min-h-[120px] flex flex-col justify-center transition-all duration-300  px-4 py-3 cursor-pointer hover:bg-gray-900/20"
+        onClick={() => {
+          setActiveIndex(index);
+          // Smooth scroll to center the item
+          if (scrollContainerRef.current) {
+            const itemElement = ref.current;
+            if (itemElement) {
+              const containerRect = scrollContainerRef.current.getBoundingClientRect();
+              const itemRect = itemElement.getBoundingClientRect();
+              const scrollTop = scrollContainerRef.current.scrollTop;
+              const targetScrollTop = scrollTop + itemRect.top - containerRect.top - (containerRect.height / 2) + (itemRect.height / 2);
+              
+              scrollContainerRef.current.scrollTo({
+                top: targetScrollTop,
+                behavior: 'smooth'
+              });
+            }
+          }
+        }}
       >
-        <h3 className={`text-2xl sm:text-4xl mb-4 transition-colors duration-300 ${
-          isActive ? 'text-white' : 'text-gray-400'
+        <h3 className={`text-2xl sm:text-4xl lg:text-5xl mb-4 transition-all duration-500 ease-out ${
+          isActive ? 'text-white' : 'text-[#454545] '
         }`}>
           {feature.title}
         </h3>
         
-        <div className={`transition-all duration-500 ease-out ${
+        <div className={`transition-all duration-700 ease-out overflow-hidden ${
           isActive 
-            ? 'opacity-100 max-h-96 translate-y-0' 
-            : 'opacity-0 max-h-0 -translate-y-2 overflow-hidden'
+            ? 'opacity-100 max-h-[200px] translate-y-0' 
+            : 'opacity-0 max-h-0 translate-y-4'
         }`}>
-          <p className="text-white text-xs md:text-sm leading-relaxed">
+          <p className="text-white text-sm md:text-base leading-relaxed pt-2">
             {feature.description}
           </p>
         </div>
@@ -83,6 +103,39 @@ const AIFeaturesSection = () => {
     }
   ];
 
+  // Create infinite scroll data by duplicating features
+  const infiniteFeatures = [...features, ...features, ...features];
+
+  // Handle infinite scroll
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
+      
+      // Reset scroll position when reaching the end of first set
+      if (scrollPercentage >= 0.95 && !isScrolling) {
+        setIsScrolling(true);
+        const firstSetHeight = scrollHeight / 3; // Since we have 3 sets
+        container.scrollTop = firstSetHeight + (scrollTop - firstSetHeight);
+        setTimeout(() => setIsScrolling(false), 100);
+      }
+      
+      // Reset scroll position when reaching the beginning
+      if (scrollPercentage <= 0.05 && !isScrolling) {
+        setIsScrolling(true);
+        const firstSetHeight = scrollHeight / 3;
+        container.scrollTop = firstSetHeight + scrollTop;
+        setTimeout(() => setIsScrolling(false), 100);
+      }
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [isScrolling]);
+
 
   return (
     <section       id="product"
@@ -110,9 +163,35 @@ const AIFeaturesSection = () => {
             </Button>
           </div>
 
-          {/* Right Side - Scrollable Features List */}
-          <div data-aos="zoom-in" className="h-[500px] overflow-y-auto scrollbar-hide">
-            <div className="space-y-8 pr-4">
+          {/* Right Side - Infinite Scrollable Features List */}
+          <div 
+            ref={scrollContainerRef}
+            data-aos="zoom-in" 
+            className="h-[500px] overflow-y-auto scrollbar-hide scroll-smooth hidden lg:block"
+            style={{
+              scrollBehavior: 'smooth',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}
+          >
+            <div className="space-y-6 pr-4">
+              {infiniteFeatures.map((feature, index) => (
+                <FeatureItem key={`${feature.title}-${index}`} feature={feature} index={index % features.length} />
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile/Tablet - Regular Scrollable Features List */}
+          <div 
+            data-aos="zoom-in" 
+            className="h-[500px] overflow-y-auto scrollbar-hide scroll-smooth lg:hidden"
+            style={{
+              scrollBehavior: 'smooth',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}
+          >
+            <div className="space-y-6 pr-4">
               {features.map((feature, index) => (
                 <FeatureItem key={index} feature={feature} index={index} />
               ))}

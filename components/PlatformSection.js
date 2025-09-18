@@ -165,9 +165,204 @@
 
 
 
+// "use client";
+// import { useState, useEffect, useRef } from "react";
+// import { motion, useScroll, useTransform, useInView } from "framer-motion";
+// import PlatformCard from "./platformComponents/PlatformCard";
+
+// const cards = [
+//   {
+//     number: "1",
+//     title: "Real-Time Network Intelligence",
+//     subtitle: "Always Current, Always Verified",
+//     description:
+//       "CredFlow Works Directly With Payers To Ingest Provider Data. Decisions Are Based On Today's Real-Time Data—Not A Spreadsheet From Last Year.",
+//     imageSrc: "/images/11.png",
+//   },
+//   {
+//     number: "2",
+//     title: "Adaptive Operations",
+//     subtitle: "Workflows That Fit Reality",
+//     description:
+//       "Dynamic processes adapt by payer, state, provider type, and historical outcomes. Nothing slips. Be confident in new enrolments, location adds, re-credentialing, and directory attestation cycles.",
+//     imageSrc: "/images/22.png",
+//   },
+//   {
+//     number: "3",
+//     title: "Continous Verification",
+//     subtitle: "Confidence From The Start ",
+//     description:
+//       "Licenses, DEA, and sanctions checks are pulled automatically and monitored continuously. Evidence artefacts are saved for audit, turning compliance into a background process rather than a fire drill.",
+//     imageSrc: "/images/33.png",
+//   },
+//   {
+//     number: "4",
+//     title: "Connected Revenue",
+//     subtitle: "Credentialing And Claims On The Same Page",
+//     description:
+//       "The only Credentialing Platform built to support Revenue Cycle Revenue.",
+//     imageSrc: "/images/p4.png",
+//   },
+// ];
+
+// export default function PlatformSection() {
+//   const containerRef = useRef(null);
+  
+//   // Create scroll progress for the entire section
+//   const { scrollYProgress } = useScroll({
+//     target: containerRef,
+//     offset: ["start 0%", "end 70%"]
+//   });
+
+//   // Create individual transform hooks for each card - must be at component level
+//   const card0Progress = useTransform(scrollYProgress, [0.05 / cards.length, 0.95 / cards.length], [0, 1]);
+//   const card1Progress = useTransform(scrollYProgress, [1.05 / cards.length, 1.95 / cards.length], [0, 1]);
+//   const card2Progress = useTransform(scrollYProgress, [2.05 / cards.length, 2.95 / cards.length], [0, 1]);
+//   const card3Progress = useTransform(scrollYProgress, [3.05 / cards.length, 3.95 / cards.length], [0, 1]);
+
+//   // Card 0 transforms
+//   const card0isActive = useTransform(card0Progress, (value) => value > 0.1);
+//   const card0x = useTransform(card0Progress, [0, 0.5, 1], [0, 0, 0]);
+//   const card0y = useTransform(card0Progress, [0, 0.5, 1], [0, 0, -100]);
+//   const card0rotateZ = useTransform(card0Progress, [0, 0.5, 1], [0, 0, -15]);
+//   const card0rotateX = useTransform(card0Progress, [0, 0.5, 1], [0, 0, 30]);
+//   const card0scale = useTransform(card0Progress, [0, 0.5, 1], [0.95, 1, 0.9]);
+//   const card0opacity = useTransform(card0Progress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
+//   const card0zIndex = useTransform(card0Progress, (value) => {
+//     if (value < 0.3) return cards.length - 0;
+//     if (value > 0.6) return 1000 + 0;
+//     return 100;
+//   });
+
+//   // Card 1 transforms
+//   const card1isActive = useTransform(card1Progress, (value) => value > 0.1);
+//   const card1x = useTransform(card1Progress, [0, 0.5, 1], [0, 0, 0]);
+//   const card1y = useTransform(card1Progress, [0, 0.5, 1], [8, 0, -100]);
+//   const card1rotateZ = useTransform(card1Progress, [0, 0.5, 1], [2, 0, -15]);
+//   const card1rotateX = useTransform(card1Progress, [0, 0.5, 1], [0, 0, 30]);
+//   const card1scale = useTransform(card1Progress, [0, 0.5, 1], [0.95, 1, 0.9]);
+//   const card1opacity = useTransform(card1Progress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
+//   const card1zIndex = useTransform(card1Progress, (value) => {
+//     if (value < 0.3) return cards.length - 1;
+//     if (value > 0.6) return 1000 + 1;
+//     return 100;
+//   });
+
+//   // Card 2 transforms
+//   const card2isActive = useTransform(card2Progress, (value) => value > 0.1);
+//   const card2x = useTransform(card2Progress, [0, 0.5, 1], [0, 0, 0]);
+//   const card2y = useTransform(card2Progress, [0, 0.5, 1], [16, 0, -100]);
+//   const card2rotateZ = useTransform(card2Progress, [0, 0.5, 1], [4, 0, -15]);
+//   const card2rotateX = useTransform(card2Progress, [0, 0.5, 1], [0, 0, 30]);
+//   const card2scale = useTransform(card2Progress, [0, 0.5, 1], [0.95, 1, 0.9]);
+//   const card2opacity = useTransform(card2Progress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
+//   const card2zIndex = useTransform(card2Progress, (value) => {
+//     if (value < 0.3) return cards.length - 2;
+//     if (value > 0.6) return 1000 + 2;
+//     return 100;
+//   });
+
+//   // Card 3 transforms
+//   const card3isActive = useTransform(card3Progress, (value) => value > 0.1);
+//   const card3x = useTransform(card3Progress, [0, 0.5, 1], [0, 0, 0]);
+//   const card3y = useTransform(card3Progress, [0, 0.5, 1], [24, 0, -100]);
+//   const card3rotateZ = useTransform(card3Progress, [0, 0.5, 1], [6, 0, -15]);
+//   const card3rotateX = useTransform(card3Progress, [0, 0.5, 1], [0, 0, 30]);
+//   const card3scale = useTransform(card3Progress, [0, 0.5, 1], [0.95, 1, 0.9]);
+//   const card3opacity = useTransform(card3Progress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
+//   const card3zIndex = useTransform(card3Progress, (value) => {
+//     if (value < 0.3) return cards.length - 3;
+//     if (value > 0.6) return 1000 + 3;
+//     return 100;
+//   });
+
+//   const cardTransforms = [
+//     { x: card0x, y: card0y, rotateZ: card0rotateZ, rotateX: card0rotateX, scale: card0scale, opacity: card0opacity, zIndex: card0zIndex },
+//     { x: card1x, y: card1y, rotateZ: card1rotateZ, rotateX: card1rotateX, scale: card1scale, opacity: card1opacity, zIndex: card1zIndex },
+//     { x: card2x, y: card2y, rotateZ: card2rotateZ, rotateX: card2rotateX, scale: card2scale, opacity: card2opacity, zIndex: card2zIndex },
+//     { x: card3x, y: card3y, rotateZ: card3rotateZ, rotateX: card3rotateX, scale: card3scale, opacity: card3opacity, zIndex: card3zIndex }
+//   ];
+
+//   return (
+//     <section id="features" ref={containerRef} className="bg-black pt-16 sm:pt-20 text-white">
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//         {/* Header */}
+//         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+//           <div className="text-xs sm:text-sm text-gray-400 mb-4 tracking-widest">
+//             FEATURES
+//           </div>
+//           <h2 className="text-5xl sm:text-6xl  lg:text-7xl leading-tight">
+//             <div className="text-white">Your All-in-One</div>
+//             <span className="bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
+//               AI Credentialing{" "}
+//               </span>
+//             <span>Platform</span>
+//             </h2>
+//         </div>
+
+//         {/* Features Container - Contained within section */}
+//         <div className="relative features-container h-[400vh] w-full max-w-7xl mx-auto">
+//           {/* Sticky cards container - stays in viewport during scroll */}
+//           <div 
+//             className="sticky top-0 h-screen flex items-center justify-center overflow-hidden"
+//             style={{
+//               perspective: '1200px',
+//               transformStyle: 'preserve-3d',
+//             }}
+//           >
+//             {cards.map((card, i) => {
+//               const transforms = cardTransforms[i];
+              
+//               return (
+//                 <motion.div
+//                   key={i}
+//                   className="absolute inset-0 flex items-center justify-center pointer-events-auto"
+//                   style={{
+//                     x: transforms.x,
+//                     y: transforms.y,
+//                     rotateZ: transforms.rotateZ,
+//                     rotateX: transforms.rotateX,
+//                     scale: transforms.scale,
+//                     opacity: transforms.opacity,
+//                     zIndex: transforms.zIndex,
+//                     transformStyle: 'preserve-3d',
+//                   }}
+//                 >
+//                   <div className="w-full max-h-[85vh] sm:max-h-[80vh] relative px-2 sm:px-4">
+//                     {/* Card with solid background to prevent text bleeding */}
+//                     <div 
+//                       className="relative transform-gpu rounded-2xl overflow-hidden bg-black"
+                    
+//                     >
+//                       <PlatformCard
+//                         number={card.number}
+//                         title={card.title}
+//                         subtitle={card.subtitle}
+//                         description={card.description}
+//                         imageSrc={card.imageSrc}
+//                         imageAlt={card.title}
+//                         showScrollingCards={i === 0}
+//                         showEnrollmentFlow={i === 1}
+//                         showCredentials={i === 2}
+//                         showMetricChips={i === 3}
+//                       />
+//             </div>
+//           </div>
+//                 </motion.div>
+//               );
+//             })}
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+
+
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import PlatformCard from "./platformComponents/PlatformCard";
 
 const cards = [
@@ -211,87 +406,44 @@ export default function PlatformSection() {
   // Create scroll progress for the entire section
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 0%", "end 70%"]
+    offset: ["start end", "end start"]
   });
 
-  // Create individual transform hooks for each card - must be at component level
-  const card0Progress = useTransform(scrollYProgress, [0.05 / cards.length, 0.95 / cards.length], [0, 1]);
-  const card1Progress = useTransform(scrollYProgress, [1.05 / cards.length, 1.95 / cards.length], [0, 1]);
-  const card2Progress = useTransform(scrollYProgress, [2.05 / cards.length, 2.95 / cards.length], [0, 1]);
-  const card3Progress = useTransform(scrollYProgress, [3.05 / cards.length, 3.95 / cards.length], [0, 1]);
+  // Desktop: Create smooth upward sliding animation for each card
+  const card0y = useTransform(scrollYProgress, [0, 0.2], ["100vh", "0vh"]);
+  const card1y = useTransform(scrollYProgress, [0.2, 0.4], ["100vh", "0vh"]);
+  const card2y = useTransform(scrollYProgress, [0.4, 0.6], ["100vh", "0vh"]);
+  const card3y = useTransform(scrollYProgress, [0.6, 0.8], ["100vh", "0vh"]);
 
-  // Card 0 transforms
-  const card0isActive = useTransform(card0Progress, (value) => value > 0.1);
-  const card0x = useTransform(card0Progress, [0, 0.5, 1], [0, 0, 0]);
-  const card0y = useTransform(card0Progress, [0, 0.5, 1], [0, 0, -100]);
-  const card0rotateZ = useTransform(card0Progress, [0, 0.5, 1], [0, 0, -15]);
-  const card0rotateX = useTransform(card0Progress, [0, 0.5, 1], [0, 0, 30]);
-  const card0scale = useTransform(card0Progress, [0, 0.5, 1], [0.95, 1, 0.9]);
-  const card0opacity = useTransform(card0Progress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
-  const card0zIndex = useTransform(card0Progress, (value) => {
-    if (value < 0.3) return cards.length - 0;
-    if (value > 0.6) return 1000 + 0;
-    return 100;
-  });
-
-  // Card 1 transforms
-  const card1isActive = useTransform(card1Progress, (value) => value > 0.1);
-  const card1x = useTransform(card1Progress, [0, 0.5, 1], [0, 0, 0]);
-  const card1y = useTransform(card1Progress, [0, 0.5, 1], [8, 0, -100]);
-  const card1rotateZ = useTransform(card1Progress, [0, 0.5, 1], [2, 0, -15]);
-  const card1rotateX = useTransform(card1Progress, [0, 0.5, 1], [0, 0, 30]);
-  const card1scale = useTransform(card1Progress, [0, 0.5, 1], [0.95, 1, 0.9]);
-  const card1opacity = useTransform(card1Progress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
-  const card1zIndex = useTransform(card1Progress, (value) => {
-    if (value < 0.3) return cards.length - 1;
-    if (value > 0.6) return 1000 + 1;
-    return 100;
-  });
-
-  // Card 2 transforms
-  const card2isActive = useTransform(card2Progress, (value) => value > 0.1);
-  const card2x = useTransform(card2Progress, [0, 0.5, 1], [0, 0, 0]);
-  const card2y = useTransform(card2Progress, [0, 0.5, 1], [16, 0, -100]);
-  const card2rotateZ = useTransform(card2Progress, [0, 0.5, 1], [4, 0, -15]);
-  const card2rotateX = useTransform(card2Progress, [0, 0.5, 1], [0, 0, 30]);
-  const card2scale = useTransform(card2Progress, [0, 0.5, 1], [0.95, 1, 0.9]);
-  const card2opacity = useTransform(card2Progress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
-  const card2zIndex = useTransform(card2Progress, (value) => {
-    if (value < 0.3) return cards.length - 2;
-    if (value > 0.6) return 1000 + 2;
-    return 100;
-  });
-
-  // Card 3 transforms
-  const card3isActive = useTransform(card3Progress, (value) => value > 0.1);
-  const card3x = useTransform(card3Progress, [0, 0.5, 1], [0, 0, 0]);
-  const card3y = useTransform(card3Progress, [0, 0.5, 1], [24, 0, -100]);
-  const card3rotateZ = useTransform(card3Progress, [0, 0.5, 1], [6, 0, -15]);
-  const card3rotateX = useTransform(card3Progress, [0, 0.5, 1], [0, 0, 30]);
-  const card3scale = useTransform(card3Progress, [0, 0.5, 1], [0.95, 1, 0.9]);
-  const card3opacity = useTransform(card3Progress, [0, 0.3, 0.6, 1], [1, 1, 1, 0]);
-  const card3zIndex = useTransform(card3Progress, (value) => {
-    if (value < 0.3) return cards.length - 3;
-    if (value > 0.6) return 1000 + 3;
-    return 100;
-  });
+  // Mobile: Create vertical scroll animation with reduced scroll distance
+  const mobileCard0y = useTransform(scrollYProgress, [0, 0.2], ["100vh", "0vh"]);
+  const mobileCard1y = useTransform(scrollYProgress, [0.2, 0.4], ["100vh", "0vh"]);
+  const mobileCard2y = useTransform(scrollYProgress, [0.4, 0.6], ["100vh", "0vh"]);
+  const mobileCard3y = useTransform(scrollYProgress, [0.6, 0.8], ["100vh", "0vh"]);
 
   const cardTransforms = [
-    { x: card0x, y: card0y, rotateZ: card0rotateZ, rotateX: card0rotateX, scale: card0scale, opacity: card0opacity, zIndex: card0zIndex },
-    { x: card1x, y: card1y, rotateZ: card1rotateZ, rotateX: card1rotateX, scale: card1scale, opacity: card1opacity, zIndex: card1zIndex },
-    { x: card2x, y: card2y, rotateZ: card2rotateZ, rotateX: card2rotateX, scale: card2scale, opacity: card2opacity, zIndex: card2zIndex },
-    { x: card3x, y: card3y, rotateZ: card3rotateZ, rotateX: card3rotateX, scale: card3scale, opacity: card3opacity, zIndex: card3zIndex }
+    { y: card0y },
+    { y: card1y },
+    { y: card2y },
+    { y: card3y }
+  ];
+
+  const mobileCardTransforms = [
+    { y: mobileCard0y },
+    { y: mobileCard1y },
+    { y: mobileCard2y },
+    { y: mobileCard3y }
   ];
 
   return (
     <section id="features" ref={containerRef} className="bg-black pt-16 sm:pt-20 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
-          <div className="text-xs sm:text-sm text-gray-400 mb-4 tracking-widest">
+        <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16 px-2">
+          <div className="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4 tracking-widest">
             FEATURES
           </div>
-          <h2 className="text-5xl sm:text-6xl  lg:text-7xl leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight">
             <div className="text-white">Your All-in-One</div>
             <span className="bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
               AI Credentialing{" "}
@@ -300,57 +452,86 @@ export default function PlatformSection() {
             </h2>
         </div>
 
-        {/* Features Container - Contained within section */}
-        <div className="relative features-container h-[400vh] w-full max-w-7xl mx-auto">
-          {/* Sticky cards container - stays in viewport during scroll */}
-          <div 
-            className="sticky top-0 h-screen flex items-center justify-center overflow-hidden"
-            style={{
-              perspective: '1200px',
-              transformStyle: 'preserve-3d',
-            }}
-          >
-            {cards.map((card, i) => {
-              const transforms = cardTransforms[i];
-              
-              return (
-                <motion.div
-                  key={i}
-                  className="absolute inset-0 flex items-center justify-center pointer-events-auto"
-                  style={{
-                    x: transforms.x,
-                    y: transforms.y,
-                    rotateZ: transforms.rotateZ,
-                    rotateX: transforms.rotateX,
-                    scale: transforms.scale,
-                    opacity: transforms.opacity,
-                    zIndex: transforms.zIndex,
-                    transformStyle: 'preserve-3d',
-                  }}
-                >
-                  <div className="w-full max-h-[85vh] sm:max-h-[80vh] relative px-2 sm:px-4">
-                    {/* Card with solid background to prevent text bleeding */}
-                    <div 
-                      className="relative transform-gpu rounded-2xl overflow-hidden bg-black"
-                    
+        {/* Mobile: Vertical scroll animation, Desktop: Animated cards */}
+        <div className="relative">
+          {/* Mobile Layout - Vertical scroll animation */}
+          <div className="block md:hidden">
+            {/* Create scroll height for mobile animation - responsive heights */}
+            <div className="h-[300vh] sm:h-[350vh]">
+              {/* Sticky container that holds the upward moving cards */}
+              <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+                {cards.map((card, i) => {
+                  const transforms = mobileCardTransforms[i];
+                  
+                  return (
+                    <motion.div
+                      key={i}
+                      className="absolute inset-0 flex items-center justify-center w-full"
+                      style={{
+                        y: transforms.y,
+                      }}
                     >
-                      <PlatformCard
-                        number={card.number}
-                        title={card.title}
-                        subtitle={card.subtitle}
-                        description={card.description}
-                        imageSrc={card.imageSrc}
-                        imageAlt={card.title}
-                        showScrollingCards={i === 0}
-                        showEnrollmentFlow={i === 1}
-                        showCredentials={i === 2}
-                        showMetricChips={i === 3}
-                      />
+                      <div className="w-full max-h-[85vh] sm:max-h-[90vh] relative px-1 sm:px-2">
+                        <div className="relative transform-gpu rounded-lg sm:rounded-xl overflow-hidden bg-black h-full w-full">
+                          <PlatformCard
+                            number={card.number}
+                            title={card.title}
+                            subtitle={card.subtitle}
+                            description={card.description}
+                            imageSrc={card.imageSrc}
+                            imageAlt={card.title}
+                            showScrollingCards={i === 0}
+                            showEnrollmentFlow={i === 1}
+                            showCredentials={i === 2}
+                            showMetricChips={i === 3}
+                          />
+              </div>
+              </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
           </div>
-                </motion.div>
-              );
-            })}
+
+          {/* Desktop Layout - Animated upward sliding cards */}
+          <div className="hidden md:block">
+            {/* Create scroll height for animation - responsive for different desktop sizes */}
+            <div className="h-[450vh] lg:h-[500vh] xl:h-[550vh]">
+              {/* Sticky container that holds the upward moving cards */}
+              <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+                {cards.map((card, i) => {
+                  const transforms = cardTransforms[i];
+                  
+                  return (
+                    <motion.div
+                      key={i}
+                      className="absolute inset-0 flex items-center justify-center w-full"
+                      style={{
+                        y: transforms.y,
+                      }}
+                    >
+                      <div className="w-full max-h-[75vh] md:max-h-[80vh] lg:max-h-[85vh] relative px-3 md:px-4 lg:px-6">
+                        <div className="relative transform-gpu rounded-xl md:rounded-2xl overflow-hidden bg-black h-full w-full">
+                          <PlatformCard
+                            number={card.number}
+                            title={card.title}
+                            subtitle={card.subtitle}
+                            description={card.description}
+                            imageSrc={card.imageSrc}
+                            imageAlt={card.title}
+                            showScrollingCards={i === 0}
+                            showEnrollmentFlow={i === 1}
+                            showCredentials={i === 2}
+                            showMetricChips={i === 3}
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>

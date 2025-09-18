@@ -422,7 +422,7 @@ export default function Navbar() {
           {/* Mobile Hamburger Button */}
           <button
             onClick={toggleMenu}
-            className="xl:hidden flex items-center justify-center w-10 h-10 rounded-full bg-black/20 border border-gray-600 hover:bg-black/30 transition-colors duration-300"
+            className="xl:hidden flex items-center justify-center w-10 h-10 rounded-full bg-black/20 border border-[#454545] hover:bg-black/30 transition-colors duration-300"
           >
             {isMenuOpen ? (
               <FaTimes className="w-5 h-5 text-white" />
@@ -470,7 +470,7 @@ export default function Navbar() {
                           : "max-h-0 opacity-0"
                       }`}
                     >
-                      <div className="pl-4 space-y-2 border-l border-gray-600">
+                      <div className="pl-4 space-y-2 border-l border-[#454545]">
                         <Link
                           href="/#product"
                           onClick={toggleMenu}

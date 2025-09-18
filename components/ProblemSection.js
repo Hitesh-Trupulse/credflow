@@ -47,7 +47,7 @@ const ProblemSection = () => {
           {problems.map((problem, index) => {
             const IconComponent = problem.icon;
             return (
-              <div key={index} className="text-start border border-gray-400/30 py-6 px-12  bg-gray-900/20 backdrop-blur-sm">
+              <div key={index} className="text-start border border-[#454545] py-6 px-12  bg-gray-900/20 backdrop-blur-sm">
                 {/* Icon Container */}
                 <div data-aos="fade-up"  className="w-28 h-28 mb-6 rounded-full border border-white/20 flex items-center justify-center bg-gradient-to-b from-white/5 to-black backdrop-blur-sm">
                   <IconComponent className="w-12 h-12 text-white" />

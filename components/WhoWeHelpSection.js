@@ -83,7 +83,7 @@ export default function WhoWeHelpSection() {
               {/* Icon */}
               <div
                 data-aos="zoom-in"
-                className={`flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br ${card.gradient} border border-gray-700 mb-6 mx-auto`}
+                className={`flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br ${card.gradient} border border-[#454545] mb-6 mx-auto`}
               >
                 <Clock className="w-7 h-7 text-gray-300" />
               </div>

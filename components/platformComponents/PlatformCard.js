@@ -18,22 +18,22 @@ const PlatformCard = ({
   showMetricChips = false
 }) => {
   return (
-    <div className="w-full max-w-6xl mx-auto bg-black/90 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-4 sm:p-6 md:p-8 lg:p-10">
+    <div className="w-full max-w-6xl mx-auto bg-black/90 backdrop-blur-sm border border-[#454545] p-4 sm:p-6 md:p-8 lg:p-10">
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-12 items-center">
         {/* Left Side - Content */}
-        <div className="space-y-4 sm:space-y-6 flex flex-col justify-center lg:col-span-2 order-2 lg:order-1">
-          <div className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-4">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-white/20 flex items-center justify-center bg-white/5 backdrop-blur-sm flex-shrink-0">
-              <span className="text-xl sm:text-2xl font-bold text-white">{number}</span>
+        <div className="space-y-4 sm:px-10 sm:space-y-6 flex flex-col justify-center lg:col-span-2 order-2 lg:order-1">
+          <div className="flex flex-col items-start space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-full border border-white/20 flex items-center justify-center bg-gradient-to-b from-white/10 via-black to-white/10 backdrop-blur-sm flex-shrink-0">
+              <span className="text-xl sm:text-3xl font-bold text-white">{number}</span>
             </div>
             <div className="flex-1">
-              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 leading-tight">
+              <h3 className="text-lg py-2 pt-8 sm:text-xl md:text-2xl  font-bold text-white mb-2 leading-tight">
                 {title}
               </h3>
-              <p className="text-gray-300 text-base sm:text-lg mb-4 font-medium">
+              <p className="text-gray-300 text-sm sm:text-md font-bold">
                 {subtitle}
               </p>
-              <p className="text-gray-400 leading-relaxed text-sm sm:text-base md:text-lg">
+              <p className=" leading-relaxed  text-gray-300 text-sm sm:text-md ">
                 {description}
               </p>
             </div>
@@ -68,12 +68,12 @@ const PlatformCard = ({
                 </div>
               ) : showCredentials ? (
                 // Show credentials card for third card
-                <div className="w-full h-full flex items-center justify-center">
+                <div className="w-full h-full ">
                   <CredentialsCard />
                 </div>
               ) : showMetricChips ? (
                 // Show metric chips for fourth card
-                <div className="w-full h-full flex items-center justify-center">
+                <div className="w-full h-full absolute lg:-right-36 ">
                   <MetricChipsCard />
                 </div>
               ) : (

@@ -1,3 +1,4 @@
+
 import "./globals.css";
 import AOSWrapper from "../components/AOSWrapper";
 import { Toaster } from "react-hot-toast";

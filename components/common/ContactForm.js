@@ -105,39 +105,39 @@ const ContactForm = ({
 
   const modalContent = (
     <div 
-      className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[9999] p-4"
+      className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[9999] p-2 sm:p-4"
       onClick={closeModal}
     >
       <div 
-        className="bg-black border border-gray-700 rounded-3xl p-8 max-w-md w-full relative shadow-2xl"
+        className="bg-black border border-[#454545] rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 max-w-sm sm:max-w-md lg:max-w-lg w-full relative shadow-2xl max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={closeModal}
-          className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors"
+          className="absolute top-3 right-3 sm:top-6 sm:right-6 text-gray-400 hover:text-white transition-colors z-10"
         >
-          <FaX className="w-4 h-4 cursor-pointer" />
+          <FaX className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer" />
         </button>
 
-        <div className="mb-8">
-          <h3 className="text-3xl font-bold bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent mb-3">
+        <div className="mb-4 sm:mb-6 lg:mb-8">
+          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent mb-2 sm:mb-3">
             {title}
           </h3>
-          <p className="text-gray-300">{subtitle}</p>
+          <p className="text-sm sm:text-base text-gray-300">{subtitle}</p>
         </div>
 
         {alert && (
-          <div className={`mb-6 p-4 rounded-xl text-sm font-medium ${
+          <div className={`mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium ${
             alert.includes('Thanks') ? 'bg-green-900/50 border border-green-700 text-green-300' : 'bg-red-900/50 border border-red-700 text-red-300'
           }`}>
             {alert}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
             <div>
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="firstName" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
                 First Name *
               </label>
               <input
@@ -148,13 +148,13 @@ const ContactForm = ({
                 onChange={handleInputChange}
                 required
                 autoComplete="given-name"
-                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-white placeholder-gray-400"
+                className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white placeholder-gray-400"
                 placeholder="Enter your first name"
               />
             </div>
 
             <div>
-              <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="lastName" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
                 Last Name *
               </label>
               <input
@@ -165,14 +165,14 @@ const ContactForm = ({
                 onChange={handleInputChange}
                 required
                 autoComplete="family-name"
-                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-white placeholder-gray-400"
+                className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white placeholder-gray-400"
                 placeholder="Enter your last name"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
               Email Address *
             </label>
             <input
@@ -183,13 +183,13 @@ const ContactForm = ({
               onChange={handleInputChange}
               required
               autoComplete="email"
-              className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-white placeholder-gray-400"
+              className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white placeholder-gray-400"
               placeholder="Enter your email"
             />
           </div>
 
           <div>
-            <label htmlFor="query" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="query" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
               Message
             </label>
             <textarea
@@ -197,8 +197,8 @@ const ContactForm = ({
               name="query"
               value={formData.query}
               onChange={handleInputChange}
-              rows={4}
-              className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all resize-none text-white placeholder-gray-400"
+              rows={3}
+              className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all resize-none text-sm sm:text-base text-white placeholder-gray-400"
               placeholder="Tell us about your requirements..."
             />
           </div>
@@ -206,12 +206,12 @@ const ContactForm = ({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full cursor-pointer  bg-gradient-to-r from-[#5063C6] to-[#B71CD2] text-white py-4 px-6 rounded-xl hover:from-[#5a6fd6] hover:to-[#c528e2] transition-all duration-300 font-semibold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+            className="w-full cursor-pointer bg-gradient-to-r from-[#5063C6] to-[#B71CD2] text-white py-3 px-4 sm:py-4 sm:px-6 rounded-lg sm:rounded-xl hover:from-[#5a6fd6] hover:to-[#c528e2] transition-all duration-300 text-sm sm:text-base font-semibold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
           >
             {isSubmitting ? (
               <span className="flex items-center justify-center">
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                Sending...
+                <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-b-2 border-white mr-2"></div>
+                <span className="text-xs sm:text-sm">Sending...</span>
               </span>
             ) : (
               'Send Message'

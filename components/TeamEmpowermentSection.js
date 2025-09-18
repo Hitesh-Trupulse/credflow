@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion';
 const TeamEmpowermentSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { 
-    threshold: 0.3,
+    threshold: 0.1,
     triggerOnce: false 
   });
 
@@ -15,8 +15,8 @@ const TeamEmpowermentSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.8,
-        delayChildren: 0.5
+        staggerChildren: 0.4,
+        delayChildren: 0.2
       }
     },
     exit: {
@@ -39,7 +39,7 @@ const TeamEmpowermentSection = () => {
       y: 0,
       filter: "blur(0px)",
       transition: {
-        duration: 1.5,
+        duration: 0.8,
         ease: [0.25, 0.46, 0.45, 0.94]
       }
     },
@@ -65,7 +65,7 @@ const TeamEmpowermentSection = () => {
       y: 0,
       scale: 1,
       transition: {
-        duration: 1.8,
+        duration: 1.0,
         ease: [0.25, 0.46, 0.45, 0.94]
       }
     },
@@ -90,7 +90,7 @@ const TeamEmpowermentSection = () => {
       >
         {/* Headline */}
         <motion.h2 
-          className="text-3xl md:text-6xl lg:text-7xl font-bold mb-12 leading-tight"
+          className="text-3xl md:text-4xl lg:text-5xl font-bold mb-12 leading-tight"
           variants={headlineVariants}
         >
           Enable Your Team. 
@@ -101,7 +101,7 @@ const TeamEmpowermentSection = () => {
 
         {/* Content */}
         <motion.div 
-          className="max-w-7xl mx-auto space-y-8 text-2xl md:text-4xl leading-relaxed"
+          className="max-w-7xl mx-auto space-y-8 text-xl md:text-2xl leading-relaxed"
           variants={containerVariants}
         >
           <motion.p variants={lineVariants}>
@@ -116,7 +116,7 @@ const TeamEmpowermentSection = () => {
           </motion.p>
           
           <motion.p 
-            className="text-2xl md:text-4xl"
+            className="text-2xl md:text-3xl"
             variants={lineVariants}
           >
             <strong>Your Team</strong> Is Your Advantage—<strong>CredFlow AI</strong> Makes Them <strong>Unstoppable</strong>.
