@@ -8,22 +8,18 @@ const enrollmentSteps = [
   {
     id: "provider-data",
     title: "Provider Data Verification",
-    status: "completed"
   },
   {
     id: "application-follow",
     title: "Application Follow Up",
-    status: "in-progress"
   },
   {
     id: "caqh-sync",
     title: "CAQH Sync",
-    status: "pending"
   },
   {
     id: "payer-portal",
     title: "Payer Portal Submit",
-    status: "pending"
   }
 ];
 
@@ -45,7 +41,7 @@ function StepTab({ title, status, index }) {
   return (
     <motion.div
       className={`
-        backdrop-blur-sm bg-black/30 border border-[#454545] 
+        backdrop-blur-sm bg-purple-500/5 border border-[#454545] 
         text-white rounded-md sm:rounded-lg md:rounded-xl px-2 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-3 shadow-lg flex items-center gap-1.5 sm:gap-2 md:gap-3
         ${getStatusColor(status)}
         cursor-grab active:cursor-grabbing
@@ -65,9 +61,7 @@ function StepTab({ title, status, index }) {
       {/* Status Dot */}
       <div className={`
         w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 rounded-full flex-shrink-0
-        ${status === "completed" ? "bg-green-500" : 
-          status === "in-progress" ? "bg-blue-500 animate-pulse" : 
-          "bg-gray-500"}
+
       `}></div>
       
       {/* Hamburger Icon for Drag Handle */}
@@ -89,8 +83,7 @@ export default function EnrollmentFlowCard() {
     <div className="backdrop-blur-xl bg-black/60 border border-[#454545] text-white rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-4 lg:p-6 shadow-lg w-full md:h-[310px] md:max-w-xs lg:max-w-sm mx-auto">
       {/* Header */}
       <div className="text-center mb-2 sm:mb-3 md:mb-4">
-        <h2 className="text-md sm:text-lg md:text-lg lg:text-2xl text-white mb-1 sm:mb-2">Enrollment Flow</h2>
-        <div className="w-6 sm:w-8 md:w-12 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto"></div>
+        <h2 className="text-lg sm:text-xl font-bold lg:text-4xl text-white mb-1 sm:mb-2">Enrollment Flow</h2>
       </div>
 
       {/* Tabs Container */}

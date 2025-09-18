@@ -77,7 +77,7 @@ const providerData = [
 // Individual Provider Card Component
 function ProviderCard({ name, npi, icon, payers = [] }) {
   return (
-    <div className="backdrop-blur-xl bg-blur border  border-[#454545] text-white rounded-2xl p-4 sm:px-6 md:px-8 shadow-lg w-full max-w-sm sm:max-w-md mx-auto mb-4 sm:mb-6">
+    <div className="backdrop-blur-xl bg-blur border bg-purple-500/5  border-[#454545] text-white rounded-2xl p-4 sm:px-6 md:px-8 shadow-lg w-full max-w-sm sm:max-w-md mx-auto mb-4 sm:mb-6">
       {/* Top Section */}
       <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
 

@@ -110,18 +110,63 @@ export default function CredentialsCard() {
       {/* Header */}
       <div className="text-center mb-2 sm:mb-3 md:mb-4">
         <h2 className="text-start text-base sm:text-lg lg:text-xl font-bold text-white">Amanda Johnson, MD</h2>
-        <h2 className="text-sm sm:text-lg text-start  text-gray-500 mb-1 sm:mb-2">Verify Credentials/PSV</h2>
+        <h2 className="text-sm sm:text-lg text-start  text-gray-500">Verify Credentials/PSV</h2>
 
       </div>
 
       {/* Image Container */}
       <div className="relative h-32 sm:h-40 md:h-48 lg:h-52 flex items-center justify-center">
         <Image
+          src="/images/00.png"
+          alt="Credentials"
+          width={400}
+          height={400}
+          className="w-full hidden xl:block h-full object-cover rounded-md sm:rounded-lg md:rounded-xl"
+        />
+        <Image
           src="/images/1111.png"
           alt="Credentials"
           width={400}
           height={400}
-          className="w-full h-full object-cover rounded-md sm:rounded-lg md:rounded-xl"
+          className="w-full xl:hidden h-full object-contain rounded-md sm:rounded-lg md:rounded-xl"
+        />
+        
+        {/* Mouse GIF - Position manually */}
+        <Image
+          src="/images/mouse.gif"
+          alt="Mouse cursor"
+          width={30}
+          height={30}
+          className="absolute hidden xl:block bottom-7 right-24 w-14 h-14 sm:w-20 sm:h-20"
+
+        />
+
+          {/* Mouse GIF - Position manually */}
+          <Image
+          src="/images/mouse.gif"
+          alt="Mouse cursor"
+          width={30}
+          height={30}
+          className="absolute hidden xl:block bottom-14 right-36 w-14 h-14 sm:w-20 sm:h-20"
+
+        />
+        
+        {/* Call GIF - Position manually */}
+        <Image
+          src="/images/call.gif"
+          alt="Phone call"
+          width={30}
+          height={30}
+          className="absolute hidden xl:block bottom-6 right-16 w-8 h-8 sm:w-10 sm:h-10"
+        />
+        
+        {/* Blue Tick GIF - Position manually */}
+        <Image
+          src="/images/bluetick.gif"
+          alt="Blue checkmark"
+          width={30}
+          height={30}
+          className="absolute hidden xl:block top-4 left-20 w-14 h-14 sm:w-20 sm:h-20"
         />
       </div>
     </div>
