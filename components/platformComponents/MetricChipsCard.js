@@ -27,7 +27,15 @@ import React from 'react';
 const MetricChipsCard = () => {
   return (
     <div className="flex items-center justify-center h-full">
-      <div className="w-full max-w-xl h-full">
+       {/* Image Content */}
+       <div className="w-full lg:hidden relative h-full">
+        <Image
+        fill
+          src="/images/new2.png" 
+          alt="Metric Chips Visualization" 
+          className="w-full h-full object-cover scale-110  rounded-lg"
+        /></div>
+      <div className="w-full lg:block hidden max-w-xl h-full">
         {/* Main Card Container - Fixed 320px height */}
         <div className="relative h-[320px] backdrop-blur-lg border border-white/30 rounded-3xl p-6 shadow-2xl flex flex-col justify-between">
           {/* Title */}
