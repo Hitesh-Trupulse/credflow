@@ -33,7 +33,7 @@ const MetricChipsCard = () => {
         fill
           src="/images/123.png" 
           alt="Metric Chips Visualization" 
-          className="w-full h-full object-cover rounded-lg"
+          className="w-full h-full object-cover  rounded-lg"
         /></div>
       <div className="w-full lg:block hidden max-w-xl h-full">
         {/* Main Card Container - Fixed 320px height */}
@@ -93,17 +93,13 @@ const MetricChipsCard = () => {
             <div className="text-center">
               <div className="flex items-center justify-center mb-1">
                 <span className="text-white sm:text-5xl text-3xl font-bold">58%</span>
-                <svg 
-                  className="ml-1 w-4 h-4 text-white" 
-                  fill="currentColor" 
-                  viewBox="0 0 20 20"
-                >
-                  <path 
-                    fillRule="evenodd" 
-                    d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" 
-                    clipRule="evenodd" 
-                  />
-                </svg>
+                 <Image
+                width={40}
+                height={40}
+                  src="/images/down.gif" 
+                  alt="Down arrow" 
+                  className="absolute -right-2 ml-1 w-8 h-8 sm:w-12 sm:h-12"
+                />
               </div>
               <p className="text-gray-300 text-xs leading-tight">
                 Timely Filing Risks

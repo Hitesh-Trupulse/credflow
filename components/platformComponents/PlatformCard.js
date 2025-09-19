@@ -73,7 +73,7 @@ const PlatformCard = ({
                 </div>
               ) : showMetricChips ? (
                 // Show metric chips for fourth card
-                <div className="w-full h-full absolute lg:-right-36 ">
+                <div className="w-full h-full ">
                   <MetricChipsCard />
                 </div>
               ) : (
