@@ -51,7 +51,7 @@ const MetricChipsCard = () => {
           </div>
           
           {/* Start Date Progress Label */}
-          <p className="text-gray-300 text-center text-sm">Start Date Progress</p>
+          <p className="text-gray-300 text-center text-sm">Revenue Protected</p>
           
           {/* Metrics Grid */}
           <div className="grid grid-cols-3 gap-4 bg-purple-300/10 backdrop-blur-sm  p-2 border border-purple-200/30 rounded-3xl">

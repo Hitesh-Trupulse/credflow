@@ -11,7 +11,7 @@ const ProblemSection = () => {
     {
       icon: FileQuestion,
       title: "Compliance Complexity",
-      description: "Missed Deadlines - revenue risk"
+      description: "Missed Deadlines - Revenue Risk"
     },
     {
       icon: Users,
