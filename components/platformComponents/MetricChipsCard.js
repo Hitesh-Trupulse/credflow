@@ -39,19 +39,19 @@ const MetricChipsCard = () => {
         {/* Main Card Container - Fixed 320px height */}
         <div className="relative h-[320px] backdrop-blur-lg border border-white/30 rounded-3xl p-6 shadow-2xl flex flex-col justify-between">
           {/* Title */}
-          <h1 className="text-white text-2xl font-bold md:text-3xl text-center">
+          <h1 className="text-white text-3xl font-bold md:text-4xl text-center">
             Metric Chips
           </h1>
           
           {/* Main Amount */}
-          <div className="flex justify-center">
+          {/* <div className="flex justify-center">
             <div className="bg-purple-300/10 backdrop-blur-sm rounded-2xl px-6 py-1 border border-purple-200/30">
               <span className="text-white text-2xl sm:text-4xl font-medium">$18,000</span>
             </div>
-          </div>
+          </div> */}
           
           {/* Start Date Progress Label */}
-          <p className="text-gray-300 text-center text-sm">Revenue Protected</p>
+          <p className="text-white text-4xl font-bold text-center">Revenue Protected</p>
           
           {/* Metrics Grid */}
           <div className="grid grid-cols-3 gap-4 bg-purple-300/10 backdrop-blur-sm  p-2 border border-purple-200/30 rounded-3xl">
