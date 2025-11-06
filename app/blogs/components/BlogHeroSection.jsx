@@ -1,0 +1,44 @@
+import Image from "next/image";
+
+export default function BlogHeroSection() {
+  return (
+    <section className="bg-black min-h-[60vh] relative overflow-hidden flex items-center justify-center px-6 pt-32 pb-20">
+      {/* Background Images - Same as Hero */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/mainbg.png"
+          alt="Main Background"
+          fill
+          className="object-cover opacity-50"
+          priority
+        />
+      </div>
+
+      <div className="absolute inset-0">
+        <Image
+          src="/images/noisebg.png"
+          alt="Stars Overlay"
+          fill
+          className="object-cover opacity-30"
+          priority
+        />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 text-center max-w-5xl mx-auto">
+        <div className="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4 tracking-widest">
+          INSIGHTS & RESOURCES
+        </div>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white mb-6 leading-tight">
+          <span className="block mb-2">Credentialing</span>
+          <span className="bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
+            Insights & Updates
+          </span>
+        </h1>
+        <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          Discover expert insights on AI-driven credentialing, provider enrollment, compliance automation, and healthcare operations.
+        </p>
+      </div>
+    </section>
+  );
+}

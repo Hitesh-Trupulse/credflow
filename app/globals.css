@@ -134,6 +134,7 @@
     @apply bg-background text-foreground;
     font-family: 'Satoshi', 'Inter', sans-serif;
     font-weight:300;
+    background-color: black;
   }
 }
 
@@ -147,4 +148,312 @@ html {
   html {
     scroll-behavior: smooth;
   }
+}
+
+/* Blog section text readability fixes */
+/* Only apply to elements that don't have explicit text color classes and aren't form inputs or editor */
+.bg-black *:not([class*="text-"]):not(input):not(textarea):not(select):not(button):not(.quill-editor-wrapper):not(.quill-editor-wrapper *) {
+  color: rgb(209, 213, 219) !important; /* gray-300 */
+}
+
+/* Ensure all text in blog sections is visible */
+section.bg-black,
+div.bg-black {
+  color: rgb(209, 213, 219); /* gray-300 */
+}
+
+section.bg-black h1:not([class*="text-"]),
+section.bg-black h2:not([class*="text-"]),
+section.bg-black h3:not([class*="text-"]),
+section.bg-black h4:not([class*="text-"]),
+section.bg-black h5:not([class*="text-"]),
+section.bg-black h6:not([class*="text-"]) {
+  color: white !important;
+}
+
+section.bg-black p:not([class*="text-"]),
+section.bg-black span:not([class*="text-"]),
+section.bg-black div:not([class*="text-"]) {
+  color: rgb(209, 213, 219) !important; /* gray-300 */
+}
+
+/* ReactQuill Editor Styles - Consolidated */
+.quill-editor-wrapper {
+  background: white !important;
+}
+
+.quill-editor-wrapper .ql-container {
+  background-color: white !important;
+  border: none !important;
+}
+
+.quill-editor-wrapper .ql-editor {
+  color: #111827 !important; /* gray-900 */
+  background-color: white !important;
+  min-height: 300px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.quill-editor-wrapper .ql-editor * {
+  color: #111827 !important; /* gray-900 - all child elements */
+}
+
+.quill-editor-wrapper .ql-editor.ql-blank::before {
+  color: #6b7280 !important; /* gray-500 */
+  font-style: normal !important;
+  opacity: 1 !important;
+}
+
+.quill-editor-wrapper .ql-toolbar {
+  background-color: #f3f4f6 !important; /* gray-100 */
+  border-bottom: 1px solid #e5e7eb !important;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  padding: 8px !important;
+}
+
+.quill-editor-wrapper .ql-toolbar button {
+  color: #111827 !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 4px 6px !important;
+  margin: 0 2px !important;
+  border-radius: 3px !important;
+}
+
+.quill-editor-wrapper .ql-toolbar button:hover,
+.quill-editor-wrapper .ql-toolbar button:focus {
+  background-color: #e5e7eb !important; /* gray-200 */
+  color: #111827 !important;
+}
+
+.quill-editor-wrapper .ql-toolbar button.ql-active {
+  background-color: #d1d5db !important; /* gray-300 */
+  color: #111827 !important;
+}
+
+.quill-editor-wrapper .ql-toolbar .ql-stroke {
+  stroke: #111827 !important;
+  fill: none !important;
+}
+
+.quill-editor-wrapper .ql-toolbar .ql-fill {
+  fill: #111827 !important;
+  stroke: none !important;
+}
+
+.quill-editor-wrapper .ql-toolbar svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.quill-editor-wrapper .ql-toolbar .ql-picker {
+  color: #111827 !important;
+}
+
+.quill-editor-wrapper .ql-toolbar .ql-picker-label {
+  color: #111827 !important;
+}
+
+.quill-editor-wrapper .ql-toolbar .ql-picker-options {
+  background-color: white !important;
+  border: 1px solid #e5e7eb !important;
+  color: #111827 !important;
+}
+
+.quill-editor-wrapper .ql-toolbar .ql-picker-item {
+  color: #111827 !important;
+}
+
+.quill-editor-wrapper .ql-toolbar .ql-picker-item:hover {
+  background-color: #f3f4f6 !important;
+  color: #111827 !important;
+}
+
+.quill-editor-wrapper .ql-toolbar .ql-picker-item.ql-selected {
+  background-color: #e5e7eb !important;
+  color: #111827 !important;
+}
+
+.quill-editor-wrapper .ql-editor a {
+  color: #5063C6 !important;
+}
+
+.quill-editor-wrapper .ql-editor code {
+  background-color: #f3f4f6 !important;
+  color: #111827 !important;
+  padding: 2px 4px !important;
+  border-radius: 3px !important;
+}
+
+.quill-editor-wrapper .ql-editor pre {
+  background-color: #1f2937 !important;
+  color: #f3f4f6 !important;
+  padding: 12px !important;
+  border-radius: 4px !important;
+}
+
+/* Override global styles for editor when inside bg-black */
+.bg-black .quill-editor-wrapper .ql-editor,
+.bg-black .quill-editor-wrapper .ql-editor *,
+.bg-black .quill-editor-wrapper .ql-container,
+.bg-black .quill-editor-wrapper .ql-container * {
+  color: #111827 !important; /* gray-900 */
+}
+
+/* Ensure blog content prose elements are visible */
+.bg-black .prose * {
+  color: inherit;
+}
+
+.bg-black .prose p,
+.bg-black .prose span,
+.bg-black .prose div,
+.bg-black .prose li {
+  color: rgb(209, 213, 219) !important; /* gray-300 */
+}
+
+.bg-black .prose h1,
+.bg-black .prose h2,
+.bg-black .prose h3,
+.bg-black .prose h4,
+.bg-black .prose h5,
+.bg-black .prose h6 {
+  color: white !important;
+}
+
+/* Form elements in blog create/edit pages - ensure text is visible */
+.bg-black input[type="text"],
+.bg-black input[type="email"],
+.bg-black input[type="password"],
+.bg-black input[type="url"],
+.bg-black textarea,
+.bg-black select {
+  color: white !important;
+}
+
+.bg-black input::placeholder,
+.bg-black textarea::placeholder {
+  color: rgb(107, 114, 128) !important; /* gray-500 */
+}
+
+/* File input text visibility */
+.bg-black input[type="file"] {
+  color: rgb(209, 213, 219) !important; /* gray-300 */
+}
+
+.bg-black input[type="file"]::file-selector-button {
+  color: white !important;
+}
+
+/* ReactCrop component text visibility */
+.bg-black .ReactCrop,
+.bg-black .ReactCrop * {
+  color: rgb(209, 213, 219) !important;
+}
+
+/* Ensure labels and helper text are visible */
+.bg-black label:not([class*="text-"]),
+.bg-black .text-sm:not([class*="text-"]),
+.bg-black small:not([class*="text-"]) {
+  color: rgb(209, 213, 219) !important; /* gray-300 */
+}
+
+
+/* Hide scrollbar for all elements with class 'scrollbar-hide' */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* for Internet Explorer and Edge */
+  scrollbar-width: none;    /* for Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;            /* for Chrome, Safari, and Opera */
+}
+
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-scroll-up {
+  animation: scroll-up 15s linear infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+ul {
+  list-style: disc;
+  margin-left: 0;       /* remove default browser margin */
+  padding-left: 1rem; /* adjust this so bullets align with paragraph text */
+}
+
+ol {
+  list-style: decimal;
+  margin-left: 0;
+  padding-left: 1rem;
+}
+
+li[data-list="bullet"] {
+  list-style: disc !important;
+  margin: 0.3rem 0;     /* optional: spacing between list items */
+
+}
+
+
+/* Heading styles for blog editor */
+h1 {
+  font-size: 2.25rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 1rem !important;
+  margin-top: 1.5rem !important;
+}
+
+h2 {
+  font-size: 1.875rem !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin-bottom: 0.875rem !important;
+  margin-top: 1.25rem !important;
+}
+
+h3 {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  margin-bottom: 0.75rem !important;
+  margin-top: 1rem !important;
+}
+
+/* Font size styles for blog editor */
+.ql-size-small {
+  font-size: 0.875rem !important;
+}
+
+.ql-size-large {
+  font-size: 1.125rem !important;
+}
+
+.ql-size-huge {
+  font-size: 1.25rem !important;
 }
