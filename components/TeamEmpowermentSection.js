@@ -105,21 +105,21 @@ const TeamEmpowermentSection = () => {
           variants={containerVariants}
         >
           <motion.p variants={lineVariants}>
-            Your Admins And Coordinators Know The Workflows, Payers, And Providers Better Than Anyone. 
-            What They Don&apos;t Need? Endless Forms And Follow-Ups.
+            Your admins and coordinators know the workflows, payers, and providers better than anyone. 
+            What they don&apos;t need? Endless forms and follow-ups.
           </motion.p>
           
           <motion.p variants={lineVariants}>
-            <strong>CredFlow AI</strong> Takes The Manual Grind Off Their Plate While Keeping Their Expertise At The Center. 
-            No Outsourcing. No Losing Control. Just <strong>AI Agents</strong> Working Behind The Scenes So Your Team Can 
-            Shine Where It Matters Most.
+            <strong>CredFlow AI</strong> takes the manual grind off their plate while keeping their expertise at the center. 
+            No outsourcing. No losing control. Just <strong>AI agents</strong> working behind the scenes so your team can 
+            shine where it matters most.
           </motion.p>
           
           <motion.p 
             className="text-2xl md:text-3xl"
             variants={lineVariants}
           >
-            <strong>Your Team</strong> Is Your Advantage—<strong>CredFlow AI</strong> Makes Them <strong>Unstoppable</strong>.
+            <strong>Your team</strong> is your advantage—<strong>CredFlow AI</strong> makes them <strong>unstoppable</strong>.
           </motion.p>
         </motion.div>
       </motion.div>

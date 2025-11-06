@@ -6,17 +6,17 @@ const WhyCredflowSection = () => {
     {
       icon: <Clock className="w-6 h-6" />,
       title: "Speed",
-      subtitle: "10x Team Throughput"
+      subtitle: "10x team throughput"
     },
     {
       icon: <Target className="w-6 h-6" />,
       title: "Accuracy",
-      subtitle: "Real-Time Data & Monitoring"
+      subtitle: "Real-time data & monitoring"
     },
     {
       icon: <Settings className="w-6 h-6" />,
       title: "Control",
-      subtitle: "Human-In-The-Loop Oversight"
+      subtitle: "Human-in-the-loop oversight"
     }
   ];
 
@@ -33,7 +33,7 @@ const WhyCredflowSection = () => {
           </h2>
           
           <p className="text-md md:text-lg  text-gray-500 max-w-4xl mx-auto leading-relaxed">
-            Legacy Tools Track Tasks. Credflow AI Completes Them.
+            Legacy tools track tasks. Credflow AI completes them.
           </p>
         </div>
 

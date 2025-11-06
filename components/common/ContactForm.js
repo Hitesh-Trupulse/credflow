@@ -13,6 +13,10 @@ const ContactForm = ({
     firstName: "",
     lastName: "",
     email: "",
+    companyName: "",
+    numberOfProviders: "",
+    organizationType: "",
+    howDidYouHear: "",
     query: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,7 +35,7 @@ const ContactForm = ({
     setIsSubmitting(true);
     setAlert("");
 
-    const { firstName, lastName, email, query } = formData;
+    const { firstName, lastName, email, companyName, numberOfProviders, organizationType, howDidYouHear, query } = formData;
 
     try {
       // Try with FormData instead of JSON to avoid CORS issues
@@ -39,6 +43,10 @@ const ContactForm = ({
       formDataToSend.append('firstName', firstName);
       formDataToSend.append('lastName', lastName);
       formDataToSend.append('email', email);
+      formDataToSend.append('companyName', companyName);
+      formDataToSend.append('numberOfProviders', numberOfProviders);
+      formDataToSend.append('organizationType', organizationType);
+      formDataToSend.append('howDidYouHear', howDidYouHear);
       formDataToSend.append('query', query);
 
       const response = await fetch('https://hooks.zapier.com/hooks/catch/14238222/um5xca0/', {
@@ -52,6 +60,10 @@ const ContactForm = ({
           firstName: '',
           lastName: '',
           email: '',
+          companyName: '',
+          numberOfProviders: '',
+          organizationType: '',
+          howDidYouHear: '',
           query: ''
         });
         setAlert('Thanks for reaching out! We will be in touch soon.');
@@ -62,12 +74,16 @@ const ContactForm = ({
       console.error('Fetch error:', error);
       
       // Fallback: Show development message and log form data
-      console.log('Form submission data:', { firstName, lastName, email, query });
+      console.log('Form submission data:', { firstName, lastName, email, companyName, numberOfProviders, organizationType, howDidYouHear, query });
       
       setFormData({
         firstName: '',
         lastName: '',
         email: '',
+        companyName: '',
+        numberOfProviders: '',
+        organizationType: '',
+        howDidYouHear: '',
         query: ''
       });
       setAlert('✅ Form data captured successfully! Check browser console for details. (Testing mode - Zapier connection failed)');
@@ -83,6 +99,10 @@ const ContactForm = ({
       firstName: "",
       lastName: "",
       email: "",
+      companyName: "",
+      numberOfProviders: "",
+      organizationType: "",
+      howDidYouHear: "",
       query: ""
     });
   };
@@ -109,7 +129,7 @@ const ContactForm = ({
       onClick={closeModal}
     >
       <div 
-        className="bg-black border border-[#454545] rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 max-w-sm sm:max-w-md lg:max-w-lg w-full relative shadow-2xl max-h-[90vh] overflow-y-auto"
+        className="bg-black border border-[#454545] rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 max-w-sm sm:max-w-md lg:max-w-4xl xl:max-w-5xl w-full relative shadow-2xl max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -135,59 +155,141 @@ const ContactForm = ({
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
-            <div>
-              <label htmlFor="firstName" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
-                First Name *
-              </label>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleInputChange}
-                required
-                autoComplete="given-name"
-                className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white placeholder-gray-400"
-                placeholder="Enter your first name"
-              />
+          {/* Two Column Layout for Desktop */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+            {/* Left Column */}
+            <div className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                <div>
+                  <label htmlFor="firstName" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
+                    First Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    required
+                    autoComplete="given-name"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white placeholder-gray-400"
+                    placeholder="Enter first name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="lastName" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
+                    Last Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    required
+                    autoComplete="family-name"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white placeholder-gray-400"
+                    placeholder="Enter last name"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  autoComplete="email"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white placeholder-gray-400"
+                  placeholder="Enter your email"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="companyName" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
+                  Company Name *
+                </label>
+                <input
+                  type="text"
+                  id="companyName"
+                  name="companyName"
+                  value={formData.companyName}
+                  onChange={handleInputChange}
+                  required
+                  autoComplete="organization"
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white placeholder-gray-400"
+                  placeholder="Enter company name"
+                />
+              </div>
             </div>
 
-            <div>
-              <label htmlFor="lastName" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
-                Last Name *
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                required
-                autoComplete="family-name"
-                className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white placeholder-gray-400"
-                placeholder="Enter your last name"
-              />
+            {/* Right Column */}
+            <div className="space-y-4 sm:space-y-6">
+              <div>
+                <label htmlFor="numberOfProviders" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
+                  Number of Providers *
+                </label>
+                <input
+                  type="text"
+                  id="numberOfProviders"
+                  name="numberOfProviders"
+                  value={formData.numberOfProviders}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white placeholder-gray-400"
+                  placeholder="e.g., 10-50"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="organizationType" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
+                  Organization Type *
+                </label>
+                <select
+                  id="organizationType"
+                  name="organizationType"
+                  value={formData.organizationType}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white appearance-none cursor-pointer"
+                >
+                  <option value="" disabled>Select organization type</option>
+                  <option value="Digital/Telehealth">Digital/Telehealth</option>
+                  <option value="Medical Group/Clinic">Medical Group/Clinic</option>
+                  <option value="Hospital/Health System">Hospital/Health System</option>
+                  <option value="RCM/Billing">RCM/Billing</option>
+                  <option value="Credentialing Service Provider">Credentialing Service Provider</option>
+                  <option value="Payer">Payer</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="howDidYouHear" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
+                  How did you hear about us? *
+                </label>
+                <input
+                  type="text"
+                  id="howDidYouHear"
+                  name="howDidYouHear"
+                  value={formData.howDidYouHear}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white placeholder-gray-400"
+                  placeholder="e.g., LinkedIn, Google, Referral"
+                />
+              </div>
             </div>
           </div>
 
-          <div>
-            <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
-              Email Address *
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-              autoComplete="email"
-              className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all text-sm sm:text-base text-white placeholder-gray-400"
-              placeholder="Enter your email"
-            />
-          </div>
-
+          {/* Message field spans full width */}
           <div>
             <label htmlFor="query" className="block text-xs sm:text-sm font-medium text-gray-300 mb-1 sm:mb-2">
               Message

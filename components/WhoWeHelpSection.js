@@ -5,42 +5,42 @@ const cards = [
   {
     title: "Hospitals & Health Systems",
     description:
-      "Large Networks Needing Streamlined Operations And Compliance At Scale.",
+      "Large networks needing streamlined operations and compliance at scale.",
     gradient: "from-[#454545]/10 to-[#2A154E]/40",
     animation: "fade-down",
   },
   {
     title: "Physician Groups",
     description:
-      "Clinics Seeking Smoother Scheduling, Billing, And Patient Flow.",
+      "Clinics seeking smoother scheduling, billing, and patient flow.",
     gradient: "from-[#454545]/10 to-gray-700/20",
     animation: "fade-up",
   },
   {
     title: "Payers",
     description:
-      "We Work With Health Plans To Streamline Credentialing And Enable AI Tools In Their Workflow. Our Proprietary Data-Lake Optimizes No Surprises Act Directory Compliance.",
+      "We work with health plans to streamline credentialing and enable AI tools in their workflow. Our proprietary data-lake optimizes No Surprises Act directory compliance.",
     gradient: "from-[#15204E]/40 to-[#454545]/10",
     animation: "fade-down",
   },
   {
     title: "RCM Organizations",
     description:
-      "Billing Experts Focused On Speed, Accuracy, And Revenue Protection.",
+      "Billing experts focused on speed, accuracy, and revenue protection.",
     gradient: "from-[#454545]/40 to-black",
     animation: "fade-up",
   },
   {
     title: "Telehealth Providers",
     description:
-      "Digital Care Platforms Needing Seamless, Reliable Integrations.",
+      "Digital care platforms needing seamless, reliable integrations.",
     gradient: "from-[#454545]/10 to-[#114131]/40",
     animation: "fade-down",
   },
   {
     title: "Ambulatory Surgery Centers (ASCs)",
     description:
-      "Same-Day Surgical Facilities Balancing Efficiency, Cost, And Compliance.",
+      "Same-day surgical facilities balancing efficiency, cost, and compliance.",
     gradient: "from-black to-[#454545]/20",
     animation: "fade-up",
   },
@@ -60,7 +60,7 @@ export default function WhoWeHelpSection() {
           data-aos="fade-down"
           className="text-gray-400 max-w-2xl mx-auto mb-16"
         >
-          Legacy Tools Track Tasks. Credflow AI Completes Them.
+          Legacy tools track tasks. Credflow AI completes them.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

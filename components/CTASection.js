@@ -12,7 +12,7 @@ const CTASection = () => {
       </h2>
 
       <p className="text-gray-300 text-lg mb-8">
-        Be Among The First To Experience AI-Powered Credentialing.
+        Be among the first to experience AI-powered credentialing.
       </p>
 
         <Button variant="primary" size="md" className="rounded-full">

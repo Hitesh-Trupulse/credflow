@@ -6,22 +6,22 @@ const ProblemSection = () => {
     {
       icon: Workflow,
       title: "Manual Workflows",
-      description: "Slow & Error-Prone"
+      description: "Slow & error-prone"
     },
     {
       icon: FileQuestion,
       title: "Compliance Complexity",
-      description: "Missed Deadlines - Revenue Risk"
+      description: "Missed deadlines - revenue risk"
     },
     {
       icon: Users,
       title: "Administrative Overhead",
-      description: "Endless Busywork"
+      description: "Endless busywork"
     },
     {
       icon: Clock,
       title: "Delayed Onboarding",
-      description: "Revenue Stalls"
+      description: "Revenue stalls"
     }
   ];
 
@@ -39,7 +39,7 @@ const ProblemSection = () => {
 
         {/* Sub-headline */}
         <p data-aos="fade-down" className="text-md md:text-lg text-gray-500 mb-16 leading-relaxed">
-          Work Waits. People Wait. Revenue Waits.
+          Work waits. People wait. Revenue waits.
         </p>
 
         {/* Problem Cards */}

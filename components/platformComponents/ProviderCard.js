@@ -91,7 +91,6 @@ function ProviderCard({ name, npi, icon, payers = [] }) {
 
       {/* Payer Chips */}
       <div>
-        <h4 className="text-xs sm:text-sm font-semibold text-white mb-2 sm:mb-3">Payer Chips</h4>
         <ul className="space-y-1 sm:space-y-2  text-xs sm:text-sm">
           {payers.map((payer, i) => (
             <li

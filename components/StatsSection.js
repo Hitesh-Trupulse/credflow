@@ -92,7 +92,7 @@ const StatsSection = () => {
     {
       value: 60,
       suffix: "%",
-      description: "Fewer Manual Payer And PSV Follow-Ups.",
+      description: "Fewer manual payer and PSV follow-ups.",
       borderColor: "border-blue-500",
       bgColor: "bg-gradient-to-b from-blue-700/20 to-black",
     },
@@ -100,14 +100,14 @@ const StatsSection = () => {
       value: 15,
       suffix: "+",
       description:
-        "Billable Days Saved With Earlier Credentialing Issues Detection.",
+        "Billable days saved with earlier credentialing issues detection.",
       borderColor: "border-[#FF34DD]",
       bgColor: "bg-gradient-to-b from-[#FF34DD]/20 to-black",
     },
     {
       value: 75,
       suffix: "%",
-      description: "Reduction In Manual Data Entry.",
+      description: "Reduction in manual data entry.",
       borderColor: "border-purple-500",
       bgColor: "bg-gradient-to-b from-purple-700/20 to-black",
     },

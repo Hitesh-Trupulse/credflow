@@ -75,7 +75,7 @@ const AIFeaturesSection = () => {
     },
     {
       title: "Payer Enrollment",
-      description: "Our Web Agent Completes Payer Applications End-To-End, With Automated AI Telecaller Follow-Ups. Single Provider Timelines Keep Real Go-Live Dates On Track. Sync Provider Data Or New Locations To CAQH With One Click—Driven By Your Credentialing Agent Actions."
+      description: "Our web agent completes payer applications end-to-end, with automated AI telecaller follow-ups. Single provider timelines keep real go-live dates on track. Sync provider data or new locations to CAQH with one click—driven by your credentialing agent actions."
     },
     {
       title: "Monitoring",
@@ -155,8 +155,7 @@ const AIFeaturesSection = () => {
             </h2>
             
             <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
-              We Deliver Tailored Marketing Solutions Designed To Scale Your Brand And Drive Measurable Results
-            </p>
+            CredFlow AI delivers automation and verification of provider and payer data ensuring your healthcare organization achieves patient safety and full-revenue capture.            </p>
 
             <Button variant="primary" size="md" className="rounded-full w-fit">
               Join The Waitlist
