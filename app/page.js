@@ -11,21 +11,27 @@ import WhoWeHelpSection from '../components/WhoWeHelpSection';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 
+export const metadata = {
+  alternates: {
+    canonical: "https://www.credflow.ai",
+  },
+};
+
 export default function Home() {
   return (
     <div className="min-h-screen">
-      <Navbar />
-      <Hero />
-      {/* <VideoSection /> */}
-      <StatsSection />
-      <ProblemSection />
-      <AIFeaturesSection />
-      <WhyCredflowSection />
-      <TeamEmpowermentSection />
-      <PlatformSection />
-      <WhoWeHelpSection />
-      <CTASection />
-      <Footer />
+        <Navbar />
+        <Hero />
+        {/* <VideoSection /> */}
+        <StatsSection />
+        <ProblemSection />
+        <AIFeaturesSection />
+        <WhyCredflowSection />
+        <TeamEmpowermentSection />
+        <PlatformSection />
+        <WhoWeHelpSection />
+        <CTASection />
+        <Footer />
     </div>
   );
 }
