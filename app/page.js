@@ -8,8 +8,8 @@ import WhyCredflowSection from '../components/WhyCredflowSection';
 import TeamEmpowermentSection from '../components/TeamEmpowermentSection';
 import PlatformSection from '../components/PlatformSection';
 import WhoWeHelpSection from '../components/WhoWeHelpSection';
-import CTASection from '@/components/CTASection';
-import Footer from '@/components/Footer';
+import CTASection from '../components/CTASection';
+import Footer from '../components/Footer';
 
 export const metadata = {
   alternates: {
@@ -30,8 +30,8 @@ export default function Home() {
         <TeamEmpowermentSection />
         <PlatformSection />
         <WhoWeHelpSection />
-        <CTASection />
-        <Footer />
+        <CTASection/>
+        <Footer/>
     </div>
   );
 }
