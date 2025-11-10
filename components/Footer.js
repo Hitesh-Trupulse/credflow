@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -8,8 +9,34 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa6";
 import Button from "./common/Button";
+import toast from "react-hot-toast";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!email.trim()) {
+      toast.error("Please enter your email address");
+      return;
+    }
+    
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+    
+    // Show success toast
+    toast.success("Successfully subscribed to our newsletter!");
+    
+    // Clear the input field
+    setEmail("");
+  };
+
   return (
     <footer
       className="relative w-full bg-black text-white"
@@ -31,16 +58,21 @@ const Footer = () => {
         {/* Newsletter */}
         <div>
           <p className="text-gray-400 mb-2">Subscribe to our Newsletter</p>
-          <div className="flex items-center py-1 border-white border rounded-full overflow-hidden max-w-96">
+          <form onSubmit={handleNewsletterSubmit} className="flex items-center py-1 border-white border rounded-full overflow-hidden max-w-96">
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 px-4 py-2 text-white focus:outline-none"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="flex-1 px-4 py-2 text-white bg-transparent focus:outline-none placeholder:text-gray-500"
             />
-            <button variant="primary" size="md" className="rounded-full hover:bg-blue-500 hover:text-white duration-300 bg-white px-2 py-1 cursor-pointer text-black mr-2">
-          Join Us
-        </button>
-          </div>
+            <button 
+              type="submit"
+              className="rounded-full hover:bg-blue-500 hover:text-white duration-300 bg-white px-2 py-1 cursor-pointer text-black mr-2"
+            >
+              Join Us
+            </button>
+          </form>
         </div>
       </div>
 
