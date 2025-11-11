@@ -72,10 +72,6 @@ export const metadata = {
     images: ["/images/logoo.png"],
     creator: "@credflow",
   },
-  // Canonical URL - prevents duplicate content issues
-  alternates: {
-    canonical: "https://credflow.ai",
-  },
   // Category and classification
   category: "Healthcare Technology",
   // Viewport and other technical meta tags are handled by Next.js automatically
@@ -99,9 +95,6 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-1MSBXJCHJ7');
           `}
         </Script>
-        
-        {/* Canonical URL - prevents duplicate content issues */}
-        <link rel="canonical" href="https://www.credflow.ai" />
         
         {/* Geo Location Meta Tags */}
         <meta name="geo.region" content="IN-HR" />
