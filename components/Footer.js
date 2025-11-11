@@ -49,10 +49,23 @@ const Footer = () => {
           <p className="text-lg font-medium">+91 000 000 0000</p>
         </div> */}
 
-        {/* Email */}
-        <div>
-          <p className="text-gray-400">Mail us at</p>
-          <p className="text-lg font-medium">hello@credflow.ai</p>
+        {/* Email and Social */}
+        <div className="flex flex-col items-center gap-3">
+           {/* LinkedIn Link */}
+           <Link
+            href="https://www.linkedin.com/company/credflow-ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2.5 border border-[#454545] rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300 group"
+            aria-label="Visit our LinkedIn page"
+          >
+            <FaLinkedinIn className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+          </Link>
+          <div>
+            <p className="text-gray-400">Mail us at</p>
+            <p className="text-lg font-medium">hello@credflow.ai</p>
+          </div>
+         
         </div>
 
         {/* Newsletter */}
@@ -106,34 +119,10 @@ const Footer = () => {
           </Link>
         </div> */}
 
-        {/* Social Icons */}
-        <div className="flex space-x-4 text-md">
-          {/* <Link
-            href="/"
-            className="p-2 border rounded-full hover:bg-white hover:text-black transition"
-          >
-            <FaXTwitter />
-          </Link>
-          <Link
-            href="/"
-            className="p-2 border rounded-full hover:bg-white hover:text-black transition"
-          >
-            <FaFacebookF />
-          </Link>
-          <Link
-            href="/"
-            className="p-2 border rounded-full hover:bg-white hover:text-black transition"
-          >
-            <FaInstagram />
-          </Link>
-          <Link
-            href="/"
-            className="p-2 border rounded-full hover:bg-white hover:text-black transition"
-          >
-            <FaLinkedinIn />
-          </Link> */}
-          <div className="cursor-pointer">Terms & Conditions</div>
-          <div className="cursor-pointer">Privacy Policy</div>
+        {/* Legal Links */}
+        <div className="flex space-x-4 text-sm text-gray-400">
+          <div className="cursor-pointer hover:text-white transition-colors duration-300">Terms & Conditions</div>
+          <div className="cursor-pointer hover:text-white transition-colors duration-300">Privacy Policy</div>
         </div>
 
         {/* Background Logo (large faint logo at bottom) */}
