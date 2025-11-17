@@ -2,6 +2,7 @@ import "./globals.css";
 import AOSWrapper from "../components/AOSWrapper";
 import { Toaster } from "react-hot-toast";
 import { ContactFormProvider } from "../components/common/ContactFormContext";
+import NewsletterModal from "../components/NewsletterModal";
 import Script from "next/script";
 
 export const metadata = {
@@ -161,6 +162,7 @@ export default function RootLayout({ children }) {
         <ContactFormProvider>
           <AOSWrapper>{children}</AOSWrapper>
         </ContactFormProvider>
+        <NewsletterModal />
         <Toaster
           position="top-right"
           toastOptions={{

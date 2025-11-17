@@ -21,6 +21,7 @@ const ContactForm = ({
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [alert, setAlert] = useState("");
+  const [smsOptIn, setSmsOptIn] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,8 +33,8 @@ const ContactForm = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setAlert("");
+    setIsSubmitting(true);
 
     const { firstName, lastName, email, companyName, numberOfProviders, organizationType, howDidYouHear, query } = formData;
 
@@ -66,6 +67,7 @@ const ContactForm = ({
           howDidYouHear: '',
           query: ''
         });
+      setSmsOptIn(false);
         setAlert('Thanks for reaching out! We will be in touch soon.');
       } else {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -86,6 +88,7 @@ const ContactForm = ({
         howDidYouHear: '',
         query: ''
       });
+      setSmsOptIn(false);
       setAlert('✅ Form data captured successfully! Check browser console for details. (Testing mode - Zapier connection failed)');
     } finally {
       setIsSubmitting(false);
@@ -95,6 +98,7 @@ const ContactForm = ({
   const closeModal = () => {
     onClose();
     setAlert("");
+    setSmsOptIn(false);
     setFormData({
       firstName: "",
       lastName: "",
@@ -303,6 +307,21 @@ const ContactForm = ({
               className="w-full px-3 py-2 sm:px-4 sm:py-3 bg-gray-800/50 border border-[#454545] rounded-lg sm:rounded-xl focus:ring-2 focus:ring-[#5063C6] focus:border-transparent outline-none transition-all resize-none text-sm sm:text-base text-white placeholder-gray-400"
               placeholder="Tell us about your requirements..."
             />
+          </div>
+
+          <div className="space-y-2 rounded-xl border border-[#454545] bg-gray-900/40 p-4">
+            <label htmlFor="smsOptIn" className="flex items-start gap-3 text-xs sm:text-sm text-gray-200">
+              <input
+                type="checkbox"
+                id="smsOptIn"
+                checked={smsOptIn}
+                onChange={(event) => setSmsOptIn(event.target.checked)}
+                className="mt-0.5 h-4 w-4 cursor-pointer rounded border border-[#454545] bg-transparent accent-[#5063C6]"
+              />
+              <span>
+                I agree to receive promotional text messages from CredFlow about product updates, webinars, events, and insights.
+              </span>
+            </label>
           </div>
 
           <button
