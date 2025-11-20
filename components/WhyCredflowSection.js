@@ -59,7 +59,7 @@ const WhyCredflowSection = () => {
         {/* Bottom Statement */}
         <div data-aos="fade-up" className="text-center">
           <p className="text-gray-400 text-md md:text-lg leading-relaxed max-w-4xl mx-auto">
-          Bring CredFlow to your existing team and 10x your team&apos;s productivity and output. Don&apos;t outsource and lose control — own your process and outcomes with real, visible AI tools.</p>
+          Bring CredFlow <strong>Medical Credentialing Software</strong> to your existing team and 10x your team&apos;s productivity and output. Don&apos;t outsource and lose control — own your process and outcomes with real, visible AI tools.</p>
         </div>
       </div>
     </section>

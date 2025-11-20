@@ -65,8 +65,9 @@ const Hero = () => {
       <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Heading */}
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light text-white mb-6 leading-tight">
-          <span className="block mb-2">Credentialing Made Easy.</span>
-          <span className="block bg-gradient-to-r from-[#5063C6] from-20% to-[#B71CD2] bg-clip-text text-transparent flex items-center justify-center">
+          <span className="block font-medium mb-2">Medical Credentialing </span>
+          <span className="block mb-2">Made Easy.</span>
+          <span className="bg-gradient-to-r from-[#5063C6] from-20% to-[#B71CD2] bg-clip-text text-transparent flex items-center justify-center">
             <span className="inline-block min-w-[300px] sm:min-w-[350px] md:min-w-[400px] lg:min-w-[450px] xl:min-w-[500px] text-center">
               Right <span className="inline-block">
                 {displayedText}
@@ -78,7 +79,7 @@ const Hero = () => {
 
         {/* Sub-heading */}
         <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl text-gray-200 mb-8 max-w-4xl mx-auto leading-relaxed">
-          Your credentialing & enrollment AI agent that learns your process,
+          Your <strong>medical credentialing software</strong> & enrollment AI agent that learns your process,
           follows your rules, and accelerates provider onboarding—so revenue
           never waits.
         </p>
