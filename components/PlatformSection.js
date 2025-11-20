@@ -33,7 +33,7 @@ const cards = [
     title: "Connected Revenue",
     subtitle: "Credentialing And Claims On The Same Page",
     description:
-      "The only credentialing platform built to support revenue cycle.",
+      "The only healthcare credentialing software platform built to support revenue cycle.",
     imageSrc: "/images/p4.png",
   },
 ];

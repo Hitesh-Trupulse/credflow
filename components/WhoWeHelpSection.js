@@ -19,7 +19,7 @@ const cards = [
   {
     title: "Payers",
     description:
-      "We work with health plans to streamline credentialing and enable AI tools in their workflow. Our proprietary data-lake optimizes No Surprises Act directory compliance.",
+      "We work with health plans to streamline healthcare provider credentialing and enable AI tools in their workflow. Our proprietary data-lake optimizes No Surprises Act directory compliance.",
     gradient: "from-[#15204E]/40 to-[#454545]/10",
     animation: "fade-down",
   },

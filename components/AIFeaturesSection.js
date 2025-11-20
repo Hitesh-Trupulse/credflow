@@ -71,7 +71,7 @@ const AIFeaturesSection = () => {
   const features = [
     {
       title: "Credentialing / PSV",
-      description: "Automated credentialing workflows that streamline provider verification processes. Our AI agent handles complex PSV requirements, reducing manual errors and accelerating approval timelines."
+      description: "Automated credentialing workflows that streamline healthcare provider credentialing verification processes. Our AI agent handles complex PSV requirements, reducing manual errors and accelerating approval timelines."
     },
     {
       title: "Payer Enrollment",
@@ -155,7 +155,7 @@ const AIFeaturesSection = () => {
             </h2>
             
             <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
-            CredFlow AI delivers automation and verification of provider and payer data ensuring your healthcare organization achieves patient safety and full-revenue capture.            </p>
+            CredFlow AI delivers automation and verification of <strong className="font-bold">healthcare provider</strong> and payer data ensuring your healthcare organization achieves patient safety and full-revenue capture.            </p>
 
             <Button variant="primary" size="md" className="rounded-full w-fit">
               Join The Waitlist

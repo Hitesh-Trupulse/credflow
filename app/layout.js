@@ -8,27 +8,19 @@ import Script from "next/script";
 export const metadata = {
   metadataBase: new URL('https://www.credflow.ai'),
   title: {
-    default: "CredFlow AI - Credentialing Made Easy",
+    default: "CredFlow AI - Healthcare Credentialing Management Software",
     template: "%s | CredFlow AI"
   },
   description:
-    "Your Credentialing & Enrollment AI Agent That Learns Your Process, Follows Your Rules, And Accelerates Provider Onboarding—So Revenue Never Waits.",
+    "CredFlow AI - Credentialing Management Software That Automates And Streamlines Healthcare Provider Credentialing, Enrollment And Onboarding. Request A Demo!",
   // Keywords meta tag - Google ignores this, but some search engines still use it
   keywords: [
-    "credentialing software",
-    "provider enrollment",
-    "healthcare credentialing",
-    "AI credentialing",
-    "automated credentialing",
-    "provider onboarding",
-    "medical credentialing",
-    "healthcare enrollment",
-    "credentialing platform",
-    "enrollment automation",
-    "credentialing AI",
-    "provider credentialing",
-    "healthcare AI",
-    "credentialing management"
+    "healthcare credentialing software",
+    "medical credentialing software",
+    "provider credentialing software",
+    "credentialing management software",
+    "healthcare provider credentialing software",
+    "provider credentialing companies",
   ],
   // Robots meta - tells search engines how to crawl your site
   robots: {
@@ -97,6 +89,23 @@ export default function RootLayout({ children }) {
           `}
         </Script>
         
+        {/* Bing Webmaster Verification */}
+        <meta
+          name="msvalidate.01"
+          content="973368DB45DAD5DDAACD83D295003142"
+        />
+
+        {/* Microsoft Clarity */}
+        <Script id="ms-clarity" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "u8xqxiaos8");
+          `}
+        </Script>
+
         {/* Geo Location Meta Tags */}
         <meta name="geo.region" content="IN-HR" />
         <meta name="geo.placename" content="Gurugram, India" />
