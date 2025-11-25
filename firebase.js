@@ -12,14 +12,15 @@ import { getFirestore, query, getDocs, collection, where, addDoc } from 'firebas
 import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDI3RSgog1zp-ecjUBrURJJFGcsY1nCSzI',
-  authDomain: 'scanta-blog-a8c57.firebaseapp.com',
-  projectId: 'scanta-blog-a8c57',
-  storageBucket: 'scanta-blog-a8c57.appspot.com',
-  messagingSenderId: '1091655201282',
-  appId: '1:1091655201282:web:2857ba57759c44a3aead1b',
-  measurementId: 'G-LX0Y78R55K',
-}
+  apiKey: "AIzaSyBYZRepB9DME6aMcna5g5E2stNCGBQubtM",
+  authDomain: "credflow-blog-7425f.firebaseapp.com",
+  projectId: "credflow-blog-7425f",
+  storageBucket: "credflow-blog-7425f.firebasestorage.app",
+  messagingSenderId: "131220476174",
+  appId: "1:131220476174:web:532dc295f67c07bdbdc75f",
+  measurementId: "G-G7YJFY5F1D"
+};
+
 
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)

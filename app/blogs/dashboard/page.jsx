@@ -25,7 +25,6 @@ export default function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [showOldBlogs, setShowOldBlogs] = useState(false);
 
   const router = useRouter();
 
@@ -67,12 +66,7 @@ export default function AdminDashboard() {
         (statusFilter === "published" && post.data?.isPublished) ||
         (statusFilter === "unpublished" && !post.data?.isPublished);
       
-      // Date filter - show only blogs from 2025 onwards by default
-      const postDate = post.data.created_at?.seconds ? new Date(post.data.created_at.seconds * 1000) : null;
-      const isFrom2025OrLater = postDate && postDate.getFullYear() >= 2025;
-      const matchesDateFilter = showOldBlogs || isFrom2025OrLater;
-      
-      return matchesSearch && matchesStatus && matchesDateFilter;
+      return matchesSearch && matchesStatus;
     })
     .sort((a, b) => {
       const dateA = a.data.created_at?.seconds || 0;
@@ -103,7 +97,7 @@ export default function AdminDashboard() {
   // Reset to first page when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchTerm, sortBy, statusFilter, showOldBlogs]);
+  }, [searchTerm, sortBy, statusFilter]);
 
   if (loading || loadingPosts) {
     return <Loader text="Loading admin dashboard..." full />;
@@ -162,30 +156,6 @@ export default function AdminDashboard() {
               <option value="unpublished">Unpublished Only</option>
             </select>
           </div>
-        </div>
-        
-        {/* Toggle Switch for Old Blogs */}
-        <div className="flex items-center gap-3">
-          <label className="flex items-center cursor-pointer">
-            <div className="relative">
-              <input
-                type="checkbox"
-                className="sr-only"
-                checked={showOldBlogs}
-                onChange={(e) => setShowOldBlogs(e.target.checked)}
-              />
-              <div className={`block w-14 h-7 rounded-full transition-colors duration-200 ease-in-out ${
-                showOldBlogs ? 'bg-gradient-to-r from-[#5063C6] to-[#B71CD2]' : 'bg-gray-700'
-              }`}>
-                <div className={`absolute left-1 top-1 bg-white w-5 h-5 rounded-full transition-transform duration-200 ease-in-out ${
-                  showOldBlogs ? 'transform translate-x-7' : 'transform translate-x-0'
-                }`}></div>
-              </div>
-            </div>
-            <span className="ml-3 text-sm font-medium text-gray-300">
-              Show blogs before 2025
-            </span>
-          </label>
         </div>
         
         {/* Results Count */}
