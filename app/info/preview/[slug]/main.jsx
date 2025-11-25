@@ -6,9 +6,9 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth, db } from '@/firebase'
 import { doc, updateDoc } from 'firebase/firestore'
 import moment from 'moment'
-import RelatedBlogs from '../../blog/[id]/components/RelatedBlogs'
-import BlogHero from '../../blog/[id]/components/BlogHero'
-import BlogContent from '../../blog/[id]/components/BlogContent'
+import RelatedBlogs from '../../about/[id]/components/RelatedBlogs'
+import BlogHero from '../../about/[id]/components/BlogHero'
+import BlogContent from '../../about/[id]/components/BlogContent'
 import Loader from '@/components/common/Loader'
 
 export default function PreviewPage({ posts }) {
@@ -84,7 +84,7 @@ export default function PreviewPage({ posts }) {
   return (
     <div className="bg-black min-h-screen">
       {/* Publish/Unpublish Button - Fixed Position - Only for authorized users */}
-      {user && (user.email === 'hitesh@trupulse.ai' || user.email === 'dirk@trupulse.ai') && (
+      {user && (user.email === 'hitesh@credflow.ai' || user.email === 'dirk@trupulse.ai') && (
         <div className="fixed bottom-6 right-6 z-50">
           <button
             type="button"

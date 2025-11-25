@@ -411,7 +411,7 @@ export default function Navbar() {
               <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
             </Link>
 
-            <Link
+            {/* <Link
               href="/blogs"
               className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"
             >
@@ -419,7 +419,7 @@ export default function Navbar() {
                 Blogs
               </span>
               <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
-            </Link>
+            </Link> */}
           </div>
 
           {/* Desktop CTA Button */}
@@ -514,13 +514,13 @@ export default function Navbar() {
                     Who We Help
                   </Link>
 
-                  <Link
+                  {/* <Link
                     href="/blogs"
                     className="block text-white hover:text-blue-700 transition-colors duration-300 py-2"
                     onClick={toggleMenu}
                   >
                     Blogs
-                  </Link>
+                  </Link> */}
                 </div>
 
                 {/* Mobile CTA Button */}
