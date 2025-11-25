@@ -123,7 +123,7 @@ export default function BlogContent({ post }) {
             </div>
           )}
           {/* The Blog Main HTML Content */}
-          <div className="prose prose-lg prose-invert max-w-none 
+          <div className="blog-richtext prose prose-lg prose-invert max-w-none 
             prose-headings:text-white 
             prose-p:text-gray-300 
             prose-a:text-[#5063C6] 
