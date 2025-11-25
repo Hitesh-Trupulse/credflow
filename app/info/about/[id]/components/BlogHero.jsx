@@ -121,9 +121,9 @@ export default function BlogHero({ post }) {
   return (
     <section className="bg-black relative overflow-hidden py-24 sm:py-32 px-4 text-center border-b border-[#454545]">
       {/* Background */}
-      <div className="absolute inset-0 opacity-30">
+      <div className="absolute inset-0">
         <Image
-          src="/images/noisebg.png"
+          src="/images/mainbg.png"
           alt="Background"
           fill
           className="object-cover"

@@ -2,24 +2,14 @@ import Image from "next/image";
 
 export default function BlogHeroSection() {
   return (
-    <section className="bg-black min-h-[60vh] relative overflow-hidden flex items-center justify-center px-6 pt-32 pb-20">
+    <section className="bg-black min-h-[60vh] relative overflow-hidden flex items-center justify-center px-6 pt-32 md:pt-48 pb-20">
       {/* Background Images - Same as Hero */}
       <div className="absolute inset-0">
         <Image
           src="/images/mainbg.png"
           alt="Main Background"
           fill
-          className="object-cover opacity-50"
-          priority
-        />
-      </div>
-
-      <div className="absolute inset-0">
-        <Image
-          src="/images/noisebg.png"
-          alt="Stars Overlay"
-          fill
-          className="object-cover opacity-30"
+          className="object-cover"
           priority
         />
       </div>

@@ -222,26 +222,31 @@ h3 {
 .blog-richtext h1 {
   font-size: clamp(2rem, 3vw, 2.75rem);
   margin: 2rem 0 1rem;
+  line-height: 1.4;
 }
 
 .blog-richtext h2 {
   font-size: clamp(1.75rem, 2.4vw, 2.25rem);
   margin: 1.75rem 0 0.9rem;
+  line-height: 1.4;
 }
 
 .blog-richtext h3 {
   font-size: clamp(1.5rem, 2vw, 2rem);
   margin: 1.5rem 0 0.8rem;
+  line-height: 1.4;
 }
 
 .blog-richtext h4 {
   font-size: clamp(1.25rem, 1.8vw, 1.6rem);
   margin: 1.25rem 0 0.75rem;
+  line-height: 1.4;
 }
 
 .blog-richtext h5 {
   font-size: clamp(1.1rem, 1.4vw, 1.35rem);
   margin: 1rem 0 0.6rem;
+  line-height: 1.4;
 }
 
 .blog-richtext h6 {
@@ -249,6 +254,7 @@ h3 {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   margin: 0.85rem 0 0.5rem;
+  line-height: 1.25;
 }
 
 .blog-richtext p {

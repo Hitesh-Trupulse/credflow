@@ -73,7 +73,7 @@ export default function BlogContent({ post }) {
           <h3 className="text-lg font-semibold tracking-wide mb-2 text-white">
             On this page
           </h3>
-          <ul className="space-y-4 list-none">
+          <ul className="space-y-4 list-disc list-inside pl-3 marker:text-gray-300">
             {headings
               .filter((h) => h.text && h.text.trim())
               .map((h) => (
@@ -84,9 +84,9 @@ export default function BlogContent({ post }) {
                   >
                     {h.text}
                   </a>
-                  {h.preview ? (
+                  {/* {h.preview ? (
                     <p className="text-xs text-gray-500 mt-1">{h.preview}</p>
-                  ) : null}
+                  ) : null} */}
                 </li>
               ))}
           </ul>
