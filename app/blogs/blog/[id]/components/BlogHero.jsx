@@ -74,8 +74,8 @@ export default function BlogHero({ post }) {
 
   const link =
     post?.data?.customURL?.length > 3
-      ? `https://www.trupulse.ai/blogs/blog/${post.data.customURL}`
-      : `https://www.trupulse.ai/blogs/blog/${post.data.title
+      ? `https://www.credflow.ai/blogs/blog/${post.data.customURL}`
+      : `https://www.credflow.ai/blogs/blog/${post.data.title
           ?.toLowerCase()
           .replace(/[^a-zA-Z ]/g, "")
           .split(" ")

@@ -169,32 +169,6 @@ li[data-list="bullet"] {
 
 }
 
-
-/* Heading styles for blog editor */
-/* h1 {
-  font-size: 2.25rem !important;
-  font-weight: 700 !important;
-  line-height: 1.2 !important;
-  margin-bottom: 1rem !important;
-  margin-top: 1.5rem !important;
-}
-
-h2 {
-  font-size: 1.875rem !important;
-  font-weight: 600 !important;
-  line-height: 1.3 !important;
-  margin-bottom: 0.875rem !important;
-  margin-top: 1.25rem !important;
-}
-
-h3 {
-  font-size: 1.5rem !important;
-  font-weight: 600 !important;
-  line-height: 1.4 !important;
-  margin-bottom: 0.75rem !important;
-  margin-top: 1rem !important;
-} */
-
 /* Font size styles for blog editor */
 .ql-size-small {
   font-size: 0.875rem !important;
@@ -222,31 +196,31 @@ h3 {
 .blog-richtext h1 {
   font-size: clamp(2rem, 3vw, 2.75rem);
   margin: 2rem 0 1rem;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .blog-richtext h2 {
   font-size: clamp(1.75rem, 2.4vw, 2.25rem);
   margin: 1.75rem 0 0.9rem;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 
 .blog-richtext h3 {
   font-size: clamp(1.5rem, 2vw, 2rem);
   margin: 1.5rem 0 0.8rem;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 .blog-richtext h4 {
   font-size: clamp(1.25rem, 1.8vw, 1.6rem);
   margin: 1.25rem 0 0.75rem;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 .blog-richtext h5 {
   font-size: clamp(1.1rem, 1.4vw, 1.35rem);
   margin: 1rem 0 0.6rem;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
 .blog-richtext h6 {
@@ -254,7 +228,7 @@ h3 {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   margin: 0.85rem 0 0.5rem;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 
 .blog-richtext p {
@@ -264,4 +238,80 @@ h3 {
 .blog-richtext ul,
 .blog-richtext ol {
   margin: 1rem 0 1.5rem 1.2rem;
+}
+
+/* Dark theme for blog editors */
+.quill-editor-wrapper {
+  background-color: #0e0e0f;
+  border-color: #2f2f2f;
+}
+
+.quill-editor-wrapper .ql-toolbar {
+  background-color: #111118;
+  border-color: #2f2f2f !important;
+}
+
+.quill-editor-wrapper .ql-toolbar button,
+.quill-editor-wrapper .ql-toolbar .ql-picker {
+  color: #f3f3f3;
+}
+
+.quill-editor-wrapper .ql-toolbar button svg,
+.quill-editor-wrapper .ql-toolbar .ql-picker svg {
+  fill: #f3f3f3;
+}
+
+.quill-editor-wrapper .ql-toolbar .ql-stroke {
+  stroke: #f3f3f3;
+}
+
+.quill-editor-wrapper .ql-toolbar .ql-picker-label,
+.quill-editor-wrapper .ql-toolbar .ql-picker-item {
+  color: #f3f3f3;
+}
+
+.quill-editor-wrapper .ql-toolbar .ql-picker-options {
+  background-color: #0d0d12;
+  border-color: #2f2f2f;
+}
+
+.quill-editor-wrapper .ql-toolbar button:hover,
+.quill-editor-wrapper .ql-toolbar button:focus,
+.quill-editor-wrapper .ql-toolbar button.ql-active,
+.quill-editor-wrapper .ql-toolbar .ql-picker-label:hover,
+.quill-editor-wrapper .ql-toolbar .ql-picker-label.ql-active,
+.quill-editor-wrapper .ql-toolbar .ql-picker-item:hover,
+.quill-editor-wrapper .ql-toolbar .ql-picker-item.ql-selected {
+  color: #8ab4ff;
+}
+
+.quill-editor-wrapper .ql-toolbar button:hover svg,
+.quill-editor-wrapper .ql-toolbar button:focus svg,
+.quill-editor-wrapper .ql-toolbar button.ql-active svg,
+.quill-editor-wrapper .ql-toolbar .ql-stroke.ql-fill,
+.quill-editor-wrapper .ql-toolbar .ql-picker-label:hover svg,
+.quill-editor-wrapper .ql-toolbar .ql-picker-label.ql-active svg {
+  fill: #8ab4ff;
+}
+
+.quill-editor-wrapper .ql-toolbar .ql-stroke.ql-active,
+.quill-editor-wrapper .ql-toolbar .ql-stroke:hover,
+.quill-editor-wrapper .ql-toolbar button.ql-active .ql-stroke {
+  stroke: #8ab4ff;
+}
+
+.quill-editor-wrapper .ql-container {
+  background-color: #0b0b0f;
+  border-color: #2f2f2f !important;
+  color: #f8f8f8;
+}
+
+.quill-editor-wrapper .ql-editor {
+  color: #f8f8f8;
+  min-height: 20rem;
+}
+
+.quill-editor-wrapper .ql-editor.ql-blank::before {
+  color: #8e8e93;
+  font-style: normal;
 }

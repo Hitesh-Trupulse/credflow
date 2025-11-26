@@ -356,8 +356,8 @@ export default function EditBlog({ posts }) {
   }
 
   return (
-    <div className="min-h-screen bg-black px-4 py-32">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-black px-4 py-10">
+      <div className="max-w-7xl mx-auto">
         <div className="flex items-center gap-5 mb-8">
           <button
             onClick={() => router.push("/blogs/dashboard")}
@@ -492,7 +492,7 @@ export default function EditBlog({ posts }) {
 
         <div>
           <label className="block font-medium text-gray-300 mb-2">Blog Content *</label>
-          <div className="bg-white border border-[#454545] rounded-lg overflow-hidden quill-editor-wrapper">
+          <div className="bg-gray-900/80 border border-[#454545] rounded-lg overflow-hidden quill-editor-wrapper">
             <ReactQuill
               theme="snow"
               placeholder="Write your blog content here..."
