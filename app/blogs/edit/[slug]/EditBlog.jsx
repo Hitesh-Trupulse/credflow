@@ -275,8 +275,20 @@ export default function EditBlog({ posts }) {
     );
   };
 
+  const handleDeleteCoverImage = () => {
+    const confirmDelete = window.confirm("Remove the current cover image?");
+    if (!confirmDelete) return;
+
+    setCoverImage("");
+    setFile(null);
+    setImgSrc("");
+    setCrop(undefined);
+    setCompletedCrop(undefined);
+    setPercent(0);
+  };
+
   const handleSubmit = async () => {
-    if (!title || !coverImage || !content) {
+    if (!title || !content) {
       alert("Please fill in all required fields.");
       return;
     }
@@ -365,7 +377,7 @@ export default function EditBlog({ posts }) {
 
         <div>
           <label className="block text-sm font-medium mb-2 text-gray-300">
-            Cover Image * (16:9 aspect ratio, max 400KB)
+            Cover Image (optional, 16:9 aspect ratio, max 400KB)
           </label>
           <input
             type="file"
@@ -438,6 +450,13 @@ export default function EditBlog({ posts }) {
                 disabled={percent > 0}
               >
                 {percent > 0 ? `Uploading... ${percent}%` : 'Upload to Storage'}
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteCoverImage}
+                className="mt-2 ml-2 px-4 py-2 bg-red-600/80 text-white rounded-lg hover:bg-red-600 transition-colors border border-red-500/50"
+              >
+                Delete Image
               </button>
             </div>
           )}

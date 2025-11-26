@@ -226,7 +226,7 @@ export default function CreateBlogPage() {
   }
 
   const handleSubmit = async () => {
-    if (!title || !coverImage || !content) {
+    if (!title || !content) {
       alert('Please fill all required fields')
       return
     }
@@ -294,7 +294,7 @@ export default function CreateBlogPage() {
 
         {/* Image Upload and Crop */}
         <div>
-          <label className="block text-sm font-medium mb-2 text-gray-300">Cover Image * (16:9 aspect ratio, max 400KB)</label>
+          <label className="block text-sm font-medium mb-2 text-gray-300">Cover Image (optional, 16:9 aspect ratio, max 400KB)</label>
           <input
             type="file"
             accept="image/*"

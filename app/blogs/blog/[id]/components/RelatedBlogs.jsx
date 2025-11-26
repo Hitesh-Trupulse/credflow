@@ -1,5 +1,5 @@
 "use client";
-import BlogCard from "@/app/info/components/BlogCard";
+import BlogCard from "@/app/blogs/components/BlogCard";
 
 export default function RelatedBlogs({ posts }) {
   // Filter only published blogs and blogs from 2025 onwards

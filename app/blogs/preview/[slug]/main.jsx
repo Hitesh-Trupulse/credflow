@@ -6,9 +6,9 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth, db } from '@/firebase'
 import { doc, updateDoc } from 'firebase/firestore'
 import moment from 'moment'
-import RelatedBlogs from '../../about/[id]/components/RelatedBlogs'
-import BlogHero from '../../about/[id]/components/BlogHero'
-import BlogContent from '../../about/[id]/components/BlogContent'
+import RelatedBlogs from '../../blog/[id]/components/RelatedBlogs'
+import BlogHero from '../../blog/[id]/components/BlogHero'
+import BlogContent from '../../blog/[id]/components/BlogContent'
 import Loader from '@/components/common/Loader'
 
 export default function PreviewPage({ posts }) {
