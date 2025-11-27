@@ -11,7 +11,7 @@ export default function sitemap() {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/blogs`,
+      url: `${baseUrl}/resources`,
       lastModified: currentDate,
       changeFrequency: 'daily',
       priority: 0.9,

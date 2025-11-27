@@ -74,8 +74,8 @@ export default function BlogHero({ post }) {
 
   const link =
     post?.data?.customURL?.length > 3
-      ? `https://www.credflow.ai/blogs/blog/${post.data.customURL}`
-      : `https://www.credflow.ai/blogs/blog/${post.data.title
+      ? `https://www.credflow.ai/resources/info/${post.data.customURL}`
+      : `https://www.credflow.ai/resources/info/${post.data.title
           ?.toLowerCase()
           .replace(/[^a-zA-Z ]/g, "")
           .split(" ")
@@ -141,9 +141,9 @@ export default function BlogHero({ post }) {
             {post?.data?.title}
           </h1>
           {/* Description/Subtitle */}
-          {description && (
+          {/* {description && (
             <p className="mb-6 text-base sm:text-lg text-gray-300 leading-relaxed">{description}</p>
-          )}
+          )} */}
           {/* Share buttons */}
           <div className="flex gap-3 mt-2">
             {shareOptions.map((option) => (

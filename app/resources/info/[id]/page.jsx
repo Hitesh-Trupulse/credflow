@@ -45,7 +45,7 @@ export default function BlogDetailPage() {
       <div className="text-center p-10">
         <h1 className="text-3xl font-bold text-white mb-4">Blog Not Found</h1>
         <p className="text-gray-400 mb-6">This blog post may not be published or doesn&apos;t exist.</p>
-        <Link href="/blogs" className="inline-block bg-gradient-to-r from-[#5063C6] to-[#B71CD2] text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity">
+        <Link href="/resources" className="inline-block bg-gradient-to-r from-[#5063C6] to-[#B71CD2] text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity">
           View All Blogs
         </Link>
       </div>

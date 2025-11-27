@@ -30,7 +30,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push("/blogs/login");
+      router.push("/resources/login");
     }
   }, [user, loading]);
 
@@ -104,17 +104,17 @@ export default function AdminDashboard() {
   }
 
   return (
-    <section className="min-h-screen bg-black max-w-7xl mx-auto px-4 py-32">
+    <section className="min-h-screen bg-black max-w-7xl mx-auto px-4 py-14">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
         <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
           Admin Dashboard
         </h1>
         <div className="flex items-center gap-4">
         <Link
-          href="/blogs/create"
+          href="/resources/create"
           className="bg-gradient-to-r from-[#5063C6] to-[#B71CD2] text-white text-sm px-6 py-2 rounded-lg hover:opacity-90 transition-opacity"
         >
-          + Add New Blog
+          + Add New resource
         </Link>
         <button onClick={logout} className="bg-red-600/80 backdrop-blur-sm border border-red-500 cursor-pointer text-white text-sm px-6 py-2 rounded-lg hover:bg-red-700 transition-colors">Logout</button>
       </div>
@@ -127,7 +127,7 @@ export default function AdminDashboard() {
           <div className="flex-1">
             <input
               type="text"
-              placeholder="Search blogs by title..."
+              placeholder="Search resources by title..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full px-4 py-3 bg-black/50 backdrop-blur-sm border border-[#454545] rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#5063C6] focus:border-transparent"
@@ -151,7 +151,7 @@ export default function AdminDashboard() {
               onChange={(e) => setStatusFilter(e.target.value)}
               className="px-4 cursor-pointer py-3 bg-black/50 backdrop-blur-sm border border-[#454545] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5063C6] focus:border-transparent"
             >
-              <option value="all">All Blogs</option>
+              <option value="all">All Resources</option>
               <option value="published">Published Only</option>
               <option value="unpublished">Unpublished Only</option>
             </select>
@@ -160,7 +160,7 @@ export default function AdminDashboard() {
         
         {/* Results Count */}
         <div className="text-sm text-gray-400">
-          Showing {filteredAndSortedPosts.length} of {posts.length} blogs
+          Showing {filteredAndSortedPosts.length} of {posts.length} Resources
         </div>
       </div>
 
@@ -203,7 +203,7 @@ export default function AdminDashboard() {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex gap-3 items-center">
-                      <Link href={`/blogs/edit/${post.id}`}>
+                      <Link href={`/resources/edit/${post.id}`}>
                         <button
                           title="Edit"
                           className="p-2 bg-[#5063C6]/20 cursor-pointer text-[#5063C6] border border-[#5063C6]/30 rounded-lg hover:bg-[#5063C6]/30 transition-colors"
@@ -214,8 +214,8 @@ export default function AdminDashboard() {
                       <Link
                         href={
                           post.data.customURL?.length > 3
-                            ? `/blogs/preview/${post.data.customURL}`
-                            : `/blogs/preview/${post.data.title
+                            ? `/resources/preview/${post.data.customURL}`
+                            : `/resources/preview/${post.data.title
                                 .toLowerCase()
                                 .replace(/[^a-zA-Z ]/g, "")
                                 .split(" ")
@@ -247,7 +247,7 @@ export default function AdminDashboard() {
       ) : (
         <div className="hidden md:flex items-center justify-center py-12 text-gray-400">
           <div className="text-center">
-            <p className="text-lg font-medium text-white">No blogs found</p>
+            <p className="text-lg font-medium text-white">No resources found</p>
             <p className="text-sm">Try adjusting your search or filters</p>
           </div>
         </div>
@@ -281,7 +281,7 @@ export default function AdminDashboard() {
                 </span>
               </div>
               <div className="flex justify-start gap-3 pt-2">
-                <Link href={`/blogs/edit/${post.id}`}>
+                <Link href={`/resources/edit/${post.id}`}>
                   <button
                     title="Edit"
                     className="p-2 bg-[#5063C6]/20 cursor-pointer text-[#5063C6] border border-[#5063C6]/30 rounded-lg hover:bg-[#5063C6]/30"
@@ -292,8 +292,8 @@ export default function AdminDashboard() {
                 <Link
                   href={
                     post.data.customURL?.length > 3
-                      ? `/blogs/preview/${post.data.customURL}`
-                      : `/blogs/preview/${post.data.title
+                      ? `/resources/preview/${post.data.customURL}`
+                      : `/resources/preview/${post.data.title
                           .toLowerCase()
                           .replace(/[^a-zA-Z ]/g, "")
                           .split(" ")
@@ -322,7 +322,7 @@ export default function AdminDashboard() {
       ) : (
         <div className="md:hidden flex items-center justify-center py-12 text-gray-400">
           <div className="text-center">
-            <p className="text-lg font-medium text-white">No blogs found</p>
+            <p className="text-lg font-medium text-white">No resources found</p>
             <p className="text-sm">Try adjusting your search or filters</p>
           </div>
         </div>

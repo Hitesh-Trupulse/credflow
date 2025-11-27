@@ -52,6 +52,7 @@ export default function CreateBlogPage() {
   const [file, setFile] = useState(null)
   const [percent, setPercent] = useState(0)
   const [mounted, setMounted] = useState(false)
+  const [publishDate, setPublishDate] = useState("")
 
   // Image cropping states
   const [imgSrc, setImgSrc] = useState('')
@@ -64,7 +65,7 @@ export default function CreateBlogPage() {
   const previewCanvasRef = useRef(null)
 
   useEffect(() => {
-    if (!loading && !user) router.push('/blogs/login')
+    if (!loading && !user) router.push('/resources/login')
   }, [loading, user])
 
   useEffect(() => {
@@ -232,6 +233,11 @@ export default function CreateBlogPage() {
     }
 
     try {
+      const manualCreatedAt = publishDate ? new Date(publishDate) : null
+      if (manualCreatedAt && Number.isNaN(manualCreatedAt.getTime())) {
+        alert('Please provide a valid date.')
+        return
+      }
       await addDoc(collection(db, 'posts'), {
         title,
         cover_image: coverImage,
@@ -242,13 +248,13 @@ export default function CreateBlogPage() {
         customURL: customURL.includes('-')
           ? customURL
           : customURL.toLowerCase().replace(/[^a-zA-Z ]/g, '').split(' ').join('-'),
-        created_at: serverTimestamp(),
+        created_at: manualCreatedAt ?? serverTimestamp(),
         last_edit: serverTimestamp(),
         isPublished: false,
       })
 
       alert('Blog created successfully!')
-      router.push('/blogs/dashboard')
+      router.push('/resources/dashboard')
     } catch (err) {
       console.error(err)
       alert('Something went wrong while creating the blog.')
@@ -272,7 +278,7 @@ export default function CreateBlogPage() {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center gap-5 mb-8">
           <button 
-            onClick={() => router.push('/blogs/dashboard')}
+            onClick={() => router.push('/resources/dashboard')}
             className="text-2xl text-white hover:text-[#5063C6] transition-colors cursor-pointer"
           >
             ←
@@ -417,6 +423,22 @@ export default function CreateBlogPage() {
             className="w-full bg-gray-800/50 border border-[#454545] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5063C6] placeholder-gray-500"
             placeholder="Custom slug for the URL"
           />
+        </div>
+
+        {/* Display/Publish date */}
+        <div>
+          <label className="block text-sm font-medium mb-2 text-gray-300">
+            Display Date (optional)
+          </label>
+          <input
+            type="datetime-local"
+            value={publishDate}
+            onChange={(e) => setPublishDate(e.target.value)}
+            className="w-full bg-gray-800/50 border border-[#454545] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5063C6] placeholder-gray-500"
+          />
+          <p className="mt-1 text-xs text-gray-400">
+            Leave blank to auto-use the creation timestamp shown on the blog.
+          </p>
         </div>
 
         {/* Content Editor */}

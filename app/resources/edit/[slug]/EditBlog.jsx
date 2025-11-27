@@ -64,9 +64,22 @@ export default function EditBlog({ posts }) {
   const imgRef = useRef(null);
   const previewCanvasRef = useRef(null);
 
+  const formatDateInputValue = (value) => {
+    if (!value) return ""
+    const date =
+      typeof value === "object" && value.seconds
+        ? new Date(value.seconds * 1000)
+        : new Date(value)
+    if (Number.isNaN(date.getTime())) return ""
+    const pad = (num) => String(num).padStart(2, "0")
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(
+      date.getHours()
+    )}:${pad(date.getMinutes())}`
+  }
+
   useEffect(() => {
     if (!loading && !user) {
-      router.push("/blogs/login");
+      router.push("/resources/login");
     }
   }, [user, loading, router]);
 
@@ -95,7 +108,7 @@ export default function EditBlog({ posts }) {
         setTags(
           selectedPost.data.tags ? selectedPost.data.tags.split(",") : []
         );
-        setCreateDate(selectedPost.data.created_at || "");
+        setCreateDate(formatDateInputValue(selectedPost.data.created_at) || "");
         setPostLoading(false);
       } else {
         console.log("Post not found for ID:", currentId); // Debug log
@@ -293,6 +306,11 @@ export default function EditBlog({ posts }) {
       return;
     }
     try {
+      const manualCreatedAt = createDate ? new Date(createDate) : null;
+      if (manualCreatedAt && Number.isNaN(manualCreatedAt.getTime())) {
+        alert("Please provide a valid date.");
+        return;
+      }
       await updateDoc(doc(db, "posts", post.id), {
         title,
         cover_image: coverImage,
@@ -308,11 +326,12 @@ export default function EditBlog({ posts }) {
               .join("-"),
         content,
         tags: tags.join(","),
+        created_at: manualCreatedAt ?? post.data.created_at,
         last_edit: serverTimestamp(),
         isPublished: post.data.isPublished,
       });
       alert("Blog updated successfully.");
-      router.push("/blogs/dashboard");
+      router.push("/resources/dashboard");
     } catch (err) {
       console.error(err);
       alert("Failed to update blog.");
@@ -360,7 +379,7 @@ export default function EditBlog({ posts }) {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center gap-5 mb-8">
           <button
-            onClick={() => router.push("/blogs/dashboard")}
+            onClick={() => router.push("/resources/dashboard")}
             className="text-2xl text-white hover:text-[#5063C6] transition-colors cursor-pointer"
           >
             ←
@@ -489,6 +508,21 @@ export default function EditBlog({ posts }) {
           placeholder="Custom URL"
           className="w-full bg-gray-800/50 border border-[#454545] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5063C6] placeholder-gray-500"
         />
+
+        <div>
+          <label className="block text-sm font-medium mb-2 text-gray-300">
+            Display Date (optional)
+          </label>
+          <input
+            type="datetime-local"
+            value={createDate}
+            onChange={(e) => setCreateDate(e.target.value)}
+            className="w-full bg-gray-800/50 border border-[#454545] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5063C6] placeholder-gray-500"
+          />
+          <p className="mt-1 text-xs text-gray-400">
+            Leave blank to keep the original created date.
+          </p>
+        </div>
 
         <div>
           <label className="block font-medium text-gray-300 mb-2">Blog Content *</label>

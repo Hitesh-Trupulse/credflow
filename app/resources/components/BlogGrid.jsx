@@ -66,7 +66,7 @@ export default function BlogGrid() {
     <section className="bg-black min-h-screen max-w-7xl mx-auto px-4 md:px-6 py-16">
       <div className="flex items-center justify-between mb-10">
         <h2 className="text-xl sm:text-2xl font-semibold bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
-          {blogs.length} Blogs found
+          {blogs.length} Resources found
         </h2>
       </div>
 
@@ -81,7 +81,7 @@ export default function BlogGrid() {
             </div>
             
             <h3 className="text-2xl font-semibold text-white mb-3">
-              No blogs available yet
+              No Resources available yet
             </h3>
             
             <p className="text-gray-400 leading-relaxed">

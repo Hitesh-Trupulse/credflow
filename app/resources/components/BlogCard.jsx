@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import moment from "moment";
 
@@ -8,7 +7,6 @@ export default function BlogCard({ blog }) {
   const data = blog?.data || blog;
   const content = data?.content || "";
   const title = data?.title || "Untitled";
-  const cover = data?.cover_image || "/fallback-image.jpg";
   const createdAt = data?.created_at;
   const alt = data?.altTag || data?.title || "blog image";
 
@@ -55,29 +53,31 @@ export default function BlogCard({ blog }) {
   }
 
   return (
-    <Link href={`/blogs/blog/${getSlug()}`}>
-      <div className="group space-y-3 hover:scale-105 duration-300 cursor-pointer bg-black/50 backdrop-blur-sm border border-[#454545] p-4 rounded-xl hover:border-[#5063C6]/50 transition-all">
-        <div className="relative overflow-hidden rounded-lg">
-          <Image
-            src={cover}
-            alt={alt}
-            width={400}
-            height={225}
-            className="w-full aspect-video object-cover group-hover:scale-110 transition-transform duration-500"
-          />
+    <Link href={`/resources/info/${getSlug()}`}>
+      <article className="group flex flex-col gap-3 bg-black/70 border border-[#454545] hover:border-[#5063C6] rounded-2xl p-5 hover:-translate-y-1 hover:bg-black transition-all duration-300">
+        <div className="flex items-center justify-between text-xs uppercase tracking-wide text-gray-500">
+          <span className="px-2 py-1 rounded-full border border-gray-700 bg-gray-800/40 text-gray-300">
+            Insight
+          </span>
+          <span>{formatDate(createdAt)}</span>
         </div>
-        <h3 className="font-bold text-sm sm:text-lg text-white line-clamp-2 leading-snug group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#5063C6] group-hover:to-[#B71CD2] group-hover:bg-clip-text transition-all">
-          {title}
-        </h3>
-        {preview && (
-          <p className="font-light text-xs sm:text-sm text-gray-400 leading-snug line-clamp-3">
-            {preview}
-          </p>
-        )}
-        <p className="text-xs text-gray-500">
-         {formatDate(createdAt)}
-        </p>
-      </div>
+        <div>
+          <h3 className="text-lg font-semibold text-white line-clamp-2 leading-snug group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#5063C6] group-hover:to-[#B71CD2] group-hover:bg-clip-text transition-all">
+            {title}
+          </h3>
+          {preview && (
+            <p className="mt-2 text-sm text-gray-400 leading-relaxed line-clamp-3">
+              {preview}
+            </p>
+          )}
+        </div>
+        <div className="flex items-center justify-between text-xs text-gray-400 pt-1">
+          <span>Read article</span>
+          <span className="text-[#B71CD2] group-hover:translate-x-1 transition-transform">
+            →
+          </span>
+        </div>
+      </article>
     </Link>
   );
 }

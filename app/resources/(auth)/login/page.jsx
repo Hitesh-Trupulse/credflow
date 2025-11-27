@@ -20,7 +20,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (loading) return;
-    if (user) router.push("/blogs/dashboard");
+    if (user) router.push("/resources/dashboard");
   }, [user, loading, router]);
 
   const handleChange = (e) => {
@@ -130,7 +130,7 @@ export default function LoginPage() {
         
         <p className="text-center text-sm text-gray-400">
           Don&apos;t have an account?{" "}
-          <Link href="/blogs/signup" className="text-[#5063C6] font-medium hover:underline">
+          <Link href="/resources/signup" className="text-[#5063C6] font-medium hover:underline">
             Sign Up
           </Link>
         </p>

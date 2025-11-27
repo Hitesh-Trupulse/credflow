@@ -6,9 +6,9 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth, db } from '@/firebase'
 import { doc, updateDoc } from 'firebase/firestore'
 import moment from 'moment'
-import RelatedBlogs from '../../blog/[id]/components/RelatedBlogs'
-import BlogHero from '../../blog/[id]/components/BlogHero'
-import BlogContent from '../../blog/[id]/components/BlogContent'
+import RelatedBlogs from '../../info/[id]/components/RelatedBlogs'
+import BlogHero from '../../info/[id]/components/BlogHero'
+import BlogContent from '../../info/[id]/components/BlogContent'
 import Loader from '@/components/common/Loader'
 
 export default function PreviewPage({ posts }) {
@@ -20,7 +20,7 @@ export default function PreviewPage({ posts }) {
   const currentURL = pathname.split('/')[3]
 
   useEffect(() => {
-    if (!loading && !user) router.push('/blogs/login')
+    if (!loading && !user) router.push('/resources/login')
   }, [user, loading])
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function PreviewPage({ posts }) {
       }
 
       alert(`Blog ${!post.data.isPublished ? 'Published' : 'Unpublished'} Successfully`)
-      router.push('/blogs/dashboard')
+      router.push('/resources/dashboard')
     } catch (err) {
       console.error(err)
       alert('Failed to update publish status')
@@ -71,7 +71,7 @@ export default function PreviewPage({ posts }) {
         <div className="text-center">
           <div className="text-2xl font-semibold text-white mb-4">Blog not found</div>
           <button 
-            onClick={() => router.push('/blogs/dashboard')}
+            onClick={() => router.push('/resources/dashboard')}
             className="bg-gradient-to-r from-[#5063C6] to-[#B71CD2] text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
           >
             Back to Dashboard
