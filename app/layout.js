@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast";
 import { ContactFormProvider } from "../components/common/ContactFormContext";
 import NewsletterModal from "../components/NewsletterModal";
 import Script from "next/script";
+import Navbar from "@/components/Navbar";
 
 export const metadata = {
   metadataBase: new URL('https://www.credflow.ai'),
@@ -169,6 +170,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="antialiased">
         <ContactFormProvider>
+        <Navbar/>
           <AOSWrapper>{children}</AOSWrapper>
         </ContactFormProvider>
         <NewsletterModal />

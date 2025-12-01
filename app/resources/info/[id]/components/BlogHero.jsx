@@ -119,7 +119,7 @@ export default function BlogHero({ post }) {
   ];
 
   return (
-    <section className="bg-black relative overflow-hidden py-24 sm:py-32 px-4 text-center border-b border-[#454545]">
+    <section className="bg-black relative overflow-hidden py-24 pt-32 sm:py-28 sm:pt-36 lg:pt-44 lg:py-32 px-4 text-center border-b border-[#454545]">
       {/* Background */}
       <div className="absolute inset-0">
         <Image

@@ -1,16 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import BlogHero from "./components/BlogHero";
 import BlogContent from "./components/BlogContent";
 import RelatedBlogs from "./components/RelatedBlogs";
 import { getAllBlogs } from "@/lib/getBlogs";
 import Loader from "@/components/common/Loader";
+import Navbar from "@/components/Navbar";
 
 export default function BlogDetailPage() {
   const { id } = useParams();
+  const router = useRouter();
   const [blog, setBlog] = useState(null);
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -39,15 +41,24 @@ export default function BlogDetailPage() {
     if (id) load();
   }, [id]);
 
-  if (loading) return <Loader full text="Loading blog details..." />;
+  if (loading) return (
+    <div className="min-h-screen bg-black">
+      <Navbar />
+      <Loader full text="Loading resource details..." />
+    </div>
+  );
+  
   if (!blog || !blog.isPublished) return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <div className="text-center p-10">
-        <h1 className="text-3xl font-bold text-white mb-4">Blog Not Found</h1>
-        <p className="text-gray-400 mb-6">This blog post may not be published or doesn&apos;t exist.</p>
-        <Link href="/resources" className="inline-block bg-gradient-to-r from-[#5063C6] to-[#B71CD2] text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity">
-          View All Blogs
-        </Link>
+    <div className="min-h-screen bg-black">
+      <Navbar />
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-center p-10">
+          <h1 className="text-3xl font-bold text-white mb-4">Resource Not Found</h1>
+          <p className="text-gray-400 mb-6">This resource may not be published or doesn&apos;t exist.</p>
+          <Link href="/resources" className="inline-block bg-gradient-to-r from-[#5063C6] to-[#B71CD2] text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity">
+            View All Resources
+          </Link>
+        </div>
       </div>
     </div>
   );
