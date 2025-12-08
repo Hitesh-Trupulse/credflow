@@ -66,21 +66,21 @@ export default function BlogContent({ post }) {
   }, [content]);
 
   return (
-    <section className="bg-black max-w-7xl w-[90vw] mx-auto px-4 py-16">
+    <section className="bg-black w-[90vw] mx-auto px-4 py-16">
       <div className="grid grid-cols-1 md:grid-cols-8 gap-10">
         {/* Sidebar Index */}
         <aside className="md:col-span-2 border-r border-[#454545] pr-4 space-y-6 sticky top-24 h-max hidden md:block">
-          <h3 className="text-lg font-semibold tracking-wide mb-2 text-white">
+          <h3 className="text-lg lg:text-xl 2xl:text-3xl font-semibold tracking-wide mb-2 lg:mb-4 2xl:mb-6 text-white">
             On this page
           </h3>
-          <ul className="space-y-4 list-disc list-inside pl-3 marker:text-gray-300">
+          <ul className="space-y-4 list-disc list-inside pl-3 marker:text-white">
             {headings
               .filter((h) => h.text && h.text.trim())
               .map((h) => (
                 <li key={h.id}>
                   <a
                     href={`#${h.id}`}
-                    className="block text-sm font-medium text-gray-300 hover:text-[#5063C6] transition-colors"
+                    className="block text-sm lg:text-base 2xl:text-lg font-medium text-white hover:text-[#5063C6] transition-colors"
                   >
                     {h.text}
                   </a>
@@ -106,7 +106,7 @@ export default function BlogContent({ post }) {
                 <h4 className="text-[#B71CD2] font-bold mb-1">
                   {post.data.featured_title || "Featured"}
                 </h4>
-                <p className="text-base text-gray-300">
+                <p className="text-base text-white">
                   {post.data.featured_description || ""}
                 </p>
               </div>
@@ -125,24 +125,24 @@ export default function BlogContent({ post }) {
           {/* The Blog Main HTML Content */}
           <div className="blog-richtext prose prose-lg prose-invert max-w-none 
             prose-headings:text-white 
-            prose-p:text-gray-300 
+            prose-p:text-white 
             prose-a:text-[#5063C6] 
             prose-strong:text-white 
             prose-code:text-[#B71CD2] 
-            prose-pre:bg-black prose-pre:border prose-pre:border-[#454545] prose-pre:text-gray-300
-            prose-ul:text-gray-300 prose-ol:text-gray-300
-            prose-li:text-gray-300
-            prose-blockquote:text-gray-300 prose-blockquote:border-gray-600
+            prose-pre:bg-black prose-pre:border prose-pre:border-[#454545] prose-pre:text-white 
+            prose-ul:text-white prose-ol:text-white 
+            prose-li:text-white 
+            prose-blockquote:text-white prose-blockquote:border-gray-600
             prose-h1:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white
-            prose-em:text-gray-300
+            prose-em:text-white 
             prose-hr:border-gray-600
-            [&_*]:text-gray-300 [&_h1]:text-white [&_h2]:text-white [&_h3]:text-white [&_h4]:text-white [&_h5]:text-white [&_h6]:text-white
-            [&_p]:text-gray-300 [&_span]:text-gray-300 [&_div]:text-gray-300
+            [&_*]:text-white [&_h1]:text-white [&_h2]:text-white [&_h3]:text-white [&_h4]:text-white [&_h5]:text-white [&_h6]:text-white
+            [&_p]:text-white [&_span]:text-white [&_div]:text-white 
             [&_strong]:text-white [&_b]:text-white
             [&_a]:text-[#5063C6] [&_a:hover]:text-[#B71CD2]
-            [&_code]:text-[#B71CD2] [&_pre]:text-gray-300
-            [&_ul]:text-gray-300 [&_ol]:text-gray-300 [&_li]:text-gray-300
-            [&_blockquote]:text-gray-300">
+            [&_code]:text-[#B71CD2] [&_pre]:text-white 
+            [&_ul]:text-white [&_ol]:text-white [&_li]:text-white 
+            [&_blockquote]:text-white ">
             {parse(parsedHTML || "")}
           </div>
         </div>
