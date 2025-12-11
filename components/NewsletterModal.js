@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { FaX, FaCircleCheck } from "react-icons/fa6";
 
 const STORAGE_KEYS = {
@@ -16,6 +17,7 @@ const getInitialVisibility = () => {
 };
 
 const NewsletterModal = () => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -25,8 +27,13 @@ const NewsletterModal = () => {
   const [status, setStatus] = useState("idle"); // idle | loading | success
 
   useEffect(() => {
+    // Don't show newsletter modal on get-started page
+    if (pathname === '/get-started') {
+      setIsOpen(false);
+      return;
+    }
     setIsOpen(getInitialVisibility());
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -84,7 +91,8 @@ const NewsletterModal = () => {
     }, 900);
   };
 
-  if (!isOpen) return null;
+  // Don't show on get-started page
+  if (pathname === '/get-started' || !isOpen) return null;
 
   const isProcessing = status === "loading";
   const isSuccess = status === "success";
