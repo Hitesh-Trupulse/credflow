@@ -352,30 +352,7 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Social Proof */}
-      <section className="py-10 bg-slate-900 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-6">Trusted by forward-thinking healthcare organizations</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-            <div className="flex items-center gap-2 text-xl font-bold text-slate-400">
-              <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clipRule="evenodd" /></svg>
-              Apex Health
-            </div>
-            <div className="flex items-center gap-2 text-xl font-bold text-slate-400">
-              <svg className="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" /></svg>
-              CareFirst
-            </div>
-            <div className="flex items-center gap-2 text-xl font-bold text-slate-400">
-              <svg className="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" /></svg>
-              OmniMedical
-            </div>
-            <div className="flex items-center gap-2 text-xl font-bold text-slate-400">
-              <svg className="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-              HealthPlus
-            </div>
-          </div>
-        </div>
-      </section>
+    
 
       {/* Core Features Section */}
       <section id="features" className="py-24 bg-slate-900 text-white overflow-hidden relative border-t border-slate-800">
