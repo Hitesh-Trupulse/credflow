@@ -2,8 +2,11 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function ProductPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -49,7 +52,7 @@ export default function ProductPage() {
           providers: '1 - 10 Providers',
           message: ''
         });
-        setAlert('Thanks for reaching out! We will be in touch soon.');
+        router.push('/thank-you');
       } else {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
@@ -86,8 +89,8 @@ export default function ProductPage() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
-              <button 
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              <Link 
+                href="/"
                 className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
               >
                 <Image
@@ -97,7 +100,7 @@ export default function ProductPage() {
                   height={60}
                   className="h-8 w-auto"
                 />
-              </button>
+              </Link>
             </div>
 
             {/* Desktop Navigation */}

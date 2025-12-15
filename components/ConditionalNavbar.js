@@ -6,8 +6,8 @@ import Navbar from './Navbar';
 export default function ConditionalNavbar() {
   const pathname = usePathname();
   
-  // Hide navbar on get-started page
-  if (pathname === '/get-started') {
+  // Hide navbar on get-started and thank-you pages
+  if (pathname === '/get-started' || pathname === '/thank-you') {
     return null;
   }
   
