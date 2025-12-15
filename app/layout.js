@@ -7,10 +7,10 @@ import Script from "next/script";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
 
 export const metadata = {
-  metadataBase: new URL('https://www.credflow.ai'),
+  metadataBase: new URL("https://www.credflow.ai"),
   title: {
     default: "CredFlow AI - Healthcare Credentialing Management Software",
-    template: "%s | CredFlow AI"
+    template: "%s | CredFlow AI",
   },
   description:
     "CredFlow AI - Credentialing Management Software That Automates And Streamlines Healthcare Provider Credentialing, Enrollment And Onboarding. Request A Demo!",
@@ -30,9 +30,9 @@ export const metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   // Author and publisher info
@@ -75,6 +75,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        {/* Google Tag Manager */}
+        <Script
+          id="gtm-head"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5WPJ7X2T');`,
+          }}
+        />
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-1MSBXJCHJ7"
@@ -89,12 +101,9 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-1MSBXJCHJ7');
           `}
         </Script>
-        
+
         {/* Bing Webmaster Verification */}
-        <meta
-          name="msvalidate.01"
-          content="973368DB45DAD5DDAACD83D295003142"
-        />
+        <meta name="msvalidate.01" content="973368DB45DAD5DDAACD83D295003142" />
 
         {/* Microsoft Clarity */}
         <Script id="ms-clarity" strategy="afterInteractive">
@@ -112,7 +121,7 @@ export default function RootLayout({ children }) {
         <meta name="geo.placename" content="Gurugram, India" />
         <meta name="geo.position" content="28.438111;77.105060" />
         <meta name="ICBM" content="28.438111, 77.105060" />
-        
+
         {/* Structured Data - Organization & SoftwareApplication (Essential for SEO) */}
         <Script
           id="structured-data"
@@ -122,55 +131,65 @@ export default function RootLayout({ children }) {
               {
                 "@context": "https://schema.org",
                 "@type": "Organization",
-                "name": "CredFlow AI",
-                "url": "https://www.credflow.ai",
-                "logo": "https://www.credflow.ai/images/logoo.png",
-                "description": "Your Credentialing & Enrollment AI Agent That Learns Your Process, Follows Your Rules, And Accelerates Provider Onboarding—So Revenue Never Waits.",
-                "address": {
+                name: "CredFlow AI",
+                url: "https://www.credflow.ai",
+                logo: "https://www.credflow.ai/images/logoo.png",
+                description:
+                  "Your Credentialing & Enrollment AI Agent That Learns Your Process, Follows Your Rules, And Accelerates Provider Onboarding—So Revenue Never Waits.",
+                address: {
                   "@type": "PostalAddress",
-                  "addressCountry": "IN",
-                  "addressRegion": "Haryana",
-                  "addressLocality": "Gurugram"
+                  addressCountry: "IN",
+                  addressRegion: "Haryana",
+                  addressLocality: "Gurugram",
                 },
-                "geo": {
+                geo: {
                   "@type": "GeoCoordinates",
-                  "latitude": "28.438111",
-                  "longitude": "77.105060"
+                  latitude: "28.438111",
+                  longitude: "77.105060",
                 },
-                "sameAs": [
+                sameAs: [
                   "https://www.linkedin.com/company/credflow",
-                  "https://twitter.com/credflow"
+                  "https://twitter.com/credflow",
                 ],
-                "contactPoint": {
+                contactPoint: {
                   "@type": "ContactPoint",
-                  "contactType": "Customer Service",
-                  "email": "hello@credflow.ai"
-                }
+                  contactType: "Customer Service",
+                  email: "hello@credflow.ai",
+                },
               },
               {
                 "@context": "https://schema.org",
                 "@type": "SoftwareApplication",
-                "name": "CredFlow AI",
-                "applicationCategory": "BusinessApplication",
-                "operatingSystem": "Web",
-                "description": "AI-powered credentialing and enrollment platform that automates provider onboarding processes for healthcare organizations.",
-                "featureList": [
+                name: "CredFlow AI",
+                applicationCategory: "BusinessApplication",
+                operatingSystem: "Web",
+                description:
+                  "AI-powered credentialing and enrollment platform that automates provider onboarding processes for healthcare organizations.",
+                featureList: [
                   "Credentialing / PSV Automation",
                   "Payer Enrollment",
                   "Real-Time Monitoring",
                   "Dashboard Analytics",
                   "Roster Automation",
-                  "AI Communication Center"
-                ]
-              }
-            ])
+                  "AI Communication Center",
+                ],
+              },
+            ]),
           }}
         />
-        
       </head>
       <body className="antialiased">
+        {/* Google Tag Manager (noscript) – must be right after <body> */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-5WPJ7X2T"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <ContactFormProvider>
-        <ConditionalNavbar/>
+          <ConditionalNavbar />
           <AOSWrapper>{children}</AOSWrapper>
         </ContactFormProvider>
         <NewsletterModal />
