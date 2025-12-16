@@ -27,8 +27,8 @@ const NewsletterModal = () => {
   const [status, setStatus] = useState("idle"); // idle | loading | success
 
   useEffect(() => {
-    // Don't show newsletter modal on get-started page
-    if (pathname === '/get-started') {
+    // Don't show newsletter modal on get-started or thank-you page
+    if (pathname === '/get-started' || pathname === '/thank-you') {
       setIsOpen(false);
       return;
     }
@@ -91,8 +91,8 @@ const NewsletterModal = () => {
     }, 900);
   };
 
-  // Don't show on get-started page
-  if (pathname === '/get-started' || !isOpen) return null;
+  // Don't show on get-started or thank-you page
+  if (pathname === '/get-started' || pathname === '/thank-you' || !isOpen) return null;
 
   const isProcessing = status === "loading";
   const isSuccess = status === "success";
