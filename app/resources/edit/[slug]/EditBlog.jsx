@@ -375,7 +375,7 @@ export default function EditBlog({ posts }) {
   }
 
   return (
-    <div className="min-h-screen bg-black px-4 py-10">
+    <div className="min-h-screen bg-black px-4 py-10 pt-28 xl:pt-40">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center gap-5 mb-8">
           <button

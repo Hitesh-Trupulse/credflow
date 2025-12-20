@@ -104,7 +104,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <section className="min-h-screen bg-black max-w-7xl mx-auto px-4 py-14">
+    <section className="min-h-screen bg-black max-w-7xl mx-auto px-4 py-14 pt-28 xl:pt-40">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
         <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
           Admin Dashboard
