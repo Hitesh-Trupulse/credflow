@@ -200,7 +200,7 @@ export default function Navbar() {
                         onClick={() => setIsWhoWeHelpDropdownOpen(false)}
                         className="flex items-center px-2 py-4 text-white mx-4 duration-200 group"
                       >
-                        <span  className="font-medium">Payer</span>
+                        <span  className="font-medium">Payers & Health Plans</span>
                         <FaArrowRight className="w-3 h-3 ml-auto opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
                       </Link>
                     </div>
