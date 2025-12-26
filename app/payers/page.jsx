@@ -79,13 +79,13 @@ const Payers = () => {
                 <div data-aos="fade-up" className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
                   <button 
                     onClick={() => openModal("demo")}
-                    className="px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-gray-100 transition-colors"
+                    className="px-8 cursor-pointer py-3 bg-white text-black font-medium rounded-full hover:bg-gray-100 transition-colors"
                   >
                     Request a demo
                   </button>
                   <button 
                     onClick={() => openModal("audit")}
-                    className="px-8 py-3 text-white font-medium underline underline-offset-4 hover:text-gray-300 transition-colors"
+                    className="px-8 cursor-pointer  py-3 text-white font-medium underline underline-offset-4 hover:text-gray-300 transition-colors"
                   >
                     Request a free audit report
                   </button>
@@ -516,7 +516,7 @@ const Payers = () => {
               <div data-aos="fade-up">
                 <button 
                   onClick={() => openModal("demo")}
-                  className="px-10 py-4 bg-white text-black font-medium rounded-full hover:bg-gray-100 transition-colors text-lg"
+                  className="px-10 cursor-pointer  py-4 bg-white text-black font-medium rounded-full hover:bg-gray-100 transition-colors text-lg"
                 >
                   Request a demo
                 </button>
@@ -524,7 +524,7 @@ const Payers = () => {
               <div className="mt-4">
                 <button 
                   onClick={() => openModal("audit")}
-                  className="text-sm text-gray-400 hover:text-white transition-colors underline underline-offset-4"
+                  className="text-sm cursor-pointer  text-gray-400 hover:text-white transition-colors underline underline-offset-4"
                 >
                   Or request a free audit report
                 </button>
