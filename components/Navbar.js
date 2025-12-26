@@ -8,8 +8,12 @@ import Button from "./common/Button";
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
+  const [isWhoWeHelpDropdownOpen, setIsWhoWeHelpDropdownOpen] = useState(false);
+  const [isMobileWhoWeHelpOpen, setIsMobileWhoWeHelpOpen] = useState(false);
   const dropdownRef = useRef(null);
   const productButtonRef = useRef(null);
+  const whoWeHelpDropdownRef = useRef(null);
+  const whoWeHelpButtonRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,6 +21,12 @@ export default function Navbar() {
 
   const toggleProductDropdown = () => {
     setIsProductDropdownOpen(!isProductDropdownOpen);
+    setIsWhoWeHelpDropdownOpen(false); // Close other dropdown when opening this one
+  };
+
+  const toggleWhoWeHelpDropdown = () => {
+    setIsWhoWeHelpDropdownOpen(!isWhoWeHelpDropdownOpen);
+    setIsProductDropdownOpen(false); // Close other dropdown when opening this one
   };
 
   // Close dropdown when clicking outside
@@ -29,6 +39,14 @@ export default function Navbar() {
         !productButtonRef.current.contains(event.target)
       ) {
         setIsProductDropdownOpen(false);
+      }
+      if (
+        whoWeHelpDropdownRef.current &&
+        !whoWeHelpDropdownRef.current.contains(event.target) &&
+        whoWeHelpButtonRef.current &&
+        !whoWeHelpButtonRef.current.contains(event.target)
+      ) {
+        setIsWhoWeHelpDropdownOpen(false);
       }
     };
 
@@ -137,15 +155,59 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link
-              href="/#who-we-help"
-              className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"
+            {/* Who We Help Dropdown */}
+            <div 
+              className="relative" 
+              ref={whoWeHelpDropdownRef}
+              onMouseEnter={() => setIsWhoWeHelpDropdownOpen(true)}
+              onMouseLeave={() => setIsWhoWeHelpDropdownOpen(false)}
             >
-              <span className="group-hover:-translate-x-1 transition-transform duration-500 ease-out">
-                Who We Help
-              </span>
-              <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
-            </Link>
+              <button
+                ref={whoWeHelpButtonRef}
+                onClick={(e) => {
+                  // Scroll to who-we-help section
+                  const element = document.getElementById('who-we-help');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  } else {
+                    // If on a different page, navigate first
+                    window.location.href = '/#who-we-help';
+                  }
+                }}
+                className={`nav-link cursor-pointer group flex items-center space-x-2 transition-all duration-500 ease-out ${
+                  isWhoWeHelpDropdownOpen
+                    ? "text-blue-700"
+                    : "hover:text-blue-700"
+                }`}
+              >
+                <span className="group-hover:-translate-x-1 transition-transform duration-500 ease-out">
+                  Who We Help
+                </span>
+                <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
+              </button>
+
+              {/* Desktop Who We Help Dropdown Menu */}
+              {isWhoWeHelpDropdownOpen && (
+                <div 
+                  className="absolute top-full left-0 pt-2 w-64"
+                  onMouseEnter={() => setIsWhoWeHelpDropdownOpen(true)}
+                  onMouseLeave={() => setIsWhoWeHelpDropdownOpen(false)}
+                >
+                  <div className="bg-black/95 backdrop-blur-lg border border-[#454545] shadow-xl rounded-b-lg animate-in fade-in-0 zoom-in-95 duration-200">
+                    <div className="py-2">
+                      <Link
+                        href="/payers"
+                        onClick={() => setIsWhoWeHelpDropdownOpen(false)}
+                        className="flex items-center px-2 py-4 text-white mx-4 duration-200 group"
+                      >
+                        <span  className="font-medium">Payer</span>
+                        <FaArrowRight className="w-3 h-3 ml-auto opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
 
             <Link
               href="/resources"
@@ -242,13 +304,50 @@ export default function Navbar() {
                     </div>
                   </div>
 
-                  <Link
-                    href="/#who-we-help"
-                    className="block text-white hover:text-blue-700 transition-colors duration-300 py-2"
-                    onClick={toggleMenu}
-                  >
-                    Who We Help
-                  </Link>
+                  {/* Mobile Who We Help Section */}
+                  <div className="space-y-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsMobileWhoWeHelpOpen(!isMobileWhoWeHelpOpen);
+                        // Scroll to who-we-help section
+                        const element = document.getElementById('who-we-help');
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                          // If on a different page, navigate first
+                          window.location.href = '/#who-we-help';
+                        }
+                      }}
+                      className="flex items-center justify-between w-full text-left text-white hover:text-blue-700 transition-colors duration-300 py-2"
+                    >
+                      <span>Who We Help</span>
+                      <FaChevronDown
+                        className={`w-3 h-3 transition-all duration-300 ease-out ${
+                          isMobileWhoWeHelpOpen ? "rotate-180" : "rotate-0"
+                        }`}
+                      />
+                    </button>
+
+                    {/* Mobile Who We Help Dropdown */}
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ease-out ${
+                        isMobileWhoWeHelpOpen
+                          ? "max-h-48 opacity-100"
+                          : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      <div className="pl-4 space-y-2 border-l border-[#454545]">
+                        <Link
+                          href="/payers"
+                          onClick={toggleMenu}
+                          className="block text-white hover:text-blue-700 transition-colors duration-300 py-2 text-sm"
+                        >
+                          Payer
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
 
                   <Link
                     href="/resources"
