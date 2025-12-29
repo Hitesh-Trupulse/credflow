@@ -121,8 +121,12 @@ const Footer = () => {
 
         {/* Legal Links */}
         <div className="flex space-x-4 text-sm text-gray-400">
-          <div className="cursor-pointer hover:text-white transition-colors duration-300">Terms & Conditions</div>
-          <div className="cursor-pointer hover:text-white transition-colors duration-300">Privacy Policy</div>
+          <Link href="/terms-and-conditions" className="hover:text-white transition-colors duration-300">
+            Terms & Conditions
+          </Link>
+          <Link href="/privacy-policy" className="hover:text-white transition-colors duration-300">
+            Privacy Policy
+          </Link>
         </div>
 
         {/* Background Logo (large faint logo at bottom) */}
