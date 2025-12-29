@@ -343,7 +343,7 @@ export default function Navbar() {
                           onClick={toggleMenu}
                           className="block text-white hover:text-blue-700 transition-colors duration-300 py-2 text-sm"
                         >
-                          Payer
+                          Payers & Health Plans
                         </Link>
                       </div>
                     </div>
