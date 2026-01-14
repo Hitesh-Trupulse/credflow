@@ -95,7 +95,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden xl:flex space-x-10 text-sm">
+          <div className="hidden font-medium xl:flex space-x-10">
             <Link
               href="/#home"
               className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"
