@@ -85,17 +85,17 @@ export default function Navbar() {
               className="flex items-center cursor-pointer space-x-3 relative z-10"
             >
               <Image
-                src="/images/new.png"
+                src="/images/logo11.png"
                 alt="Credflow Logo"
-                width={120}
-                height={60}
+                width={300}
+                height={300}
                 className="w-24 sm:w-32 lg:w-40 xl:w-[200px] h-auto"
               />
             </Link>
           </div>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden font-medium xl:flex space-x-10">
+          <div className="hidden font-medium 2xl:text-xl xl:flex space-x-10">
             <Link
               href="/#home"
               className="nav-link group flex items-center space-x-2 hover:text-blue-700 transition-all duration-500 ease-out"

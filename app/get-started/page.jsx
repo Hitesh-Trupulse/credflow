@@ -94,10 +94,10 @@ export default function ProductPage() {
                 className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
               >
                 <Image
-                  src="/images/new.png"
+                  src="/images/logo11.png"
                   alt="Credflow Logo"
-                  width={120}
-                  height={60}
+                  width={300}
+                  height={300}
                   className="h-8 w-auto"
                 />
               </Link>
