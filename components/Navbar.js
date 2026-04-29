@@ -118,36 +118,60 @@ export default function Navbar() {
                 }`}
               >
                 <span className="group-hover:-translate-x-1 transition-transform duration-500 ease-out">
-                  Product
+                  Products
                 </span>
                 <FaArrowRight className="w-4 h-4 text-blue-700 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out" />
               </button>
 
               {/* Desktop Dropdown Menu */}
               {isProductDropdownOpen && (
-                <div className="absolute top-full left-0 mt-7 w-64 bg-black/95 backdrop-blur-lg border border-[#454545] border-t-0 shadow-xl z-[-1] animate-in fade-in-0 zoom-in-95 duration-200">
+                <div className="absolute top-full left-0 mt-7 w-80 bg-black/95 backdrop-blur-lg border border-[#454545] border-t-0 shadow-xl z-[-1] animate-in fade-in-0 zoom-in-95 duration-200">
                   <div className="py-2">
                     <Link
-                      href="/#product"
+                      href="/software"
+                      onClick={() => setIsProductDropdownOpen(false)}
                       className="flex items-center px-2 py-4 text-white mx-4 duration-200 group"
                     >
-                      <span data-aos="fade-right" className="font-medium">Product</span>
+                      <div data-aos="fade-right" className="flex flex-col text-left">
+                        <span className="font-medium">Credentialing Software</span>
+                        <span className="text-sm text-gray-400">For in-house teams</span>
+                      </div>
                       <FaArrowRight className="w-3 h-3 ml-auto opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
                     </Link>
                     <div data-aos="fade-left" className="border-t border-[#454545] mx-4"></div>
                     <Link
-                      href="/#why-credflow"
+                      href="/services"
+                      onClick={() => setIsProductDropdownOpen(false)}
                       className="flex items-center px-2 py-4 text-white mx-4 duration-200 group"
                     >
-                      <span data-aos="fade-right" className="font-medium">Why Credflow AI</span>
+                      <div data-aos="fade-right" className="flex flex-col text-left">
+                        <span className="font-medium">Credentialing Services</span>
+                        <span className="text-sm text-gray-400">Done for you</span>
+                      </div>
                       <FaArrowRight className="w-3 h-3 ml-auto opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
                     </Link>
                     <div data-aos="fade-left" className="border-t border-[#454545] mx-4"></div>
                     <Link
-                      href="/#features"
+                      href="/innetwork"
+                      onClick={() => setIsProductDropdownOpen(false)}
                       className="flex items-center px-2 py-4 text-white mx-4 duration-200 group"
                     >
-                      <span data-aos="fade-right" className="font-medium">Features</span>
+                      <div data-aos="fade-right" className="flex flex-col text-left">
+                        <span className="font-medium">InNetwork.ai</span>
+                        <span className="text-sm text-gray-400">Instant network lookup</span>
+                      </div>
+                      <FaArrowRight className="w-3 h-3 ml-auto opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                    </Link>
+                    <div data-aos="fade-left" className="border-t border-[#454545] mx-4"></div>
+                    <Link
+                      href="/payers"
+                      onClick={() => setIsProductDropdownOpen(false)}
+                      className="flex items-center px-2 py-4 text-white mx-4 duration-200 group"
+                    >
+                      <div data-aos="fade-right" className="flex flex-col text-left">
+                        <span className="font-medium">For Payers</span>
+                        <span className="text-sm text-gray-400">Directory auditing</span>
+                      </div>
                       <FaArrowRight className="w-3 h-3 ml-auto opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
                     </Link>
                   </div>
@@ -220,10 +244,16 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Desktop CTA Button */}
-          <div className="hidden xl:block ml-6">
+          {/* Desktop CTA Buttons */}
+          <div className="hidden xl:flex items-center gap-3 ml-6">
+            <Link
+              href="/services#contact-form"
+              className="group cursor-pointer inline-flex items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent border border-white text-white hover:bg-white hover:text-black focus:ring-white hover:shadow-lg hover:shadow-white/50 px-6 py-3 text-base rounded-full"
+            >
+              Talk to a specialist
+            </Link>
             <Button variant="primary" size="md" className="rounded-full">
-              Join The Waitlist
+              Book a demo
             </Button>
           </div>
 
@@ -262,7 +292,7 @@ export default function Navbar() {
                       }}
                       className="flex items-center justify-between w-full text-left text-white hover:text-blue-700 transition-colors duration-300 py-2"
                     >
-                      <span>Product</span>
+                      <span>Products</span>
                       <FaChevronDown
                         className={`w-3 h-3 transition-all duration-300 ease-out ${
                           isProductDropdownOpen ? "rotate-180" : "rotate-0"
@@ -274,31 +304,42 @@ export default function Navbar() {
                     <div
                       className={`overflow-hidden transition-all duration-300 ease-out ${
                         isProductDropdownOpen
-                          ? "max-h-48 opacity-100"
+                          ? "max-h-96 opacity-100"
                           : "max-h-0 opacity-0"
                       }`}
                     >
                       <div className="pl-4 space-y-2 border-l border-[#454545]">
                         <Link
-                          href="/#product"
+                          href="/software"
                           onClick={toggleMenu}
                           className="block text-white hover:text-blue-700 transition-colors duration-300 py-2 text-sm"
                         >
-                          Product
+                          <span className="block font-medium">Credentialing Software</span>
+                          <span className="block text-xs text-gray-400">For in-house teams</span>
                         </Link>
                         <Link
                           onClick={toggleMenu}
-                          href="/#why-credflow"
+                          href="/services"
                           className="block text-white hover:text-blue-700 transition-colors duration-300 py-2 text-sm"
                         >
-                          Why Credflow AI
+                          <span className="block font-medium">Credentialing Services</span>
+                          <span className="block text-xs text-gray-400">Done for you</span>
                         </Link>
                         <Link
                           onClick={toggleMenu}
-                          href="/#features"
+                          href="/innetwork"
                           className="block text-white hover:text-blue-700 transition-colors duration-300 py-2 text-sm"
                         >
-                          Features
+                          <span className="block font-medium">InNetwork.ai</span>
+                          <span className="block text-xs text-gray-400">Instant network lookup</span>
+                        </Link>
+                        <Link
+                          onClick={toggleMenu}
+                          href="/payers"
+                          className="block text-white hover:text-blue-700 transition-colors duration-300 py-2 text-sm"
+                        >
+                          <span className="block font-medium">For Payers</span>
+                          <span className="block text-xs text-gray-400">Directory auditing</span>
                         </Link>
                       </div>
                     </div>
@@ -358,14 +399,23 @@ export default function Navbar() {
                   </Link>
                 </div>
 
-                {/* Mobile CTA Button */}
-                <Button
-                  variant="primary"
-                  size="md"
-                  className="rounded-full w-full"
-                >
-                  Join The Waitlist
-                </Button>
+                {/* Mobile CTA Buttons */}
+                <div className="flex flex-col gap-3">
+                  <Link
+                    href="/services#contact-form"
+                    onClick={toggleMenu}
+                    className="group cursor-pointer inline-flex items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent border border-white text-white hover:bg-white hover:text-black focus:ring-white hover:shadow-lg hover:shadow-white/50 px-6 py-3 text-base rounded-full w-full"
+                  >
+                    Talk to a specialist
+                  </Link>
+                  <Button
+                    variant="primary"
+                    size="md"
+                    className="rounded-full w-full"
+                  >
+                    Book a demo
+                  </Button>
+                </div>
               </div>
             </div>
           )}

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function BlogHeroSection() {
   return (
-    <section className="bg-black min-h-[60vh] relative overflow-hidden flex items-center justify-center px-6 pt-32 md:pt-48 pb-20">
+    <section className="bg-black min-h-screen relative overflow-hidden flex items-center justify-center px-6 pt-32 md:pt-40 pb-20">
       <div className="absolute inset-0">
         <Image
           src="/images/mainbg.png"

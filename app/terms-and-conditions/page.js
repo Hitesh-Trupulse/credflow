@@ -60,10 +60,6 @@ export default function TermsAndConditions() {
               <li>Accept responsibility for all activities that occur under your account</li>
             </ul>
 
-            <h3 className="text-xl font-semibold mt-6 mb-3">3.3 Waitlist Registration</h3>
-            <p className="mb-4">
-              Registration for our waitlist does not guarantee access to the Services. We reserve the right to accept or decline any waitlist registration at our sole discretion.
-            </p>
           </section>
 
           <section className="mb-8">

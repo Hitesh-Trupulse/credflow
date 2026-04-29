@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Button from "./common/Button";
 
 const Hero = () => {
@@ -64,30 +65,36 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Heading */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light text-white mb-6 leading-tight">
-          <span className="block font-medium mb-2">Medical Credentialing </span>
-          <span className="block mb-2">Made Easy.</span>
-          <span className="bg-gradient-to-r from-[#5063C6] from-20% to-[#B71CD2] bg-clip-text text-transparent flex items-center justify-center">
-            <span className="inline-block min-w-[300px] sm:min-w-[350px] md:min-w-[400px] lg:min-w-[450px] xl:min-w-[500px] text-center">
-              Right <span className="inline-block">
-                {displayedText}
-                <span className="animate-pulse text-white">|</span>
-              </span>
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-light text-white mb-6 leading-[1.05] tracking-tight">
+          <span className="block mb-3">Get Providers Enrolled,</span>
+          <span className="block mb-3">In-Network, And</span>
+          <span className="relative inline-block font-medium">
+            <span className="absolute -inset-x-4 bottom-2 h-5 rounded-full bg-gradient-to-r from-[#5063C6]/25 to-[#B71CD2]/25 blur-lg" />
+            <span className="relative font-light bg-gradient-to-r from-[#5063C6] from-20% to-[#B71CD2] bg-clip-text text-transparent">
+              Billing Faster.
             </span>
           </span>
         </h1>
 
         {/* Sub-heading */}
         <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl text-gray-200 mb-8 max-w-4xl mx-auto leading-relaxed">
-          Your <strong>medical credentialing software</strong> & enrollment AI agent that learns your process,
-          follows your rules, and accelerates provider onboarding—so revenue
-          never waits.
+        Credflow gives medical groups a modern system of record,
+AI-powered payer communication, and a done-for-you enrollment service —
+all in one platform.
         </p>
 
-        {/* CTA Button */}
-        <Button variant="primary" size="md" className="rounded-full text-sm sm:text-base">
-          Join The Waitlist
-        </Button>
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button variant="primary" size="md" className="rounded-full text-sm sm:text-base">
+            Book a demo
+          </Button>
+          <Link
+            href="/services#contact-form"
+            className="group cursor-pointer inline-flex items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 bg-white text-black hover:text-white hover:bg-blue-700 focus:ring-gray-500 hover:shadow-lg hover:shadow-blue-700/50 px-6 py-3 rounded-full text-sm sm:text-base"
+          >
+            Talk to an enrollment specialist
+          </Link>
+        </div>
       </div>
     </section>
   );

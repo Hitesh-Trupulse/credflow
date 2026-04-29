@@ -158,7 +158,7 @@ const AIFeaturesSection = () => {
             CredFlow AI delivers automation and verification of <strong className="font-bold">healthcare provider</strong> and payer data ensuring your healthcare organization achieves patient safety and full-revenue capture.            </p>
 
             <Button variant="primary" size="md" className="rounded-full w-fit">
-              Join The Waitlist
+              Book a demo
             </Button>
           </div>
 

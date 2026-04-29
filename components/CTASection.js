@@ -16,7 +16,7 @@ const CTASection = () => {
       </p>
 
         <Button variant="primary" size="md" className="rounded-full">
-          Join The Waitlist
+          Book a demo
         </Button>
     </section>
   );

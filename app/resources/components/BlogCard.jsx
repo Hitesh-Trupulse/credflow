@@ -73,7 +73,7 @@ export default function BlogCard({ blog }) {
         </div>
         <div className="flex items-center justify-between text-xs lg:text-sm text-white pt-1">
           <span>Read article</span>
-          <span className="text-[#B71CD2] group-hover:translate-x-1 transition-transform">
+          <span className="text-[#B71CD2] opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100">
             →
           </span>
         </div>

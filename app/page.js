@@ -1,5 +1,6 @@
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
+import ProductCardsSection from '../components/ProductCardsSection';
 import VideoSection from '../components/VideoSection';
 import StatsSection from '../components/StatsSection';
 import ProblemSection from '../components/ProblemSection';
@@ -21,6 +22,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
         <Hero />
+        <ProductCardsSection />
         {/* <VideoSection /> */}
         <StatsSection />
         <ProblemSection />
