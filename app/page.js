@@ -24,7 +24,7 @@ export default function Home() {
         <Hero />
         <ProductCardsSection />
         {/* <VideoSection /> */}
-        <StatsSection />
+        {/* <StatsSection /> */}
         <ProblemSection />
         <AIFeaturesSection />
         <WhyCredflowSection />
