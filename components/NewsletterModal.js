@@ -7,13 +7,17 @@ import { FaX, FaCircleCheck } from "react-icons/fa6";
 const STORAGE_KEYS = {
   dismissed: "newsletterDismissed",
   subscribed: "newsletterSubscribed",
+  snoozeUntil: "newsletterSnoozeUntil",
 };
 
 const getInitialVisibility = () => {
   if (typeof window === "undefined") return false;
   const dismissed = window.localStorage.getItem(STORAGE_KEYS.dismissed) === "true";
   const subscribed = window.localStorage.getItem(STORAGE_KEYS.subscribed) === "true";
-  return !(dismissed || subscribed);
+  const snoozeUntilRaw = window.localStorage.getItem(STORAGE_KEYS.snoozeUntil);
+  const snoozeUntil = snoozeUntilRaw ? Number(snoozeUntilRaw) : 0;
+  const isSnoozed = Number.isFinite(snoozeUntil) && Date.now() < snoozeUntil;
+  return !(dismissed || subscribed || isSnoozed);
 };
 
 const NewsletterModal = () => {
@@ -27,24 +31,37 @@ const NewsletterModal = () => {
   const [status, setStatus] = useState("idle"); // idle | loading | success
 
   useEffect(() => {
-    // Don't show newsletter modal on get-started or thank-you page
-    if (pathname === '/get-started' || pathname === '/thank-you') {
+    // Only show on the home page, and only after a short delay.
+    if (pathname !== "/") {
       setIsOpen(false);
       return;
     }
-    setIsOpen(getInitialVisibility());
+
+    const shouldShow = getInitialVisibility();
+    if (!shouldShow) {
+      setIsOpen(false);
+      return;
+    }
+
+    setIsOpen(false);
+    const timer = window.setTimeout(() => {
+      setIsOpen(true);
+    }, 5000);
+
+    return () => window.clearTimeout(timer);
   }, [pathname]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const handleStorage = (event) => {
       if (!event.key || !Object.values(STORAGE_KEYS).includes(event.key)) return;
+      if (pathname !== "/") return;
       setIsOpen(getInitialVisibility());
     };
 
     window.addEventListener("storage", handleStorage);
     return () => window.removeEventListener("storage", handleStorage);
-  }, []);
+  }, [pathname]);
 
   const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
@@ -61,6 +78,20 @@ const NewsletterModal = () => {
   const persistChoice = (key, value = "true") => {
     if (typeof window === "undefined") return;
     window.localStorage.setItem(key, value);
+  };
+
+  const snoozeForOneDay = () => {
+    if (typeof window === "undefined") return;
+    window.localStorage.setItem(
+      STORAGE_KEYS.snoozeUntil,
+      String(Date.now() + 24 * 60 * 60 * 1000)
+    );
+  };
+
+  const handleClose = () => {
+    // User closed it for now — snooze for 1 day.
+    snoozeForOneDay();
+    closeModal();
   };
 
   const handleDismiss = () => {
@@ -91,8 +122,7 @@ const NewsletterModal = () => {
     }, 900);
   };
 
-  // Don't show on get-started or thank-you page
-  if (pathname === '/get-started' || pathname === '/thank-you' || !isOpen) return null;
+  if (pathname !== "/" || !isOpen) return null;
 
   const isProcessing = status === "loading";
   const isSuccess = status === "success";
@@ -117,7 +147,7 @@ const NewsletterModal = () => {
             </div>
             <button
               type="button"
-              onClick={closeModal}
+              onClick={handleClose}
               className="text-gray-400 hover:text-white cursor-pointer transition-colors"
               aria-label="Dismiss newsletter modal"
             >

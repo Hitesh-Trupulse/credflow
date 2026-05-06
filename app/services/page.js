@@ -4,9 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle, ClipboardCheck, FileText, Send } from "lucide-react";
-import Button from "@/components/common/Button";
 import Footer from "@/components/Footer";
-import { useContactForm } from "@/components/common/ContactFormContext";
 
 const trustBarItems = [
   "300+ payers",
@@ -64,7 +62,6 @@ const steps = [
 ];
 
 export default function ServicesPage() {
-  const { openContactForm } = useContactForm();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -73,15 +70,64 @@ export default function ServicesPage() {
     providerCount: "",
     targetPayers: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [alert, setAlert] = useState(""); // success | error message
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    openContactForm();
+    setAlert("");
+    setIsSubmitting(true);
+
+    try {
+      // Submit to the same Zapier hook used by the "Book a demo" contact modal.
+      const payload = new FormData();
+      payload.append("firstName", formData.firstName);
+      payload.append("lastName", formData.lastName);
+      payload.append("email", formData.email);
+      payload.append("companyName", formData.organization);
+      payload.append("numberOfProviders", formData.providerCount);
+      payload.append("organizationType", "Credentialing services");
+      payload.append("howDidYouHear", "Services page");
+      payload.append("formType", "Talk to a specialist");
+      payload.append(
+        "query",
+        `Target payers / specialty: ${formData.targetPayers || "N/A"}`
+      );
+
+      const response = await fetch(
+        "https://hooks.zapier.com/hooks/catch/14238222/um5xca0/",
+        {
+          method: "POST",
+          body: payload,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        organization: "",
+        providerCount: "",
+        targetPayers: "",
+      });
+      setAlert("Thanks! A specialist will reach out within 1–2 business days.");
+    } catch (error) {
+      console.error("Services form submission error:", error);
+      setAlert(
+        "Something went wrong while submitting. Please try again in a moment."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -295,6 +341,19 @@ export default function ServicesPage() {
               onSubmit={handleSubmit}
               className="relative grid grid-cols-1 md:grid-cols-2 gap-5 border border-[#454545] rounded-3xl p-6 md:p-8 bg-gradient-to-b from-white/[0.05] to-black"
             >
+              {alert && (
+                <div className="md:col-span-2">
+                  <div
+                    className={`rounded-2xl border px-4 py-3 text-sm ${
+                      alert.toLowerCase().includes("thanks")
+                        ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-200"
+                        : "border-red-500/30 bg-red-500/10 text-red-200"
+                    }`}
+                  >
+                    {alert}
+                  </div>
+                </div>
+              )}
               <div className="md:col-span-2 grid md:grid-cols-3 gap-4 mb-2">
                 {[
                   [FileText, "Tell us the basics"],
@@ -383,9 +442,13 @@ export default function ServicesPage() {
                 <p className="text-base text-gray-500 text-center sm:text-left">
                   No generic handoff. A credentialing specialist will review your intake.
                 </p>
-                <Button variant="primary" size="md" className="rounded-full">
-                  Get started
-                </Button>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="group cursor-pointer inline-flex items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 bg-white text-black hover:text-white hover:bg-blue-700 focus:ring-gray-500 hover:shadow-lg hover:shadow-blue-700/50 px-6 py-3 text-base rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? "Submitting..." : "Get started"}
+                </button>
               </div>
             </form>
           </div>

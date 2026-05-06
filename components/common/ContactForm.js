@@ -49,6 +49,7 @@ const ContactForm = ({
       formDataToSend.append('organizationType', organizationType);
       formDataToSend.append('howDidYouHear', howDidYouHear);
       formDataToSend.append('query', query);
+      formDataToSend.append('formType', 'Book a demo');
 
       const response = await fetch('https://hooks.zapier.com/hooks/catch/14238222/um5xca0/', {
         method: 'POST',
