@@ -39,7 +39,7 @@ export default function ProductPage() {
       formDataToSend.append('howDidYouHear', 'Get Started Page'); // Track source
       formDataToSend.append('query', formData.message || '');
 
-      const response = await fetch('https://hooks.zapier.com/hooks/catch/14238222/um5xca0/', {
+      const response = await fetch('https://hooks.zapier.com/hooks/catch/27515226/4ytw9iy/', {
         method: 'POST',
         body: formDataToSend,
       });

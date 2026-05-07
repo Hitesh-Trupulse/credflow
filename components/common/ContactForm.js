@@ -51,7 +51,7 @@ const ContactForm = ({
       formDataToSend.append('query', query);
       formDataToSend.append('formType', 'Book a demo');
 
-      const response = await fetch('https://hooks.zapier.com/hooks/catch/14238222/um5xca0/', {
+      const response = await fetch('https://hooks.zapier.com/hooks/catch/27515226/4ytw9iy/', {
         method: 'POST',
         body: formDataToSend, // Use FormData instead of JSON
         // No Content-Type header - let browser set it automatically
