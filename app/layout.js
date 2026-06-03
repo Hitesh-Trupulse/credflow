@@ -117,10 +117,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </Script>
 
         {/* Geo Location Meta Tags */}
-        <meta name="geo.region" content="IN-HR" />
-        <meta name="geo.placename" content="Gurugram, India" />
-        <meta name="geo.position" content="28.438111;77.105060" />
-        <meta name="ICBM" content="28.438111, 77.105060" />
+        <meta name="geo.placename" content="Nashville, Tennessee" />
+        <meta name="geo.region" content="US-TN" />
+        <meta name="geo.position" content="36.1627;-86.7816" />
+        <meta name="ICBM" content="36.1627, -86.7816" />
 
         {/* Structured Data - Organization & SoftwareApplication (Essential for SEO) */}
         <Script
@@ -138,14 +138,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   "Your Credentialing & Enrollment AI Agent That Learns Your Process, Follows Your Rules, And Accelerates Provider Onboarding—So Revenue Never Waits.",
                 address: {
                   "@type": "PostalAddress",
-                  addressCountry: "IN",
-                  addressRegion: "Haryana",
-                  addressLocality: "Gurugram",
+                  addressCountry: "US",
+                  addressRegion: "Tennessee",
+                  addressLocality: "Nashville",
                 },
                 geo: {
                   "@type": "GeoCoordinates",
-                  latitude: "28.438111",
-                  longitude: "77.105060",
+                  latitude: "36.1627",
+                  longitude: "-86.7816",
                 },
                 sameAs: [
                   "https://www.linkedin.com/company/credflow",
