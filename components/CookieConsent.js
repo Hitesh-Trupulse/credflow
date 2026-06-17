@@ -49,34 +49,39 @@ export default function CookieConsent() {
         <div
           role="dialog"
           aria-label="Cookie consent"
-          className="fixed inset-x-0 bottom-0 z-[100] border-t border-white/10 bg-gray-950/95 px-4 py-4 shadow-2xl backdrop-blur-md sm:px-6 sm:py-5"
+          className="fixed inset-x-0 bottom-0 z-[100] border-t border-[#454545] bg-gradient-to-r from-[#0F0F17] to-[#1B1B27] px-4 py-4 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] backdrop-blur-md sm:px-6 sm:py-5"
         >
           <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm leading-relaxed text-gray-300 sm:max-w-2xl">
-              We use cookies to analyze site traffic and improve your experience.
-              You can accept all cookies or reject non-essential cookies. Learn
-              more in our{" "}
-              <Link
-                href="/privacy-policy"
-                className="font-medium text-emerald-400 underline underline-offset-2 transition-colors hover:text-emerald-300"
-              >
-                Privacy Policy
-              </Link>
-              .
-            </p>
+            <div className="sm:max-w-2xl">
+              <p className="text-xs uppercase tracking-[0.25em] text-[#6C63FF] mb-1">
+                Cookies
+              </p>
+              <p className="text-sm leading-relaxed text-gray-300">
+                We use cookies to analyze site traffic and improve your
+                experience. You can accept all cookies or reject non-essential
+                cookies. Learn more in our{" "}
+                <Link
+                  href="/privacy-policy"
+                  className="font-medium text-[#6C63FF] underline underline-offset-2 transition-colors hover:text-[#8B84FF]"
+                >
+                  Privacy Policy
+                </Link>
+                .
+              </p>
+            </div>
 
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
               <button
                 type="button"
                 onClick={handleReject}
-                className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:border-white/40 hover:bg-white/5"
+                className="rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:border-white/30 hover:bg-white/10"
               >
                 Reject
               </button>
               <button
                 type="button"
                 onClick={handleAccept}
-                className="rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-emerald-400"
+                className="rounded-full bg-gradient-to-r from-[#6C63FF] to-[#B721FF] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90"
               >
                 Accept All
               </button>
