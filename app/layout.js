@@ -5,6 +5,7 @@ import { ContactFormProvider } from "../components/common/ContactFormContext";
 import NewsletterModal from "../components/NewsletterModal";
 import Script from "next/script";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
+import CookieConsent from "@/components/CookieConsent";
 
 export const metadata = {
   metadataBase: new URL("https://www.credflow.ai"),
@@ -75,46 +76,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Google Tag Manager */}
-        <Script
-          id="gtm-head"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-5WPJ7X2T');`,
-          }}
-        />
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-1MSBXJCHJ7"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-1MSBXJCHJ7');
-          `}
-        </Script>
-
         {/* Bing Webmaster Verification */}
         <meta name="msvalidate.01" content="973368DB45DAD5DDAACD83D295003142" />
-
-        {/* Microsoft Clarity */}
-        <Script id="ms-clarity" strategy="afterInteractive">
-          {`
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "u8xqxiaos8");
-          `}
-        </Script>
 
         {/* Geo Location Meta Tags */}
         <meta name="geo.placename" content="Nashville, Tennessee" />
@@ -179,20 +142,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
       </head>
       <body className="antialiased">
-        {/* Google Tag Manager (noscript) – must be right after <body> */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-5WPJ7X2T"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
         <ContactFormProvider>
           <ConditionalNavbar />
           <AOSWrapper>{children}</AOSWrapper>
         </ContactFormProvider>
         <NewsletterModal />
+        <CookieConsent />
         <Toaster
           position="top-right"
           toastOptions={{

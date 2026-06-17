@@ -7,12 +7,12 @@ export const metadata = {
 
 export default function TermsAndConditions() {
   return (
-    <div className="min-h-screen pt-16 xl:pt-28 bg-white text-gray-900">
+    <div className="min-h-screen pt-16 xl:pt-28 bg-black text-white">
       <div className="max-w-4xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-bold mb-4">Terms and Conditions</h1>
-        <p className="text-gray-600 mb-8">Effective Date: December 29, 2025</p>
+        <p className="text-gray-400 mb-8">Effective Date: December 29, 2025</p>
 
-        <div className="prose prose-lg max-w-none">
+        <div className="prose prose-lg prose-invert max-w-none">
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mt-8 mb-4">1. Acceptance of Terms</h2>
             <p className="mb-4">
@@ -405,7 +405,7 @@ export default function TermsAndConditions() {
             <p className="mb-4">
               For questions, concerns, or notices regarding these Terms, please contact:
             </p>
-            <div className="bg-gray-50 p-6 rounded-lg mb-4">
+            <div className="bg-white/5 border border-[#454545] p-6 rounded-lg mb-4">
               <p className="font-semibold mb-2">CredFlow AI</p>
               <p>Email: hello@credflow.ai</p>
               <p>Legal Department: legal@credflow.ai</p>
@@ -414,7 +414,7 @@ export default function TermsAndConditions() {
             <p className="mb-4">
               For Business Associate Agreement requests or HIPAA-related matters, please contact: hipaa@credflow.ai
             </p>
-            <p className="text-gray-600 italic mb-4">Last Updated: December 29, 2025</p>
+            <p className="text-gray-400 italic mb-4">Last Updated: December 29, 2025</p>
             <p className="mb-4">
               By using the Services, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.
             </p>
