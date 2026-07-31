@@ -29,15 +29,15 @@ export default function CookieConsent() {
     setShowBanner(true);
   }, []);
 
-  const handleAccept = () => {
+  const handleAcceptAll = () => {
     setConsent(CONSENT_VALUES.ACCEPTED);
     setConsentState(CONSENT_VALUES.ACCEPTED);
     setShowBanner(false);
   };
 
-  const handleReject = () => {
-    setConsent(CONSENT_VALUES.REJECTED);
-    setConsentState(CONSENT_VALUES.REJECTED);
+  const handleAcceptNecessary = () => {
+    setConsent(CONSENT_VALUES.ACCEPTED);
+    setConsentState(CONSENT_VALUES.ACCEPTED);
     setShowBanner(false);
   };
 
@@ -58,8 +58,8 @@ export default function CookieConsent() {
               </p>
               <p className="text-sm leading-relaxed text-gray-300">
                 We use cookies to analyze site traffic and improve your
-                experience. You can accept all cookies or reject non-essential
-                cookies. Learn more in our{" "}
+                experience. You can accept all cookies or accept only necessary
+                ones. Learn more in our{" "}
                 <Link
                   href="/privacy-policy"
                   className="font-medium text-[#6C63FF] underline underline-offset-2 transition-colors hover:text-[#8B84FF]"
@@ -73,17 +73,17 @@ export default function CookieConsent() {
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
               <button
                 type="button"
-                onClick={handleReject}
+                onClick={handleAcceptNecessary}
                 className="rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:border-white/30 hover:bg-white/10"
               >
-                Reject
+                Accept necessary
               </button>
               <button
                 type="button"
-                onClick={handleAccept}
+                onClick={handleAcceptAll}
                 className="rounded-full bg-gradient-to-r from-[#6C63FF] to-[#B721FF] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90"
               >
-                Accept All
+                Accept all
               </button>
             </div>
           </div>
