@@ -6,6 +6,14 @@ import NewsletterModal from "../components/NewsletterModal";
 import Script from "next/script";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
 import CookieConsent from "@/components/CookieConsent";
+import MicrosoftClarity from "@/components/MicrosoftClarity";
+import { headers } from "next/headers";
+import {
+  shouldShowConsentBanner,
+  CONSENT_DENIED_REGIONS,
+} from "@/lib/consentRegions";
+
+const GTM_ID = "GTM-5WPJ7X2T";
 
 export const metadata = {
   metadataBase: new URL("https://www.credflow.ai"),
@@ -15,7 +23,6 @@ export const metadata = {
   },
   description:
     "CredFlow AI - Credentialing Management Software That Automates And Streamlines Healthcare Provider Credentialing, Enrollment And Onboarding. Request A Demo!",
-  // Keywords meta tag - Google ignores this, but some search engines still use it
   keywords: [
     "healthcare credentialing software",
     "medical credentialing software",
@@ -24,7 +31,6 @@ export const metadata = {
     "healthcare provider credentialing software",
     "provider credentialing companies",
   ],
-  // Robots meta - tells search engines how to crawl your site
   robots: {
     index: true,
     follow: true,
@@ -36,11 +42,9 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  // Author and publisher info
   authors: [{ name: "CredFlow AI" }],
   creator: "CredFlow AI",
   publisher: "CredFlow AI",
-  // Open Graph for social media sharing (Facebook, LinkedIn, etc.)
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -58,7 +62,6 @@ export const metadata = {
       },
     ],
   },
-  // Twitter Card for Twitter sharing
   twitter: {
     card: "summary_large_image",
     title: "CredFlow AI - Credentialing Made Easy",
@@ -67,15 +70,61 @@ export const metadata = {
     images: ["/images/logoo.png"],
     creator: "@credflow",
   },
-  // Category and classification
   category: "Healthcare Technology",
-  // Viewport and other technical meta tags are handled by Next.js automatically
 };
 
-export default function RootLayout({ children }) {
+const consentModeScript = `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+
+  gtag('consent', 'default', {
+    'analytics_storage': 'granted',
+    'ad_storage': 'granted',
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted'
+  });
+
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'wait_for_update': 500,
+    'region': ${JSON.stringify(CONSENT_DENIED_REGIONS)}
+  });
+
+  // Restore prior Accept early (within wait_for_update) for returning visitors
+  try {
+    var match = document.cookie.match(/(?:^|; )credflow_cookie_consent=([^;]*)/);
+    var stored = match ? decodeURIComponent(match[1]) : '';
+    if (stored === 'accepted') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted',
+        'ad_user_data': 'granted',
+        'ad_personalization': 'granted'
+      });
+    }
+  } catch (e) {}
+`;
+
+export default async function RootLayout({ children }) {
+  const headersList = await headers();
+  const country = headersList.get("x-vercel-ip-country") || "";
+  const region = headersList.get("x-vercel-ip-country-region") || "";
+  const showBanner = shouldShowConsentBanner(country, region);
+
   return (
     <html lang="en">
       <head>
+        {/* Consent Mode v2 — must run BEFORE GTM */}
+        <Script
+          id="consent-mode"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: consentModeScript }}
+        />
+
         {/* Bing Webmaster Verification */}
         <meta name="msvalidate.01" content="973368DB45DAD5DDAACD83D295003142" />
 
@@ -142,12 +191,36 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="antialiased">
+        {/* Google Tag Manager (noscript) – must be right after <body> */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+
+        {/* GTM loads for everyone — Consent Mode controls whether tags fire */}
+        <Script
+          id="gtm-head"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`,
+          }}
+        />
+
         <ContactFormProvider>
           <ConditionalNavbar />
           <AOSWrapper>{children}</AOSWrapper>
         </ContactFormProvider>
         <NewsletterModal />
-        <CookieConsent />
+        <CookieConsent showBanner={showBanner} />
+        <MicrosoftClarity showBanner={showBanner} />
         <Toaster
           position="top-right"
           toastOptions={{
