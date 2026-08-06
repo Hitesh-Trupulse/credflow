@@ -329,6 +329,8 @@ const ContactForm = ({
           <button
             type="submit"
             disabled={isSubmitting}
+            data-cta-id="modal-send-message"
+            data-cta-location="contact-modal"
             className="w-full cursor-pointer bg-gradient-to-r from-[#5063C6] to-[#B71CD2] text-white py-3 px-4 sm:py-4 sm:px-6 rounded-lg sm:rounded-xl hover:from-[#5a6fd6] hover:to-[#c528e2] transition-all duration-300 text-sm sm:text-base font-semibold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
           >
             {isSubmitting ? (

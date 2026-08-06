@@ -18,7 +18,7 @@ const CTASection = ({ formHref = "/services#contact-form" }) => {
 
       <Link
         href={formHref}
-        data-cta-id={isSoftware ? "software-book-demo" : "home-book-demo"}
+        data-cta-id={isSoftware ? "software-cta-book-demo" : "home-cta-book-demo"}
         data-cta-location={isSoftware ? "software-cta" : "home-cta"}
         className="group cursor-pointer inline-flex items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 bg-white text-black hover:text-white hover:bg-blue-700 focus:ring-gray-500 hover:shadow-lg hover:shadow-blue-700/50 px-6 py-3 text-base rounded-full"
       >

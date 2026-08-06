@@ -80,12 +80,16 @@ const Payers = () => {
                 <div data-aos="fade-up" className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
                   <button 
                     onClick={() => openModal("demo")}
+                    data-cta-id="payers-request-demo"
+                    data-cta-location="payers-hero"
                     className="px-8 cursor-pointer py-3 bg-white text-black font-medium rounded-full hover:bg-blue-700 hover:text-white transition-all duration-500 hover:shadow-lg hover:shadow-blue-700/50"
                   >
                     Request a demo
                   </button>
                   <button 
                     onClick={() => openModal("audit")}
+                    data-cta-id="payers-request-audit"
+                    data-cta-location="payers-hero"
                     className="px-8 cursor-pointer py-3 rounded-full border border-white/30 bg-black/30 text-white font-medium backdrop-blur-sm hover:border-white hover:bg-white hover:text-black hover:shadow-lg hover:shadow-white/20 transition-all duration-300"
                   >
                     Request a free audit report
@@ -520,6 +524,8 @@ const Payers = () => {
               <div data-aos="fade-up">
                 <button 
                   onClick={() => openModal("demo")}
+                  data-cta-id="payers-cta-request-demo"
+                  data-cta-location="payers-cta"
                   className="px-10 cursor-pointer py-4 bg-white text-black font-medium rounded-full hover:bg-blue-700 hover:text-white transition-all duration-500 hover:shadow-lg hover:shadow-blue-700/50 text-lg"
                 >
                   Request a demo
@@ -528,6 +534,8 @@ const Payers = () => {
               <div className="mt-4">
                 <button 
                   onClick={() => openModal("audit")}
+                  data-cta-id="payers-cta-request-audit"
+                  data-cta-location="payers-cta"
                   className="text-base cursor-pointer text-gray-400 hover:text-white transition-colors underline underline-offset-4"
                 >
                   Or request a free audit report

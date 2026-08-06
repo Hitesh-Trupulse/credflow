@@ -111,6 +111,8 @@ export default function ProductPage() {
               <a href="#testimonials" className="text-slate-300 hover:text-white transition-colors">Testimonials</a>
               <a 
                 href="#demo-form" 
+                data-cta-id="get-started-nav-cta"
+                data-cta-location="get-started-nav"
                 className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
               >
                 Get Started
@@ -121,6 +123,8 @@ export default function ProductPage() {
             <div className="md:hidden">
               <a 
                 href="#demo-form" 
+                data-cta-id="get-started-mobile-nav-cta"
+                data-cta-location="get-started-mobile-nav"
                 className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-semibold text-sm transition-colors"
               >
                 Get Started
@@ -273,6 +277,8 @@ export default function ProductPage() {
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
+                  data-cta-id="get-started-book-call"
+                  data-cta-location="get-started-demo-form"
                   className="w-full bg-purple-700 cursor-pointer hover:bg-purple-800 text-white font-bold py-4 rounded-lg shadow-lg shadow-purple-900/50 transition-all transform hover:-translate-y-0.5 text-lg mt-2 border border-white/10 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
                   {isSubmitting ? (
@@ -345,7 +351,12 @@ export default function ProductPage() {
           </div>
 
           <div className="mt-12">
-            <a href="#demo-form" className="inline-block bg-purple-700 hover:bg-purple-800 text-white px-10 py-4 rounded-lg font-bold shadow-lg shadow-purple-900/50 transition transform hover:-translate-y-1 text-lg border border-white/10">
+            <a
+              href="#demo-form"
+              data-cta-id="get-started-see-how"
+              data-cta-location="get-started-who-we-help"
+              className="inline-block bg-purple-700 hover:bg-purple-800 text-white px-10 py-4 rounded-lg font-bold shadow-lg shadow-purple-900/50 transition transform hover:-translate-y-1 text-lg border border-white/10"
+            >
               See How We Help You
             </a>
           </div>
@@ -559,7 +570,12 @@ export default function ProductPage() {
         <div className="max-w-4xl mx-auto px-4 relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Automate Your Credentialing?</h2>
           <div className="flex justify-center">
-            <a href="#demo-form" className="bg-purple-700 hover:bg-purple-800 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg shadow-purple-500/30 transition transform hover:-translate-y-1">
+            <a
+              href="#demo-form"
+              data-cta-id="get-started-footer-cta"
+              data-cta-location="get-started-footer"
+              className="bg-purple-700 hover:bg-purple-800 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg shadow-purple-500/30 transition transform hover:-translate-y-1"
+            >
               Get Started
             </a>
           </div>

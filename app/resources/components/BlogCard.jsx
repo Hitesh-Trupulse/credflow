@@ -53,7 +53,11 @@ export default function BlogCard({ blog }) {
   }
 
   return (
-    <Link href={`/resources/info/${getSlug()}`}>
+    <Link
+      href={`/resources/info/${getSlug()}`}
+      data-cta-id="resources-article-card"
+      data-cta-location="resources-grid"
+    >
       <article className="group flex flex-col gap-3 bg-black/70 border border-[#454545] hover:border-[#5063C6] rounded-2xl p-5 hover:-translate-y-1 hover:bg-black transition-all duration-300">
         <div className="flex items-center justify-between text-xs uppercase tracking-wide text-gray-200">
           <span className="px-2 py-1 rounded-full border border-gray-700 bg-gray-800/40 text-gray-200">

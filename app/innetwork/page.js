@@ -114,12 +114,21 @@ export default function InNetworkPage() {
                   href="https://innetwork.credflow.ai"
                   target="_blank"
                   rel="noreferrer"
+                  data-cta-id="innetwork-try-free-lookup"
+                  data-cta-location="innetwork-hero"
                   className="group inline-flex items-center justify-center rounded-full bg-white px-8 py-3 font-medium text-black transition-all duration-500 hover:bg-blue-700 hover:text-white hover:shadow-lg hover:shadow-blue-700/50"
                 >
                   Try a free lookup
                   <span className="ml-2 opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100">→</span>
                 </a>
-                <Button variant="secondary" size="md" className="rounded-full">
+                <Button
+                  href="/services#contact-form"
+                  variant="secondary"
+                  size="md"
+                  className="rounded-full"
+                  data-cta-id="innetwork-get-api-access"
+                  data-cta-location="innetwork-hero"
+                >
                   Get API access
                 </Button>
               </div>
@@ -267,6 +276,8 @@ export default function InNetworkPage() {
                     href={tier.href}
                     target="_blank"
                     rel="noreferrer"
+                    data-cta-id={`innetwork-tier-${tier.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                    data-cta-location="innetwork-pricing"
                     className="group cursor-pointer inline-flex w-fit items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 bg-white text-black hover:text-white hover:bg-blue-700 focus:ring-gray-500 hover:shadow-lg hover:shadow-blue-700/50 px-6 py-3 text-base rounded-full"
                   >
                     <div className="relative flex items-center px-5 justify-center w-full">
@@ -277,7 +288,14 @@ export default function InNetworkPage() {
                     </div>
                   </a>
                 ) : (
-                  <Button variant="primary" size="md" className="rounded-full w-fit">
+                  <Button
+                    href="/services#contact-form"
+                    variant="primary"
+                    size="md"
+                    className="rounded-full w-fit"
+                    data-cta-id={`innetwork-tier-${tier.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                    data-cta-location="innetwork-pricing"
+                  >
                     {tier.cta}
                   </Button>
                 )}

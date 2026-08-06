@@ -44,6 +44,8 @@ export default function ProductCardsSection() {
             <Link
               key={card.title}
               href={card.href}
+              data-cta-id={`home-learn-${card.href.replace("/", "")}`}
+              data-cta-location="home-product-cards"
               className="group min-w-[260px] sm:min-w-[280px] lg:min-w-0 lg:flex-1 bg-gradient-to-br from-[#0F0F0F] to-black border border-[#454545] rounded-2xl p-6 hover:border-[#5063C6] hover:shadow-lg hover:shadow-[#5063C6]/20 transition-all duration-300"
             >
               <p className="text-sm text-gray-400 mb-3 tracking-wide uppercase">{card.eyebrow}</p>

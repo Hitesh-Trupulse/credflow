@@ -38,6 +38,8 @@ export default function ThankYouPage() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href="/get-started#demo-form"
+                data-cta-id="thank-you-schedule-call"
+                data-cta-location="thank-you-body"
                 className="inline-flex items-center justify-center gap-2 bg-purple-700 hover:bg-purple-800 text-white px-6 py-3 rounded-lg font-semibold shadow-lg shadow-purple-900/40 border border-white/10 transition"
               >
                 Schedule another call
@@ -47,6 +49,8 @@ export default function ThankYouPage() {
               </Link>
               <Link
                 href="/"
+                data-cta-id="thank-you-return-home"
+                data-cta-location="thank-you-body"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold border border-slate-700 text-slate-200 hover:border-purple-500 hover:text-white transition"
               >
                 Return home

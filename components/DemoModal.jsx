@@ -228,6 +228,12 @@ export default function DemoModal({ open, onOpenChange, type = "demo" }) {
                 <Button
                   type="submit"
                   disabled={submitting}
+                  data-cta-id={
+                    type === "demo"
+                      ? "payers-modal-request-demo"
+                      : "payers-modal-request-audit"
+                  }
+                  data-cta-location="payers-demo-modal"
                   className="flex-1 bg-blue-600 hover:bg-blue-700 text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {submitting ? (
