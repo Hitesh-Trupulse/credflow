@@ -6,7 +6,7 @@ import NewsletterModal from "../components/NewsletterModal";
 import Script from "next/script";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
 import CookieConsent from "@/components/CookieConsent";
-import MicrosoftClarity from "@/components/MicrosoftClarity";
+import AttributionCapture from "@/components/AttributionCapture";
 import { headers } from "next/headers";
 import {
   shouldShowConsentBanner,
@@ -79,31 +79,46 @@ const consentModeScript = `
   window.gtag = gtag;
 
   gtag('consent', 'default', {
-    'analytics_storage': 'granted',
-    'ad_storage': 'granted',
-    'ad_user_data': 'granted',
-    'ad_personalization': 'granted'
-  });
-
-  gtag('consent', 'default', {
-    'analytics_storage': 'denied',
+    'region': ${JSON.stringify(CONSENT_DENIED_REGIONS)},
     'ad_storage': 'denied',
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
-    'wait_for_update': 500,
-    'region': ${JSON.stringify(CONSENT_DENIED_REGIONS)}
+    'analytics_storage': 'denied',
+    'wait_for_update': 500
   });
 
-  // Restore prior Accept early (within wait_for_update) for returning visitors
+  gtag('consent', 'default', {
+    'ad_storage': 'granted',
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted',
+    'analytics_storage': 'granted'
+  });
+
+  gtag('set', 'ads_data_redaction', true);
+  gtag('set', 'url_passthrough', true);
+
   try {
-    var match = document.cookie.match(/(?:^|; )credflow_cookie_consent=([^;]*)/);
-    var stored = match ? decodeURIComponent(match[1]) : '';
-    if (stored === 'accepted') {
+    var c = document.cookie;
+    if (c.indexOf('credflow_cookie_consent=accepted') !== -1) {
       gtag('consent', 'update', {
-        'analytics_storage': 'granted',
         'ad_storage': 'granted',
         'ad_user_data': 'granted',
-        'ad_personalization': 'granted'
+        'ad_personalization': 'granted',
+        'analytics_storage': 'granted'
+      });
+    } else if (c.indexOf('credflow_cookie_consent=rejected') !== -1) {
+      gtag('consent', 'update', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied'
+      });
+    }
+    if (navigator.globalPrivacyControl === true) {
+      gtag('consent', 'update', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied'
       });
     }
   } catch (e) {}
@@ -112,29 +127,24 @@ const consentModeScript = `
 export default async function RootLayout({ children }) {
   const headersList = await headers();
   const country = headersList.get("x-vercel-ip-country") || "";
-  const region = headersList.get("x-vercel-ip-country-region") || "";
-  const showBanner = shouldShowConsentBanner(country, region);
+  const showBanner = shouldShowConsentBanner(country);
 
   return (
     <html lang="en">
       <head>
-        {/* Consent Mode v2 — must run BEFORE GTM */}
         <Script
-          id="consent-mode"
+          id="consent-default"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: consentModeScript }}
         />
 
-        {/* Bing Webmaster Verification */}
         <meta name="msvalidate.01" content="973368DB45DAD5DDAACD83D295003142" />
 
-        {/* Geo Location Meta Tags */}
         <meta name="geo.placename" content="Nashville, Tennessee" />
         <meta name="geo.region" content="US-TN" />
         <meta name="geo.position" content="36.1627;-86.7816" />
         <meta name="ICBM" content="36.1627, -86.7816" />
 
-        {/* Structured Data - Organization & SoftwareApplication (Essential for SEO) */}
         <Script
           id="structured-data"
           type="application/ld+json"
@@ -191,7 +201,6 @@ export default async function RootLayout({ children }) {
         />
       </head>
       <body className="antialiased">
-        {/* Google Tag Manager (noscript) – must be right after <body> */}
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
@@ -201,7 +210,6 @@ export default async function RootLayout({ children }) {
           />
         </noscript>
 
-        {/* GTM loads for everyone — Consent Mode controls whether tags fire */}
         <Script
           id="gtm-head"
           strategy="afterInteractive"
@@ -214,13 +222,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }}
         />
 
+        <AttributionCapture />
         <ContactFormProvider>
           <ConditionalNavbar />
           <AOSWrapper>{children}</AOSWrapper>
         </ContactFormProvider>
         <NewsletterModal />
         <CookieConsent showBanner={showBanner} />
-        <MicrosoftClarity showBanner={showBanner} />
         <Toaster
           position="top-right"
           toastOptions={{

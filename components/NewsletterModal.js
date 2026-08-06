@@ -115,6 +115,15 @@ const NewsletterModal = () => {
     setTimeout(() => {
       persistChoice(STORAGE_KEYS.subscribed);
       persistChoice(STORAGE_KEYS.dismissed);
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "newsletter_signup",
+          form_id: "newsletter_modal",
+          form_location: window.location.pathname,
+          user_email: email,
+        });
+      }
       setStatus("success");
       setTimeout(() => {
         closeModal();

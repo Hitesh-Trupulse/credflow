@@ -2,9 +2,13 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { usePathname } from 'next/navigation';
 import Button from './common/Button';
 
 const AIFeaturesSection = () => {
+  const pathname = usePathname();
+  const demoHref =
+    pathname === "/software" ? "/software#contact-form" : "/services#contact-form";
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollContainerRef = useRef(null);
   const [isScrolling, setIsScrolling] = useState(false);
@@ -157,7 +161,22 @@ const AIFeaturesSection = () => {
             <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
             CredFlow AI delivers automation and verification of <strong className="font-bold">healthcare provider</strong> and payer data ensuring your healthcare organization achieves patient safety and full-revenue capture.            </p>
 
-            <Button variant="primary" size="md" className="rounded-full w-fit">
+            <Button
+              href={demoHref}
+              variant="primary"
+              size="md"
+              className="rounded-full w-fit"
+              data-cta-id={
+                pathname === "/software"
+                  ? "software-book-demo"
+                  : "home-ai-book-demo"
+              }
+              data-cta-location={
+                pathname === "/software"
+                  ? "software-ai-features"
+                  : "home-ai-features"
+              }
+            >
               Book a demo
             </Button>
           </div>

@@ -16,24 +16,30 @@ const Footer = () => {
 
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
-    
-    // Basic email validation
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
     if (!email.trim()) {
       toast.error("Please enter your email address");
       return;
     }
-    
+
     if (!emailRegex.test(email)) {
       toast.error("Please enter a valid email address");
       return;
     }
-    
-    // Show success toast
+
+    if (typeof window !== "undefined") {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "newsletter_signup",
+        form_id: "footer_newsletter",
+        form_location: window.location.pathname,
+        user_email: email,
+      });
+    }
+
     toast.success("Successfully subscribed to our newsletter!");
-    
-    // Clear the input field
     setEmail("");
   };
 
@@ -81,6 +87,8 @@ const Footer = () => {
             />
             <button 
               type="submit"
+              data-cta-id="footer-join-us"
+              data-cta-location="global-footer"
               className="rounded-full hover:bg-blue-500 hover:text-white duration-300 bg-white px-2 py-1 cursor-pointer text-black mr-2"
             >
               Join Us
@@ -127,6 +135,17 @@ const Footer = () => {
           <Link href="/privacy-policy" className="hover:text-white transition-colors duration-300">
             Privacy Policy
           </Link>
+          <button
+            type="button"
+            onClick={() => {
+              if (typeof window !== "undefined" && window.credflowOpenPrivacyChoices) {
+                window.credflowOpenPrivacyChoices();
+              }
+            }}
+            className="hover:text-white transition-colors duration-300"
+          >
+            Your Privacy Choices
+          </button>
         </div>
 
         {/* Background Logo (large faint logo at bottom) */}

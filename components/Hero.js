@@ -85,11 +85,20 @@ all in one platform.
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Button variant="primary" size="md" className="rounded-full text-sm sm:text-base">
+          <Button
+            href="/services#contact-form"
+            variant="primary"
+            size="md"
+            className="rounded-full text-sm sm:text-base"
+            data-cta-id="home-book-demo"
+            data-cta-location="home-body"
+          >
             Book a demo
           </Button>
           <Link
             href="/services#contact-form"
+            data-cta-id="home-talk-to-specialist"
+            data-cta-location="home-body"
             className="group cursor-pointer inline-flex items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 bg-white text-black hover:text-white hover:bg-blue-700 focus:ring-gray-500 hover:shadow-lg hover:shadow-blue-700/50 px-6 py-3 rounded-full text-sm sm:text-base"
           >
             Talk to an enrollment specialist

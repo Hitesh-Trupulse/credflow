@@ -50,6 +50,7 @@ const ContactForm = ({
       formDataToSend.append('howDidYouHear', howDidYouHear);
       formDataToSend.append('query', query);
       formDataToSend.append('formType', 'Book a demo');
+      formDataToSend.append('smsOptIn', smsOptIn ? 'true' : 'false');
 
       const response = await fetch('https://hooks.zapier.com/hooks/catch/27515226/4ytw9iy/', {
         method: 'POST',

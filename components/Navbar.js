@@ -193,11 +193,20 @@ export default function Navbar() {
           <div className="hidden xl:flex items-center gap-3 ml-6">
             <Link
               href="/services#contact-form"
+              data-cta-id="nav-talk-to-specialist"
+              data-cta-location="global-nav"
               className="group cursor-pointer inline-flex items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent border border-white text-white hover:bg-white hover:text-black focus:ring-white hover:shadow-lg hover:shadow-white/50 px-6 py-3 text-base rounded-full"
             >
               Talk to a specialist
             </Link>
-            <Button variant="primary" size="md" className="rounded-full">
+            <Button
+              href="/services#contact-form"
+              variant="primary"
+              size="md"
+              className="rounded-full"
+              data-cta-id="nav-book-demo"
+              data-cta-location="global-nav"
+            >
               Book a demo
             </Button>
           </div>
@@ -319,14 +328,20 @@ export default function Navbar() {
                   <Link
                     href="/services#contact-form"
                     onClick={toggleMenu}
+                    data-cta-id="mobile-nav-talk-to-specialist"
+                    data-cta-location="mobile-nav"
                     className="group cursor-pointer inline-flex items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 bg-transparent border border-white text-white hover:bg-white hover:text-black focus:ring-white hover:shadow-lg hover:shadow-white/50 px-6 py-3 text-base rounded-full w-full"
                   >
                     Talk to a specialist
                   </Link>
                   <Button
+                    href="/services#contact-form"
+                    onClick={toggleMenu}
                     variant="primary"
                     size="md"
                     className="rounded-full w-full"
+                    data-cta-id="mobile-nav-book-demo"
+                    data-cta-location="mobile-nav"
                   >
                     Book a demo
                   </Button>

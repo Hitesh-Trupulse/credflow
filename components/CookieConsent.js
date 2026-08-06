@@ -7,65 +7,50 @@ import {
   setConsent,
   CONSENT_VALUES,
   CONSENT_GRANTED,
+  CONSENT_DENIED,
   updateGtagConsent,
 } from "@/lib/cookieConsent";
 
 /**
- * Geo-aware cookie banner. Only rendered when showBanner is true
- * (EEA / UK / CH / Quebec). GTM always loads; Consent Mode controls tags.
+ * Geo-aware cookie banner + Privacy Choices reopen.
+ * GTM always loads; Consent Mode controls tags.
  */
 export default function CookieConsent({ showBanner = false }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    const openPrivacyChoices = () => setVisible(true);
+    window.credflowOpenPrivacyChoices = openPrivacyChoices;
+
     const stored = getConsent();
 
-    // Returning user who already accepted — restore granted (regional defaults are denied)
     if (stored === CONSENT_VALUES.ACCEPTED) {
       updateGtagConsent(CONSENT_GRANTED);
       setVisible(false);
     } else if (stored === CONSENT_VALUES.REJECTED) {
-      // Returning reject — keep denied, stay hidden
+      updateGtagConsent(CONSENT_DENIED);
       setVisible(false);
     } else if (showBanner) {
-      // First visit in a banner-required region
       setVisible(true);
     }
 
-    // GPC (California / Colorado): limit ads, keep analytics — applied after restore so it wins
-    if (
-      typeof navigator !== "undefined" &&
-      navigator.globalPrivacyControl === true
-    ) {
-      updateGtagConsent({
-        ad_storage: "denied",
-        ad_user_data: "denied",
-        ad_personalization: "denied",
-        analytics_storage: "granted",
-      });
-    }
+    return () => {
+      if (window.credflowOpenPrivacyChoices === openPrivacyChoices) {
+        delete window.credflowOpenPrivacyChoices;
+      }
+    };
   }, [showBanner]);
 
-  const handleAccept = () => {
+  const handleAcceptAll = () => {
     setConsent(CONSENT_VALUES.ACCEPTED);
     updateGtagConsent(CONSENT_GRANTED);
     setVisible(false);
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(
-        new CustomEvent("credflow-consent", { detail: CONSENT_VALUES.ACCEPTED })
-      );
-    }
   };
 
-  const handleReject = () => {
+  const handleRejectAll = () => {
     setConsent(CONSENT_VALUES.REJECTED);
-    // Regional defaults already denied — do not grant or load extra tracking
+    updateGtagConsent(CONSENT_DENIED);
     setVisible(false);
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(
-        new CustomEvent("credflow-consent", { detail: CONSENT_VALUES.REJECTED })
-      );
-    }
   };
 
   if (!visible) return null;
@@ -83,7 +68,8 @@ export default function CookieConsent({ showBanner = false }) {
           </p>
           <p className="text-sm leading-relaxed text-gray-300">
             We use cookies to analyze site traffic and improve your experience.
-            You can accept or reject non-essential cookies. Learn more in our{" "}
+            You can accept all cookies or reject all non-essential cookies.
+            Learn more in our{" "}
             <Link
               href="/privacy-policy"
               className="font-medium text-[#6C63FF] underline underline-offset-2 transition-colors hover:text-[#8B84FF]"
@@ -97,17 +83,17 @@ export default function CookieConsent({ showBanner = false }) {
         <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
           <button
             type="button"
-            onClick={handleReject}
+            onClick={handleRejectAll}
             className="rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-white transition-all hover:border-white/30 hover:bg-white/10"
           >
-            Reject
+            Reject all
           </button>
           <button
             type="button"
-            onClick={handleAccept}
+            onClick={handleAcceptAll}
             className="rounded-full bg-gradient-to-r from-[#6C63FF] to-[#B721FF] px-5 py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90"
           >
-            Accept
+            Accept all
           </button>
         </div>
       </div>
