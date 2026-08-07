@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { ClipboardCheck, FileText, Send } from "lucide-react";
 import { readAttribution } from "@/components/AttributionCapture";
+import SchedulingModal from "@/components/SchedulingModal";
 
 const pushDataLayer = (payload) => {
   if (typeof window === "undefined") return;
@@ -12,11 +13,10 @@ const pushDataLayer = (payload) => {
 
 /**
  * Shared lead contact form for /services and /software.
- * Fires dataLayer events and attaches attribution cookies to the Zapier payload.
- * lead_id is omitted until a backend returns one (listed as remaining work).
+ * On successful submit: fire conversion event, then open in-page scheduler.
  */
 export default function LeadContactForm({
-  ctaId = "services-get-started",
+  ctaId = "services-pick-time",
   ctaLocation = "services-contact-form",
 }) {
   const [formData, setFormData] = useState({
@@ -31,7 +31,12 @@ export default function LeadContactForm({
   const [alert, setAlert] = useState("");
   const [smsOptIn, setSmsOptIn] = useState(false);
   const [smsError, setSmsError] = useState("");
+  const [showScheduler, setShowScheduler] = useState(false);
   const startedRef = useRef(false);
+
+  const closeScheduler = useCallback(() => {
+    setShowScheduler(false);
+  }, []);
 
   const trackFormStart = () => {
     if (startedRef.current) return;
@@ -117,6 +122,7 @@ export default function LeadContactForm({
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
+      // Conversion fires before scheduling — abandoning the picker is fine
       pushDataLayer({
         event: "contact_form_submit",
         form_id: "contact_form",
@@ -136,7 +142,10 @@ export default function LeadContactForm({
         targetPayers: "",
       });
       setSmsOptIn(false);
-      setAlert("Thanks! A specialist will reach out within 1–2 business days.");
+      setAlert(
+        "Thanks! Pick a time below — or close and we will follow up."
+      );
+      setShowScheduler(true);
     } catch (error) {
       console.error("Contact form submission error:", error);
       pushDataLayer({
@@ -159,7 +168,7 @@ export default function LeadContactForm({
             Ready to get providers enrolled faster?
           </h3>
           <p className="text-gray-400">
-            Share a few details and we will help you get started.
+            Share a few details and pick a time that works for you.
           </p>
         </div>
 
@@ -186,7 +195,7 @@ export default function LeadContactForm({
               {[
                 [FileText, "Tell us the basics"],
                 [ClipboardCheck, "We review your needs"],
-                [Send, "Get a clear next step"],
+                [Send, "Pick your time"],
               ].map(([Icon, label]) => (
                 <div
                   key={label}
@@ -305,8 +314,7 @@ export default function LeadContactForm({
             </div>
             <div className="md:col-span-2 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#454545] pt-5">
               <p className="text-base text-gray-500 text-center sm:text-left">
-                No generic handoff. A credentialing specialist will review your
-                intake.
+                Next: choose a time. Takes about 20 seconds.
               </p>
               <button
                 type="submit"
@@ -315,12 +323,14 @@ export default function LeadContactForm({
                 data-cta-location={ctaLocation}
                 className="group cursor-pointer inline-flex items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 bg-white text-black hover:text-white hover:bg-blue-700 focus:ring-gray-500 hover:shadow-lg hover:shadow-blue-700/50 px-6 py-3 text-base rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? "Submitting..." : "Get started"}
+                {isSubmitting ? "Submitting..." : "Pick your time"}
               </button>
             </div>
           </form>
         </div>
       </div>
+
+      <SchedulingModal isOpen={showScheduler} onClose={closeScheduler} />
     </section>
   );
 }

@@ -10,6 +10,7 @@ import AttributionCapture from "@/components/AttributionCapture";
 import { headers } from "next/headers";
 import {
   shouldShowConsentBanner,
+  getVisitorCountry,
   CONSENT_DENIED_REGIONS,
 } from "@/lib/consentRegions";
 
@@ -126,7 +127,8 @@ const consentModeScript = `
 
 export default async function RootLayout({ children }) {
   const headersList = await headers();
-  const country = headersList.get("x-vercel-ip-country") || "";
+  // Amplify → CloudFront-Viewer-Country; Vercel fallback supported
+  const country = getVisitorCountry(headersList);
   const showBanner = shouldShowConsentBanner(country);
 
   return (

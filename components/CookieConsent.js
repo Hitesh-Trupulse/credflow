@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   getConsent,
@@ -10,16 +10,25 @@ import {
   CONSENT_DENIED,
   updateGtagConsent,
 } from "@/lib/cookieConsent";
+import { shouldShowConsentBanner } from "@/lib/consentRegions";
 
 /**
  * Geo-aware cookie banner + Privacy Choices reopen.
  * GTM always loads; Consent Mode controls tags.
+ *
+ * Banner visibility:
+ * 1. SSR prop from Amplify CloudFront-Viewer-Country (layout)
+ * 2. Client re-check via /api/visitor-country (Amplify-safe fallback)
  */
 export default function CookieConsent({ showBanner = false }) {
   const [visible, setVisible] = useState(false);
+  const manualOpenRef = useRef(false);
 
   useEffect(() => {
-    const openPrivacyChoices = () => setVisible(true);
+    const openPrivacyChoices = () => {
+      manualOpenRef.current = true;
+      setVisible(true);
+    };
     window.credflowOpenPrivacyChoices = openPrivacyChoices;
 
     const stored = getConsent();
@@ -27,14 +36,54 @@ export default function CookieConsent({ showBanner = false }) {
     if (stored === CONSENT_VALUES.ACCEPTED) {
       updateGtagConsent(CONSENT_GRANTED);
       setVisible(false);
-    } else if (stored === CONSENT_VALUES.REJECTED) {
-      updateGtagConsent(CONSENT_DENIED);
-      setVisible(false);
-    } else if (showBanner) {
-      setVisible(true);
+      return () => {
+        if (window.credflowOpenPrivacyChoices === openPrivacyChoices) {
+          delete window.credflowOpenPrivacyChoices;
+        }
+      };
     }
 
+    if (stored === CONSENT_VALUES.REJECTED) {
+      updateGtagConsent(CONSENT_DENIED);
+      setVisible(false);
+      return () => {
+        if (window.credflowOpenPrivacyChoices === openPrivacyChoices) {
+          delete window.credflowOpenPrivacyChoices;
+        }
+      };
+    }
+
+    let cancelled = false;
+    manualOpenRef.current = false;
+
+    const resolveBanner = async () => {
+      let shouldShow = showBanner;
+
+      try {
+        const response = await fetch("/api/visitor-country", {
+          method: "GET",
+          cache: "no-store",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          if (data?.country) {
+            shouldShow = shouldShowConsentBanner(data.country);
+          }
+        }
+      } catch {
+        // Keep SSR decision if the geo API is unavailable
+      }
+
+      // Don't override an intentional "Your Privacy Choices" open
+      if (!cancelled && !manualOpenRef.current) {
+        setVisible(shouldShow);
+      }
+    };
+
+    resolveBanner();
+
     return () => {
+      cancelled = true;
       if (window.credflowOpenPrivacyChoices === openPrivacyChoices) {
         delete window.credflowOpenPrivacyChoices;
       }
@@ -42,12 +91,14 @@ export default function CookieConsent({ showBanner = false }) {
   }, [showBanner]);
 
   const handleAcceptAll = () => {
+    manualOpenRef.current = false;
     setConsent(CONSENT_VALUES.ACCEPTED);
     updateGtagConsent(CONSENT_GRANTED);
     setVisible(false);
   };
 
   const handleRejectAll = () => {
+    manualOpenRef.current = false;
     setConsent(CONSENT_VALUES.REJECTED);
     updateGtagConsent(CONSENT_DENIED);
     setVisible(false);
