@@ -67,11 +67,13 @@ export default function Navbar() {
               className="flex items-center cursor-pointer space-x-3 relative z-10"
             >
               <Image
-                src="/images/logo11.png"
+                src="/images/logo11.webp"
                 alt="Credflow Logo"
-                width={300}
-                height={300}
+                width={200}
+                height={67}
+                sizes="(max-width: 640px) 96px, (max-width: 1024px) 128px, 200px"
                 className="w-24 sm:w-32 lg:w-40 xl:w-[200px] h-auto"
+                priority
               />
             </Link>
           </div>
@@ -218,7 +220,7 @@ export default function Navbar() {
             aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation-menu"
-            className="xl:hidden flex items-center justify-center w-10 h-10 rounded-full bg-black/20 border border-[#454545] hover:bg-black/30 transition-colors duration-300"
+            className="xl:hidden flex items-center justify-center w-12 h-12 min-w-12 min-h-12 rounded-full bg-black/20 border border-[#454545] hover:bg-black/30 transition-colors duration-300"
           >
             {isMenuOpen ? (
               <FaTimes className="w-5 h-5 text-white" aria-hidden="true" />

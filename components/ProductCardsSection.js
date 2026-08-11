@@ -52,7 +52,7 @@ export default function ProductCardsSection() {
               <h3 className="text-2xl font-medium leading-tight mb-4 text-white">{card.title}</h3>
               <p className="text-gray-200 leading-relaxed mb-6">{card.description}</p>
               <span className="inline-flex items-center font-medium bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
-                Learn more --&gt;
+                Learn more about {card.title}
               </span>
             </Link>
           ))}

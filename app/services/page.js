@@ -67,22 +67,24 @@ export default function ServicesPage() {
       <section className="relative min-h-screen flex items-center pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/mainbg.png"
-            alt="Main Background"
+            src="/images/mainbg.webp"
+            alt=""
             fill
+            sizes="100vw"
+            quality={70}
             className="object-cover"
             priority
+            fetchPriority="high"
           />
         </div>
-        <div className="absolute inset-0">
-          <Image
-            src="/images/noisebg.png"
-            alt="Stars Overlay"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
+        <div
+          className="absolute inset-0 pointer-events-none opacity-40 mix-blend-soft-light"
+          aria-hidden="true"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 20%, rgba(80,99,198,0.35), transparent 45%), radial-gradient(circle at 80% 30%, rgba(183,28,210,0.25), transparent 40%), linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55))",
+          }}
+        />
         <div className="absolute inset-0 bg-black/20" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6">

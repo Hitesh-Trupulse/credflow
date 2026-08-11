@@ -105,10 +105,12 @@ const Footer = () => {
         {/* Logo */}
         <div className="flex items-center cursor-pointer space-x-3 relative z-10">
           <Image
-            src="/images/logo11.png"
+            src="/images/logo11.webp"
             alt="Credflow Logo"
-            width={300}
-            height={300}
+            width={200}
+            height={67}
+            sizes="200px"
+            className="object-contain"
           />
         </div>
 
@@ -128,12 +130,18 @@ const Footer = () => {
           </Link>
         </div> */}
 
-        {/* Legal Links */}
-        <div className="flex space-x-4 text-sm text-gray-400">
-          <Link href="/terms-and-conditions" className="hover:text-white transition-colors duration-300">
+        {/* Legal Links — larger tap targets for Lighthouse SEO */}
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-gray-300">
+          <Link
+            href="/terms-and-conditions"
+            className="inline-flex min-h-12 items-center px-2 hover:text-white transition-colors duration-300"
+          >
             Terms & Conditions
           </Link>
-          <Link href="/privacy-policy" className="hover:text-white transition-colors duration-300">
+          <Link
+            href="/privacy-policy"
+            className="inline-flex min-h-12 items-center px-2 hover:text-white transition-colors duration-300"
+          >
             Privacy Policy
           </Link>
           <button
@@ -143,17 +151,17 @@ const Footer = () => {
                 window.credflowOpenPrivacyChoices();
               }
             }}
-            className="hover:text-white transition-colors duration-300"
+            className="inline-flex min-h-12 items-center px-2 hover:text-white transition-colors duration-300"
           >
             Your Privacy Choices
           </button>
         </div>
 
         {/* Background Logo (large faint logo at bottom) */}
-        <div className="absolute top-60 inset-0 flex justify-center items-center">
+        <div className="absolute top-60 inset-0 flex justify-center items-center pointer-events-none" aria-hidden="true">
           <Image
             src="/images/logoshadow.png"
-            alt="Background Logo"
+            alt=""
             width={1000}
             height={1000}
             className="object-contain"

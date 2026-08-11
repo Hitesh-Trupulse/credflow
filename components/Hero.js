@@ -1,73 +1,41 @@
-"use client";
-import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "./common/Button";
 
+/**
+ * Above-the-fold hero — kept as a Server Component (no client JS).
+ * Single optimized background image; decorative noise is CSS-only to protect LCP.
+ */
 const Hero = () => {
-  const [displayedText, setDisplayedText] = useState("");
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  
-  const textOptions = useMemo(() => ["Time.", "Provider.", "Place."], []);
-  
-  useEffect(() => {
-    const currentWord = textOptions[currentWordIndex];
-    
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        // Typing effect
-        if (displayedText.length < currentWord.length) {
-          setDisplayedText(currentWord.slice(0, displayedText.length + 1));
-        } else {
-          // Finished typing, wait a bit then start deleting
-          setTimeout(() => setIsDeleting(true), 1500);
-        }
-      } else {
-        // Deleting effect
-        if (displayedText.length > 0) {
-          setDisplayedText(displayedText.slice(0, -1));
-        } else {
-          // Finished deleting, move to next word
-          setIsDeleting(false);
-          setCurrentWordIndex((prevIndex) => (prevIndex + 1) % textOptions.length);
-        }
-      }
-    }, isDeleting ? 100 : 150); // Faster typing, slower deleting
-    
-    return () => clearTimeout(timeout);
-  }, [displayedText, currentWordIndex, isDeleting, textOptions]);
-
   return (
-    <section id="home" className="scroll-mt-32 relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden">
-      {/* Main Background */}
+    <section
+      id="home"
+      className="scroll-mt-32 relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden bg-black"
+    >
       <div className="absolute inset-0">
         <Image
-          src="/images/mainbg.png"
+          src="/images/mainbg.webp"
           alt=""
           fill
           sizes="100vw"
-          quality={75}
+          quality={70}
           className="object-cover"
           priority
+          fetchPriority="high"
         />
       </div>
 
-      {/* Secondary overlay background (stars, gradient, etc) */}
-      <div className="absolute inset-0" aria-hidden="true">
-        <Image
-          src="/images/noisebg.png"
-          alt=""
-          fill
-          sizes="100vw"
-          quality={60}
-          className="object-cover"
-        />
-      </div>
+      {/* Lightweight CSS texture instead of a second full-bleed image */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-40 mix-blend-soft-light"
+        aria-hidden="true"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 20% 20%, rgba(80,99,198,0.35), transparent 45%), radial-gradient(circle at 80% 30%, rgba(183,28,210,0.25), transparent 40%), linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55))",
+        }}
+      />
 
-      {/* Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Heading */}
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-light text-white mb-6 leading-[1.05] tracking-tight">
           <span className="block mb-3">Get Providers Enrolled,</span>
           <span className="block mb-3">In-Network, And</span>
@@ -79,14 +47,12 @@ const Hero = () => {
           </span>
         </h1>
 
-        {/* Sub-heading */}
-        <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl text-gray-200 mb-8 max-w-4xl mx-auto leading-relaxed">
-        Credflow gives medical groups a modern system of record,
-AI-powered payer communication, and a done-for-you enrollment service —
-all in one platform.
+        <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-8 max-w-4xl mx-auto leading-relaxed">
+          Credflow gives medical groups a modern system of record, AI-powered
+          payer communication, and a done-for-you enrollment service — all in
+          one platform.
         </p>
 
-        {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button
             href="/services#contact-form"
@@ -102,7 +68,7 @@ all in one platform.
             href="/services#contact-form"
             data-cta-id="home-talk-to-specialist"
             data-cta-location="home-body"
-            className="group cursor-pointer inline-flex items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 bg-white text-black hover:text-white hover:bg-blue-700 focus:ring-gray-500 hover:shadow-lg hover:shadow-blue-700/50 px-6 py-3 rounded-full text-sm sm:text-base"
+            className="group cursor-pointer inline-flex items-center justify-center font-medium transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 bg-white text-black hover:text-white hover:bg-blue-700 focus:ring-gray-500 hover:shadow-lg hover:shadow-blue-700/50 px-6 py-3 rounded-full text-sm sm:text-base min-h-12"
           >
             Talk to an enrollment specialist
           </Link>
