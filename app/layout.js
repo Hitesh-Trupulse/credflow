@@ -1,12 +1,11 @@
 import "./globals.css";
 import AOSWrapper from "../components/AOSWrapper";
-import { Toaster } from "react-hot-toast";
 import { ContactFormProvider } from "../components/common/ContactFormContext";
-import NewsletterModal from "../components/NewsletterModal";
 import Script from "next/script";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
 import CookieConsent from "@/components/CookieConsent";
 import AttributionCapture from "@/components/AttributionCapture";
+import DeferredChrome from "@/components/DeferredChrome";
 import { headers } from "next/headers";
 import {
   shouldShowConsentBanner,
@@ -229,26 +228,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <ConditionalNavbar />
           <AOSWrapper>{children}</AOSWrapper>
         </ContactFormProvider>
-        <NewsletterModal />
         <CookieConsent showBanner={showBanner} />
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            duration: 3000,
-            style: {
-              background: "#10B981",
-              color: "#fff",
-              borderRadius: "12px",
-              fontSize: "14px",
-              fontWeight: "500",
-              padding: "12px 16px",
-            },
-            iconTheme: {
-              primary: "#fff",
-              secondary: "#10B981",
-            },
-          }}
-        />
+        <DeferredChrome />
       </body>
     </html>
   );
