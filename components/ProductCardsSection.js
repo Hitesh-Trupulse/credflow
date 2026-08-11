@@ -35,9 +35,9 @@ export default function ProductCardsSection() {
   return (
     <section className="bg-black text-white py-16 px-6">
       <div className="max-w-7xl mx-auto">
-        <p className="text-center text-2xl sm:text-3xl md:text-4xl font-light mb-10">
+        <h2 className="text-center text-2xl sm:text-3xl md:text-4xl font-light mb-10 text-white">
           Everything your practice needs to get providers in-network fast.
-        </p>
+        </h2>
 
         <div className="flex gap-4 overflow-x-auto pb-2">
           {cards.map((card) => (
@@ -48,9 +48,9 @@ export default function ProductCardsSection() {
               data-cta-location="home-product-cards"
               className="group min-w-[260px] sm:min-w-[280px] lg:min-w-0 lg:flex-1 bg-gradient-to-br from-[#0F0F0F] to-black border border-[#454545] rounded-2xl p-6 hover:border-[#5063C6] hover:shadow-lg hover:shadow-[#5063C6]/20 transition-all duration-300"
             >
-              <p className="text-sm text-gray-400 mb-3 tracking-wide uppercase">{card.eyebrow}</p>
-              <h3 className="text-2xl font-medium leading-tight mb-4">{card.title}</h3>
-              <p className="text-gray-300 leading-relaxed mb-6">{card.description}</p>
+              <p className="text-sm text-gray-300 mb-3 tracking-wide uppercase">{card.eyebrow}</p>
+              <h3 className="text-2xl font-medium leading-tight mb-4 text-white">{card.title}</h3>
+              <p className="text-gray-200 leading-relaxed mb-6">{card.description}</p>
               <span className="inline-flex items-center font-medium bg-gradient-to-r from-[#5063C6] to-[#B71CD2] bg-clip-text text-transparent">
                 Learn more --&gt;
               </span>

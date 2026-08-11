@@ -158,8 +158,8 @@ const AIFeaturesSection = () => {
               </div>
             </h2>
             
-            <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
-            CredFlow AI delivers automation and verification of <strong className="font-bold">healthcare provider</strong> and payer data ensuring your healthcare organization achieves patient safety and full-revenue capture.            </p>
+            <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+            CredFlow AI delivers automation and verification of <strong className="font-bold text-white">healthcare provider</strong> and payer data ensuring your healthcare organization achieves patient safety and full-revenue capture.            </p>
 
             <Button
               href={demoHref}

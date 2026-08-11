@@ -213,20 +213,27 @@ export default function Navbar() {
 
           {/* Mobile Hamburger Button */}
           <button
+            type="button"
             onClick={toggleMenu}
+            aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation-menu"
             className="xl:hidden flex items-center justify-center w-10 h-10 rounded-full bg-black/20 border border-[#454545] hover:bg-black/30 transition-colors duration-300"
           >
             {isMenuOpen ? (
-              <FaTimes className="w-5 h-5 text-white" />
+              <FaTimes className="w-5 h-5 text-white" aria-hidden="true" />
             ) : (
-              <FaBars className="w-5 h-5 text-white" />
+              <FaBars className="w-5 h-5 text-white" aria-hidden="true" />
             )}
           </button>
 
           {/* Mobile Menu Overlay */}
           {isMenuOpen && (
             <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 xl:hidden mobile-menu-overlay">
-              <div className="absolute top-20 left-4 right-4 bg-black/95 backdrop-blur-lg border border-[#454545] rounded-2xl p-6 shadow-xl">
+              <div
+                id="mobile-navigation-menu"
+                className="absolute top-20 left-4 right-4 bg-black/95 backdrop-blur-lg border border-[#454545] rounded-2xl p-6 shadow-xl"
+              >
                 {/* Mobile Navigation Links */}
                 <div className="space-y-4 mb-6">
                   <Link

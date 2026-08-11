@@ -38,7 +38,7 @@ const ProblemSection = () => {
         </h2>
 
         {/* Sub-headline */}
-        <p data-aos="fade-down" className="text-md md:text-lg text-gray-500 mb-16 leading-relaxed">
+        <p data-aos="fade-down" className="text-md md:text-lg text-gray-300 mb-16 leading-relaxed">
           Work waits. People wait. Revenue waits.
         </p>
 
@@ -59,7 +59,7 @@ const ProblemSection = () => {
                 </h3>
                 
                 {/* Description */}
-                <p data-aos="fade-up"  className="text-gray-500 text-sm font-medium">
+                <p data-aos="fade-up"  className="text-gray-300 text-sm font-medium">
                   {problem.description}
                 </p>
               </div>

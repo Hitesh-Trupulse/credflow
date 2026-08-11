@@ -83,7 +83,8 @@ const Footer = () => {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 px-4 py-2 text-white bg-transparent focus:outline-none placeholder:text-gray-500"
+              aria-label="Email address for newsletter"
+              className="flex-1 px-4 py-2 text-white bg-transparent focus:outline-none placeholder:text-gray-400"
             />
             <button 
               type="submit"

@@ -58,7 +58,7 @@ export default function WhoWeHelpSection() {
         </h2>
         <p
           data-aos="fade-down"
-          className="text-gray-400 max-w-2xl mx-auto mb-16"
+          className="text-gray-300 max-w-2xl mx-auto mb-16"
         >
           Legacy tools track tasks. Credflow AI completes them.
         </p>
@@ -99,7 +99,7 @@ export default function WhoWeHelpSection() {
               {/* Description */}
               <p
                 data-aos="zoom-in"
-                className="text-gray-400 text-sm text-center leading-relaxed"
+                className="text-gray-300 text-sm text-center leading-relaxed"
               >
                 {card.description}
               </p>

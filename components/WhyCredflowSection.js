@@ -32,7 +32,7 @@ const WhyCredflowSection = () => {
             </span>
           </h2>
           
-          <p className="text-md md:text-lg  text-gray-500 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-md md:text-lg  text-gray-300 max-w-4xl mx-auto leading-relaxed">
             Legacy tools track tasks. Credflow AI completes them.
           </p>
         </div>
@@ -48,7 +48,7 @@ const WhyCredflowSection = () => {
                 <h3 className="text-lg font-bold text-white mb-1">
                   {benefit.title}
                 </h3>
-                <p data-aos="fade-up" className="text-gray-400 text-sm">
+                <p data-aos="fade-up" className="text-gray-300 text-sm">
                   {benefit.subtitle}
                 </p>
               </div>
@@ -58,8 +58,8 @@ const WhyCredflowSection = () => {
 
         {/* Bottom Statement */}
         <div data-aos="fade-up" className="text-center">
-          <p className="text-gray-400 text-md md:text-lg leading-relaxed max-w-4xl mx-auto">
-          Bring CredFlow <strong>Medical Credentialing Software</strong> to your existing team and 10x your team&apos;s productivity and output. Don&apos;t outsource and lose control — own your process and outcomes with real, visible AI tools.</p>
+          <p className="text-gray-200 text-md md:text-lg leading-relaxed max-w-4xl mx-auto">
+          Bring CredFlow <strong className="text-white">Medical Credentialing Software</strong> to your existing team and 10x your team&apos;s productivity and output. Don&apos;t outsource and lose control — own your process and outcomes with real, visible AI tools.</p>
         </div>
       </div>
     </section>

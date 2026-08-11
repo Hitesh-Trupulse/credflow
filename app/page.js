@@ -13,6 +13,9 @@ import CTASection from '../components/CTASection';
 import Footer from '../components/Footer';
 
 export const metadata = {
+  title: "CredFlow AI - Healthcare Credentialing Management Software",
+  description:
+    "CredFlow AI automates healthcare provider credentialing, enrollment, and onboarding so medical groups get providers in-network and billing faster.",
   alternates: {
     canonical: "https://www.credflow.ai",
   },

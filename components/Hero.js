@@ -43,22 +43,25 @@ const Hero = () => {
       {/* Main Background */}
       <div className="absolute inset-0">
         <Image
-          src="/images/mainbg.png" // replace with your main background
-          alt="Main Background"
+          src="/images/mainbg.png"
+          alt=""
           fill
+          sizes="100vw"
+          quality={75}
           className="object-cover"
           priority
         />
       </div>
 
       {/* Secondary overlay background (stars, gradient, etc) */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" aria-hidden="true">
         <Image
           src="/images/noisebg.png"
-          alt="Stars Overlay"
+          alt=""
           fill
+          sizes="100vw"
+          quality={60}
           className="object-cover"
-          priority
         />
       </div>
 

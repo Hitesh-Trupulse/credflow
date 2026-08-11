@@ -138,10 +138,12 @@ const ContactForm = ({
               onClick={(e) => e.stopPropagation()}
             >
               <button
+                type="button"
                 onClick={closeModal}
-                className="absolute top-3 right-3 sm:top-6 sm:right-6 text-gray-400 hover:text-white transition-colors z-10"
+                aria-label="Close contact form"
+                className="absolute top-3 right-3 sm:top-6 sm:right-6 text-gray-300 hover:text-white transition-colors z-10"
               >
-                <FaX className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer" />
+                <FaX className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer" aria-hidden="true" />
               </button>
 
               <div className="mb-4 sm:mb-6 lg:mb-8">
