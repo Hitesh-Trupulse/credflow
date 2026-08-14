@@ -1,10 +1,14 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle } from "lucide-react";
 import Footer from "@/components/Footer";
 import LeadContactForm from "@/components/LeadContactForm";
+
+export const metadata = {
+  alternates: {
+    canonical: "https://www.credflow.ai/services",
+  },
+};
 
 const trustBarItems = [
   "300+ payers",

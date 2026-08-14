@@ -37,12 +37,6 @@ export default async function sitemap() {
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}/get-started`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
       url: `${BASE_URL}/resources`,
       lastModified: now,
       changeFrequency: "daily",

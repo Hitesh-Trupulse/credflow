@@ -3,6 +3,9 @@ import Footer from '../../components/Footer';
 export const metadata = {
   title: 'Terms and Conditions',
   description: 'CredFlow AI Terms and Conditions - Read our terms of service for using our credentialing platform.',
+  alternates: {
+    canonical: 'https://www.credflow.ai/terms-and-conditions',
+  },
 };
 
 export default function TermsAndConditions() {

@@ -1,10 +1,14 @@
-"use client";
-
 import Image from "next/image";
 import { CheckCircle, Database, Layers, Search, Shield, Zap } from "lucide-react";
 import { FaArrowRight } from "react-icons/fa6";
 import Button from "@/components/common/Button";
 import Footer from "@/components/Footer";
+
+export const metadata = {
+  alternates: {
+    canonical: "https://www.credflow.ai/innetwork",
+  },
+};
 
 const valueProps = [
   {

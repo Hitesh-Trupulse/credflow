@@ -13,6 +13,9 @@ export const metadata = {
   title: "Credentialing Software",
   description:
     "CredFlow AI credentialing software for in-house teams managing provider enrollment, payer communication, and credentialing workflows.",
+  alternates: {
+    canonical: "https://www.credflow.ai/software",
+  },
 };
 
 export default function SoftwarePage() {

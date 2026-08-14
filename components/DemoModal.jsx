@@ -4,6 +4,14 @@ import { useState } from "react";
 import { X, CheckCircle, Loader2 } from "lucide-react";
 import { Button } from "./ui/button";
 
+const PLAN_TYPE_LABELS = {
+  "medicare-advantage": "Medicare Advantage",
+  "marketplace-qhp": "Marketplace / QHP",
+  medicaid: "Medicaid",
+  commercial: "Commercial",
+  other: "Other",
+};
+
 export default function DemoModal({ open, onOpenChange, type = "demo" }) {
   const [formData, setFormData] = useState({
     email: "",
@@ -18,49 +26,45 @@ export default function DemoModal({ open, onOpenChange, type = "demo" }) {
 
   if (!open) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     setError("");
 
-    // Create a hidden iframe to submit the form (bypasses CORS without opening new tab)
-    let iframe = document.getElementById('zapier-submit-iframe');
-    if (!iframe) {
-      iframe = document.createElement('iframe');
-      iframe.id = 'zapier-submit-iframe';
-      iframe.name = 'zapier-submit-iframe';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-    }
+    try {
+      // Field names match the shared Zap's expected schema (see LeadContactForm/ContactForm).
+      // This modal doesn't collect a last name, provider count, or "how did you hear" answer,
+      // so those are sent blank rather than guessed.
+      const payload = new FormData();
+      payload.append("firstName", formData.name);
+      payload.append("lastName", "");
+      payload.append("email", formData.email);
+      payload.append("companyName", formData.organization);
+      payload.append("numberOfProviders", "");
+      payload.append(
+        "organizationType",
+        PLAN_TYPE_LABELS[formData.planType] || formData.planType
+      );
+      payload.append("howDidYouHear", "");
+      payload.append(
+        "formType",
+        type === "demo" ? "Payers - Request a demo" : "Payers - Request a free audit report"
+      );
+      payload.append("smsOptIn", "false");
+      payload.append("query", formData.message || "N/A");
 
-    // Create a form to submit data
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = 'https://hooks.zapier.com/hooks/catch/14238222/ua74545/';
-    form.target = 'zapier-submit-iframe';
-    form.style.display = 'none';
+      const response = await fetch(
+        "https://hooks.zapier.com/hooks/catch/27515226/4ytw9iy/",
+        {
+          method: "POST",
+          body: payload,
+        }
+      );
 
-    // Add all form fields
-    const fields = {
-      ...formData,
-      type: type,
-      submittedAt: new Date().toISOString(),
-    };
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
 
-    Object.keys(fields).forEach(key => {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = fields[key];
-      form.appendChild(input);
-    });
-
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
-
-    // Show success immediately since we can't track the response with CORS
-    setTimeout(() => {
       setSubmitting(false);
       setSubmitted(true);
       setFormData({
@@ -70,7 +74,11 @@ export default function DemoModal({ open, onOpenChange, type = "demo" }) {
         planType: "",
         message: "",
       });
-    }, 1000);
+    } catch (err) {
+      console.error("Demo modal submission error:", err);
+      setSubmitting(false);
+      setError("Something went wrong while submitting. Please try again in a moment.");
+    }
   };
 
   const handleClose = () => {

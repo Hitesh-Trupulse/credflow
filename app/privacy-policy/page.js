@@ -3,6 +3,9 @@ import Footer from '../../components/Footer';
 export const metadata = {
   title: 'Privacy Policy',
   description: 'CredFlow AI Privacy Policy - Learn how we collect, use, and protect your information.',
+  alternates: {
+    canonical: 'https://www.credflow.ai/privacy-policy',
+  },
 };
 
 export default function PrivacyPolicy() {

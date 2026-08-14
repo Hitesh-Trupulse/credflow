@@ -26,11 +26,11 @@ export default function LeadContactForm({
     organization: "",
     providerCount: "",
     targetPayers: "",
+    howDidYouHear: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [alert, setAlert] = useState("");
   const [smsOptIn, setSmsOptIn] = useState(false);
-  const [smsError, setSmsError] = useState("");
   const [showScheduler, setShowScheduler] = useState(false);
   const startedRef = useRef(false);
 
@@ -57,14 +57,6 @@ export default function LeadContactForm({
   const handleSubmit = async (event) => {
     event.preventDefault();
     setAlert("");
-    setSmsError("");
-
-    if (!smsOptIn) {
-      setSmsError(
-        "Please agree to receive promotional text messages to continue."
-      );
-      return;
-    }
 
     setIsSubmitting(true);
 
@@ -79,7 +71,7 @@ export default function LeadContactForm({
       payload.append("companyName", formData.organization);
       payload.append("numberOfProviders", formData.providerCount);
       payload.append("organizationType", "Credentialing services");
-      payload.append("howDidYouHear", window.location.pathname);
+      payload.append("howDidYouHear", formData.howDidYouHear);
       payload.append("formType", "Talk to a specialist");
       payload.append("smsOptIn", smsOptIn ? "true" : "false");
       payload.append(
@@ -140,6 +132,7 @@ export default function LeadContactForm({
         organization: "",
         providerCount: "",
         targetPayers: "",
+        howDidYouHear: "",
       });
       setSmsOptIn(false);
       setAlert(
@@ -288,6 +281,19 @@ export default function LeadContactForm({
                 className="w-full bg-black/70 border border-[#454545] rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-[#5063C6]"
               />
             </label>
+            <label className="space-y-2 md:col-span-2">
+              <span className="text-base text-gray-400">
+                How did you hear about us?
+              </span>
+              <input
+                name="howDidYouHear"
+                value={formData.howDidYouHear}
+                onChange={handleInputChange}
+                onFocus={trackFormStart}
+                placeholder="e.g., LinkedIn, Google, Referral (optional)"
+                className="w-full bg-black/70 border border-[#454545] rounded-xl px-4 py-3 text-white placeholder:text-gray-600 focus:outline-none focus:border-[#5063C6]"
+              />
+            </label>
             <div className="md:col-span-2 space-y-2 rounded-xl border border-[#454545] bg-black/40 p-4">
               <label
                 htmlFor="smsOptIn"
@@ -297,10 +303,7 @@ export default function LeadContactForm({
                   type="checkbox"
                   id="smsOptIn"
                   checked={smsOptIn}
-                  onChange={(event) => {
-                    setSmsOptIn(event.target.checked);
-                    if (event.target.checked) setSmsError("");
-                  }}
+                  onChange={(event) => setSmsOptIn(event.target.checked)}
                   className="mt-0.5 h-4 w-4 cursor-pointer rounded border border-[#454545] bg-transparent accent-[#5063C6]"
                 />
                 <span>
@@ -308,9 +311,6 @@ export default function LeadContactForm({
                   about product updates, webinars, events, and insights.
                 </span>
               </label>
-              {smsError && (
-                <p className="text-xs text-red-400 pl-7">{smsError}</p>
-              )}
             </div>
             <div className="md:col-span-2 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#454545] pt-5">
               <p className="text-base text-gray-500 text-center sm:text-left">
