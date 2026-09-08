@@ -12,6 +12,7 @@ import {
   getVisitorCountry,
   CONSENT_DENIED_REGIONS,
 } from "@/lib/consentRegions";
+import { attributionHeadScript } from "@/lib/landing/attributionScript";
 
 const GTM_ID = "GTM-5WPJ7X2T";
 
@@ -133,6 +134,9 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <script
+          dangerouslySetInnerHTML={{ __html: attributionHeadScript }}
+        />
         <Script
           id="consent-default"
           strategy="beforeInteractive"

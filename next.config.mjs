@@ -28,7 +28,7 @@ const nextConfig = {
       "font-src 'self' https://api.fontshare.com data:",
       "img-src 'self' data: blob: https://firebasestorage.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com",
       "connect-src 'self' https://hooks.zapier.com https://www.googletagmanager.com https://www.google-analytics.com https://region1.google-analytics.com https://firestore.googleapis.com https://firebasestorage.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com",
-      "frame-src 'self' https://credflow-blog-7425f.firebaseapp.com https://accounts.google.com",
+      "frame-src 'self' https://credflow-blog-7425f.firebaseapp.com https://accounts.google.com https://calendar.google.com",
       "object-src 'none'",
       "base-uri 'self'",
     ].join("; ");

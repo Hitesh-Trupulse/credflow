@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- =====================================================================
+     FIRST-PARTY ATTRIBUTION CAPTURE.
+     Ship as a plain script tag in the document head on EVERY page, OUTSIDE the GTM
+     container, and BEFORE any router.replace() that strips the query string - if the
+     router wins the race, every paid click lands with nothing to record.
+
+     Writes two cookies on .credflow.ai, 90 days, JSON, SameSite=Lax, Secure:
+       cf_attr_first  set once, never overwritten - the first source that ever brought
+                      this browser here
+       cf_attr_last   rewritten whenever a new source lands
+     Captured keys: gclid, gbraid, wbraid, li_fat_id, fbclid, utm_source, utm_medium,
+     utm_campaign, utm_term, utm_content, utm_id, plus landing_page, referrer and a
+     timestamp per touch.
+
+     li_fat_id and fbclid matter before the corresponding ad platform starts: neither is
+     retroactive, so any spend that runs before capture exists can never be joined back
+     to a lead.
+
+     Safari caps script-written cookies at 7 days. Durable first-touch therefore has to
+     live server-side keyed by email; this is best-effort browser memory, not the system
+     of record.
+     ===================================================================== -->
+<script>
+(function () {
+  var CAPTURE = ['gclid', 'gbraid', 'wbraid', 'li_fat_id', 'fbclid',
+    'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id'];
+  var MAX_AGE = 7776000; /* 90 days */
+  var SCOPE = '; domain=.credflow.ai; samesite=lax; secure';
+
+  function read(name) {
+    var raw = document.cookie.split('; ').filter(function (c) { return c.indexOf(name + '=') === 0; })[0];
+    if (!raw) return null;
+    try { return JSON.parse(decodeURIComponent(raw.split('=').slice(1).join('='))); } catch (e) { return null; }
+  }
+  function write(name, obj) {
+    document.cookie = name + '=' + encodeURIComponent(JSON.stringify(obj)) + '; path=/; max-age=' + MAX_AGE + SCOPE;
+  }
+  /* The only supported way for form code to read attribution. Never read the live URL. */
+  window.cfReadAttribution = function () {
+    return { first_touch: read('cf_attr_first'), last_touch: read('cf_attr_last') };
+  };
+
+  var params = new URLSearchParams(window.location.search);
+  var found = {};
+  CAPTURE.forEach(function (k) { if (params.get(k)) found[k] = params.get(k); });
+  if (!Object.keys(found).length) return; /* never overwrite last-touch with emptiness */
+
+  found.landing_page = window.location.pathname;
+  found.referrer = document.referrer || null;
+  found.ts = new Date().toISOString();
+
+  write('cf_attr_last', found);
+  if (!read('cf_attr_first')) write('cf_attr_first', found);
+})();
+</script>
+<!-- The title, meta description, canonical and every JSON-LD block below must be SERVER-RENDERED
+     literal tags in the HTML response. Client-injected equivalents do not count.
+     This page currently ships with NO h1 element at all in the served HTML - the H1 below is the single
+     most important structural fix on it. -->
+<title>AI Provider Credentialing Software &amp; Enrollment Platform | CredFlow</title>
+<meta name="description" content="Credentialing software that finishes the work: AI agents complete payer portal applications, call payers for status, sync CAQH, and reconcile enrollment data — with your team in control.">
+<link rel="canonical" href="https://www.credflow.ai/software">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"CredFlow AI","url":"https://www.credflow.ai"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"CredFlow AI","applicationCategory":"BusinessApplication","operatingSystem":"Web","url":"https://www.credflow.ai/software","description":"AI provider credentialing software and enrollment platform. AI agents complete payer portal applications, call payers for status, keep CAQH in sync, and reconcile enrollment data against payer directories, rosters, and claims signals — while credentialing teams keep full control."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is provider credentialing software?","acceptedAnswer":{"@type":"Answer","text":"Provider credentialing software manages the process of getting healthcare providers credentialed and enrolled with payers: collecting provider data, running credentialing and payer enrollment workflows, keeping CAQH profiles current, and monitoring licenses and sanctions. CredFlow is medical credentialing software whose AI agents complete the work itself — payer portal applications, status calls, and follow-up — instead of only tracking it."}},
+{"@type":"Question","name":"What does CredFlow automate?","acceptedAnswer":{"@type":"Answer","text":"CredFlow's AI agents fill and submit payer web-portal applications, call payers to check application status and verify effective dates, keep CAQH data in sync, and run follow-up cadences — with evidence logged for every action, including screenshots, recordings, and transcripts — all inside one credentialing and enrollment software platform."}},
+{"@type":"Question","name":"How is CredFlow different from traditional credentialing software?","acceptedAnswer":{"@type":"Answer","text":"Traditional credentialing software tracks tasks: it tells your team what to key into payer portals and who to call. CredFlow's AI agents do that work — filling and submitting portal applications, calling payers for status, syncing CAQH — and log screenshots, recordings, and transcripts as evidence for every action."}},
+{"@type":"Question","name":"Can CredFlow manage our credentialing workflows?","acceptedAnswer":{"@type":"Answer","text":"Yes. The credentialing workflow engine ships reusable templates for onboarding, payer enrollment, and group contracting, with owners, steps, and reminders — so the process runs the same way for every provider, every time."}},
+{"@type":"Question","name":"Does CredFlow replace my credentialing team?","acceptedAnswer":{"@type":"Answer","text":"No. CredFlow is built for teams that keep credentialing in-house. Your team keeps ownership and control; the AI agents remove the manual keying, portal work, and hold time."}},
+{"@type":"Question","name":"Can CredFlow work alongside our existing system?","acceptedAnswer":{"@type":"Answer","text":"Yes. Run CredFlow as your end-to-end credentialing platform and system of record, or connect it by API as a plug-in layer to the system you already have — including Salesforce-connected environments. Provider, group, and enrollment data flows in; statuses, outcomes, and evidence flow back."}},
+{"@type":"Question","name":"How does implementation work?","acceptedAnswer":{"@type":"Answer","text":"Two paths: adopt CredFlow as your system of record, or start as a plug-in layer connected by API to your existing stack. Provider and enrollment data flows in, statuses and evidence flow back, and your team keeps working while the agents pick up the queue."}},
+{"@type":"Question","name":"Does CredFlow do primary source verification?","acceptedAnswer":{"@type":"Answer","text":"CredFlow provides PSV workflow and data-model support today — verification checklists by provider type, source tracking, and audit-ready evidence stored by provider and date range — and integrates partner verification sources via API. Native PSV coverage continues to expand; for organizations that need a specific verification source, we connect it rather than replace it."}}
+]}
+</script>
+<!-- The PSV question appears in both the visible FAQ and the JSON-LD above; the two must stay
+     identical. This wording is approved as written - do not strengthen it. -->
+<style>
+  :root {
+    --bg: #07070C;
+    --bg-soft: #0C0C15;
+    --surface: #13131F;
+    --surface-2: #181828;
+    --line: #23233A;
+    --line-soft: rgba(255,255,255,0.13);
+    --ink: #FFFFFF;
+    --body: #B7B7CC;
+    --muted: #7F7F99;
+    --violet: #B71CD2;
+    --indigo: #6C63FF;
+    --good: #61D345;
+    --amber: #F5A623;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif; color: var(--body); background: var(--bg); line-height: 1.65; font-size: 17px; overflow-x: hidden; }
+  h1, h2, h3 { color: var(--ink); line-height: 1.14; text-wrap: balance; font-weight: 700; }
+  h1 { font-size: clamp(2.1rem, 4.6vw, 3.3rem); letter-spacing: -0.02em; }
+  h2 { font-size: clamp(1.55rem, 3vw, 2.2rem); letter-spacing: -0.015em; }
+  h3 { font-size: 1.1rem; }
+  .grad { background: linear-gradient(92deg, #D24FE8, var(--indigo)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.4rem; position: relative; }
+  .glow { position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .float { animation: floaty 7s ease-in-out infinite alternate; }
+  .float.f2 { animation-duration: 9s; animation-delay: 1.2s; }
+  .float.f3 { animation-duration: 8s; animation-delay: 0.6s; }
+  @keyframes floaty { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .float { animation: none; }
+  }
+
+  header.site { position: sticky; top: 0.9rem; z-index: 50; padding: 0 1.4rem; }
+  header.site .bar { max-width: 1120px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    border: 1px solid var(--line-soft); border-radius: 999px; padding: 0.55rem 1.1rem 0.55rem 1.3rem;
+    background: rgba(7,7,12,0.75); backdrop-filter: blur(10px); }
+  .logo { display: flex; align-items: center; text-decoration: none; }
+  .logo img { height: 30px; width: auto; display: block; }
+  nav.main { display: flex; gap: 1.6rem; align-items: center; }
+  nav.main a.navlink { color: #D8D8E6; text-decoration: none; font-size: 0.93rem; }
+  nav.main a.navlink:hover { color: #fff; }
+  .btn { display: inline-block; border-radius: 999px; font-family: inherit; font-weight: 600; padding: 0.8rem 1.7rem; font-size: 1rem; cursor: pointer; text-decoration: none; border: none; transition: transform 0.15s ease, filter 0.15s ease; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: #fff; color: #0B0B12; }
+  .btn.gradient { background: linear-gradient(92deg, var(--violet), var(--indigo)); color: #fff; }
+  .btn.gradient:hover { filter: brightness(1.12); }
+  .btn.ghost { background: transparent; color: #fff; border: 1px solid var(--line-soft); }
+  .btn.ghost:hover { border-color: #fff; }
+  .btn.small { padding: 0.5rem 1.2rem; font-size: 0.88rem; }
+  .btn:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--indigo); outline-offset: 3px; }
+
+  .hero { padding: 4.5rem 0 3rem; position: relative; }
+  .hero .glow.a { width: 620px; height: 620px; top: -220px; left: -160px; background: radial-gradient(circle, rgba(183,28,210,0.22), transparent 70%); }
+  .hero .glow.b { width: 540px; height: 540px; top: 30px; right: -180px; background: radial-gradient(circle, rgba(108,99,255,0.2), transparent 70%); }
+  .hero .grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 3.5rem; align-items: center; position: relative; z-index: 1; }
+  @media (max-width: 900px) { .hero .grid { grid-template-columns: 1fr; } }
+  .chip { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid var(--line-soft); border-radius: 999px; padding: 0.3rem 0.95rem; font-size: 0.8rem; color: #D8D8E6; letter-spacing: 0.03em; margin-bottom: 1.2rem; background: rgba(255,255,255,0.03); }
+  .chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(92deg, var(--violet), var(--indigo)); }
+  .hero p.sub { font-size: 1.14rem; max-width: 56ch; margin: 1.2rem 0 1.9rem; }
+  .cta-row { display: flex; gap: 0.9rem; flex-wrap: wrap; align-items: center; }
+  .microtrust { font-size: 0.82rem; color: var(--muted); margin-top: 0.9rem; }
+
+  .stack { position: relative; min-height: 380px; }
+  .fcard { position: absolute; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 24px 70px rgba(0,0,0,0.5), 0 0 60px rgba(108,99,255,0.08); padding: 1rem 1.15rem; }
+  .fcard .fh { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); margin-bottom: 0.7rem; display: flex; justify-content: space-between; gap: 1rem; }
+  .fcard .live { color: var(--good); display: inline-flex; align-items: center; gap: 0.35rem; }
+  .fcard .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--good); }
+  .fcard.activity { top: 0; left: 0; width: min(340px, 88%); z-index: 2; }
+  .fcard.callcard { right: 0; top: 130px; width: 260px; z-index: 3; }
+  .fcard.chipcard { left: 24px; bottom: 0; z-index: 4; display: flex; align-items: center; gap: 0.7rem; padding: 0.8rem 1.05rem; }
+  @media (max-width: 900px) { .stack { min-height: 0; display: grid; gap: 1rem; margin-top: 1rem; } .fcard { position: static; width: auto !important; } }
+  .prow { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; border: 1px solid var(--line); border-radius: 11px; padding: 0.55rem 0.8rem; margin-bottom: 0.5rem; font-size: 0.85rem; }
+  .prow:last-child { margin-bottom: 0; }
+  .prow b { color: var(--ink); font-weight: 600; display: block; font-size: 0.86rem; }
+  .prow .s2 { color: var(--muted); font-size: 0.75rem; }
+  .pill { font-size: 0.7rem; font-weight: 700; border-radius: 999px; padding: 0.14rem 0.6rem; white-space: nowrap; }
+  .pill.p1 { background: rgba(108,99,255,0.18); color: #A8A2FF; }
+  .pill.p2 { background: rgba(183,28,210,0.16); color: #E19BF0; }
+  .pill.p3 { background: rgba(97,211,69,0.14); color: #8BE76A; }
+  .pill.p4 { background: rgba(245,166,35,0.15); color: #F0C987; }
+  .ok-badge { width: 30px; height: 30px; border-radius: 50%; background: rgba(97,211,69,0.15); display: grid; place-items: center; flex: none; }
+  .ok-badge::after { content: ""; width: 11px; height: 6px; border-left: 2.5px solid var(--good); border-bottom: 2.5px solid var(--good); transform: rotate(-45deg) translateY(-1px); }
+  .chipcard b { color: var(--ink); font-size: 0.9rem; display: block; }
+  .chipcard .s2 { color: var(--muted); font-size: 0.76rem; }
+  .wave { display: flex; gap: 3px; align-items: flex-end; height: 22px; margin-top: 0.5rem; }
+  .wave i { width: 4px; border-radius: 2px; background: linear-gradient(180deg, #D24FE8, var(--indigo)); animation: wavey 1.2s ease-in-out infinite alternate; }
+  .wave i:nth-child(1) { height: 40%; } .wave i:nth-child(2) { height: 90%; animation-delay: .1s; } .wave i:nth-child(3) { height: 60%; animation-delay: .2s; }
+  .wave i:nth-child(4) { height: 100%; animation-delay: .3s; } .wave i:nth-child(5) { height: 50%; animation-delay: .4s; } .wave i:nth-child(6) { height: 80%; animation-delay: .5s; }
+  .wave i:nth-child(7) { height: 35%; animation-delay: .6s; }
+  @keyframes wavey { from { transform: scaleY(0.5); } to { transform: scaleY(1); } }
+
+  /* ---- process motion: agent flow rail (explains the end-to-end sequence) ---- */
+  .flowrail { display: flex; align-items: flex-start; margin-top: 2rem; flex-wrap: wrap; gap: 0.5rem 0; }
+  .fnode { display: flex; flex-direction: column; min-width: 132px; }
+  .fnode b { color: var(--ink); font-size: 0.85rem; font-weight: 600; }
+  .fnode i { color: var(--muted); font-size: 0.74rem; font-style: normal; }
+  .fdot { width: 11px; height: 11px; border-radius: 50%; background: var(--line); margin-bottom: 0.45rem; }
+  .fseg { flex: 1; min-width: 26px; height: 2px; background: var(--line); position: relative; overflow: hidden; margin: 5px 0.7rem 0; }
+  .fseg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, #D24FE8, var(--indigo), transparent); transform: translateX(-100%); }
+  .in .fseg::after { animation: flowpulse 6s linear infinite; }
+  .in .fseg.g2::after { animation-delay: 1.5s; }
+  .in .fseg.g3::after { animation-delay: 3s; }
+  .in .fdot { animation: litdot 6s linear infinite; }
+  .in .fdot.n2 { animation-delay: 1.5s; }
+  .in .fdot.n3 { animation-delay: 3s; }
+  .in .fdot.n4 { animation-delay: 4.5s; }
+  @keyframes flowpulse { 0% { transform: translateX(-100%); } 25%, 100% { transform: translateX(100%); } }
+  @keyframes litdot {
+    0%, 6% { background: var(--line); box-shadow: none; }
+    12%, 34% { background: linear-gradient(92deg, #D24FE8, var(--indigo)); box-shadow: 0 0 10px rgba(108,99,255,0.7); }
+    46%, 100% { background: var(--line); box-shadow: none; }
+  }
+
+  /* ---- per-agent micro-motion: fill bars (web agent) + scan sweep (data lake) ---- */
+  .fillmock { margin-top: 0.9rem; }
+  .fillmock span { display: block; height: 6px; border-radius: 3px; background: var(--line); margin-bottom: 6px; position: relative; overflow: hidden; }
+  .fillmock span::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #D24FE8, var(--indigo)); border-radius: 3px; transform: scaleX(0); transform-origin: left; }
+  .in .fillmock span::after { animation: fillbar 4.5s ease-in-out infinite; }
+  .in .fillmock span:nth-child(2)::after { animation-delay: 0.45s; }
+  .in .fillmock span:nth-child(3)::after { animation-delay: 0.9s; }
+  @keyframes fillbar { 0% { transform: scaleX(0); } 35%, 72% { transform: scaleX(1); } 92%, 100% { transform: scaleX(0); } }
+  .scanmock { position: relative; overflow: hidden; }
+  .scanmock::after { content: ""; position: absolute; left: 0; right: 0; height: 26px; pointer-events: none; background: linear-gradient(180deg, transparent, rgba(108,99,255,0.22), transparent); transform: translateY(-28px); }
+  .in .scanmock::after { animation: scansweep 3.8s ease-in-out infinite; }
+  @keyframes scansweep { 0% { transform: translateY(-28px); } 100% { transform: translateY(72px); } }
+
+  /* ---- tracking motion: live table (rows settle, status advances, sync sweep) ---- */
+  .in .mini-table .mtr:not(.mth) { animation: rowsettle 0.55s cubic-bezier(.2,.7,.2,1) both; }
+  .in .mini-table .mtr:nth-of-type(2) { animation-delay: 0.1s; }
+  .in .mini-table .mtr:nth-of-type(3) { animation-delay: 0.22s; }
+  .in .mini-table .mtr:nth-of-type(4) { animation-delay: 0.34s; }
+  @keyframes rowsettle { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .pillswap { display: inline-grid; }
+  .pillswap .pill { grid-area: 1 / 1; }
+  .in .pillswap .pill.was { animation: swapout 5.5s ease-in-out infinite; }
+  .in .pillswap .pill.now { animation: swapin 5.5s ease-in-out infinite; }
+  @keyframes swapout { 0%, 48% { opacity: 1; } 58%, 94% { opacity: 0; } 100% { opacity: 1; } }
+  @keyframes swapin { 0%, 48% { opacity: 0; } 58%, 94% { opacity: 1; } 100% { opacity: 0; } }
+  .synced { display: flex; align-items: center; gap: 0.45rem; font-size: 0.72rem; color: var(--muted); margin-top: 0.6rem; }
+  .synced .beacon { width: 7px; height: 7px; border-radius: 50%; background: var(--good); flex: none; }
+  .in .synced .beacon { animation: beacon 2.2s ease-in-out infinite; }
+  @keyframes beacon { 0%, 100% { box-shadow: 0 0 0 0 rgba(97,211,69,0.5); } 50% { box-shadow: 0 0 0 5px rgba(97,211,69,0); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wave i, .in .fseg::after, .in .fdot, .in .fillmock span::after, .in .scanmock::after,
+    .in .mini-table .mtr:not(.mth), .in .pillswap .pill, .in .synced .beacon { animation: none !important; }
+    .in .fillmock span::after { transform: scaleX(1); }
+    .in .pillswap .pill.was { opacity: 0; }
+    .scanmock::after { display: none; }
+  }
+
+  section.block { padding: 4.5rem 0; position: relative; }
+  .eyebrow { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.7rem; background: linear-gradient(92deg, #D24FE8, var(--indigo)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lead { max-width: 68ch; margin-top: 0.9rem; }
+
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.25rem; margin-top: 1.9rem; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 1.5rem 1.6rem; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: rgba(108,99,255,0.55); transform: translateY(-2px); }
+  .card h3 { margin-bottom: 0.5rem; }
+  .card .agent-n { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: linear-gradient(92deg, #D24FE8, var(--indigo)); -webkit-background-clip: text; background-clip: text; color: transparent; display: block; margin-bottom: 0.5rem; }
+  .card .minirow { border: 1px solid var(--line); border-radius: 10px; padding: 0.5rem 0.75rem; margin-top: 0.9rem; font-size: 0.8rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+  .card .minirow b { color: var(--ink); font-weight: 600; }
+  .card p.outcome { margin-top: 0.8rem; font-weight: 600; color: var(--ink); font-size: 0.95rem; }
+
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2.2rem; }
+  @media (max-width: 760px) { .compare { grid-template-columns: 1fr; } }
+  .compare .col { border-radius: 18px; padding: 1.6rem 1.7rem; border: 1px solid var(--line); background: var(--surface); }
+  .compare .col.cf { border: 1px solid transparent; background:
+    linear-gradient(var(--bg-soft), var(--bg-soft)) padding-box,
+    linear-gradient(120deg, var(--violet), var(--indigo)) border-box; }
+  .compare h3 { margin-bottom: 1rem; }
+  .compare ul { list-style: none; padding: 0; display: grid; gap: 0.7rem; }
+  .compare li { padding-left: 1.8rem; position: relative; color: #D2D2E2; font-size: 0.97rem; }
+  .compare .col.legacy li::before { content: "\2013"; position: absolute; left: 0.2rem; color: var(--muted); font-weight: 700; }
+  .compare .col.cf li::before { content: ""; position: absolute; left: 0; top: 0.45em; width: 0.95em; height: 0.5em; border-left: 2.5px solid var(--good); border-bottom: 2.5px solid var(--good); transform: rotate(-45deg); }
+  .compare .col.legacy h3 { color: var(--muted); }
+
+  /* bento grid */
+  .bento { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1.9rem; }
+  @media (max-width: 900px) { .bento { grid-template-columns: 1fr; } .bento .span2 { grid-column: auto; } }
+  .bento .span2 { grid-column: span 2; }
+  .mini-table { border: 1px solid var(--line); border-radius: 12px; margin-top: 1rem; overflow: hidden; font-size: 0.82rem; }
+  .mini-table .mtr { display: grid; grid-template-columns: 1.3fr 1fr 0.9fr 0.7fr; gap: 0.5rem; padding: 0.55rem 0.9rem; border-bottom: 1px solid var(--line); align-items: center; }
+  .mini-table .mtr:last-child { border-bottom: none; }
+  .mini-table .mth { color: var(--muted); text-transform: uppercase; font-size: 0.68rem; letter-spacing: 0.07em; background: var(--surface-2); }
+  .mini-table b { color: var(--ink); font-weight: 600; }
+  .mini-table .aged { font-variant-numeric: tabular-nums; color: var(--muted); }
+
+  ul.checks { list-style: none; padding: 0; margin-top: 1.2rem; display: grid; gap: 0.6rem; }
+  ul.checks li { padding-left: 1.8rem; position: relative; max-width: 62ch; color: #D2D2E2; }
+  ul.checks li::before { content: ""; position: absolute; left: 0; top: 0.45em; width: 0.95em; height: 0.5em; border-left: 2.5px solid var(--good); border-bottom: 2.5px solid var(--good); transform: rotate(-45deg); }
+
+  .anti-bpo { position: relative; border-radius: 22px; padding: 3rem 2.5rem; overflow: hidden; border: 1px solid var(--line); background:
+    radial-gradient(80% 120% at 10% 0%, rgba(183,28,210,0.18), transparent 60%),
+    radial-gradient(80% 120% at 95% 100%, rgba(108,99,255,0.2), transparent 60%), var(--bg-soft); }
+  .anti-bpo p { max-width: 66ch; margin-top: 1rem; color: #CFCFE2; }
+
+  .serve { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin-top: 1.7rem; }
+  .serve div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.15rem; font-size: 0.93rem; }
+  .serve b { color: var(--ink); display: block; margin-bottom: 0.2rem; }
+  .serve a { color: #A8A2FF; }
+
+  details.faq { border-bottom: 1px solid var(--line); padding: 1rem 0; max-width: 76ch; }
+  details.faq summary { font-weight: 600; color: var(--ink); cursor: pointer; font-size: 1.05rem; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  details.faq summary::after { content: "+"; font-weight: 700; color: #A8A2FF; }
+  details.faq[open] summary::after { content: "\2212"; }
+  details.faq p { margin-top: 0.65rem; max-width: 66ch; }
+
+  .formband { position: relative; border-radius: 24px; border: 1px solid var(--line); overflow: hidden; padding: 3rem 2.5rem; background:
+    radial-gradient(90% 130% at 90% 0%, rgba(183,28,210,0.15), transparent 55%),
+    radial-gradient(90% 130% at 0% 100%, rgba(108,99,255,0.15), transparent 55%), var(--bg-soft); }
+  .formgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  @media (max-width: 880px) { .formgrid { grid-template-columns: 1fr; } }
+  form .field { margin-bottom: 1rem; }
+  form label { display: block; font-weight: 600; color: var(--ink); font-size: 0.9rem; margin-bottom: 0.35rem; }
+  form label .opt { font-weight: 400; color: var(--muted); }
+  form input[type=text], form input[type=email], form select {
+    width: 100%; padding: 0.75rem 0.9rem; border: 1px solid var(--line); border-radius: 12px; font-size: 1rem; font-family: inherit; background: rgba(255,255,255,0.04); color: #fff; }
+  form select option { color: #0B0B12; }
+  form input:focus, form select:focus { outline: none; border-color: var(--indigo); }
+  .sms { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.83rem; color: var(--muted); margin: 1.15rem 0; }
+  .sms input { margin-top: 0.25rem; width: 18px; height: 18px; accent-color: var(--indigo); }
+  .form-note { font-size: 0.84rem; color: var(--muted); margin-top: 0.65rem; }
+  .form-status { background: rgba(97,211,69,0.1); border: 1px solid rgba(97,211,69,0.5); color: #8BE76A; border-radius: 12px; padding: 0.9rem 1.1rem; margin-top: 1rem; font-size: 0.92rem; }
+  .form-status.is-error { background: rgba(245,166,35,0.1); border-color: rgba(245,166,35,0.55); color: #F0C987; }
+
+  /* ---- quick-lead modal ---- */
+  .qmodal { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 1.25rem; }
+  .qmodal.open { display: flex; }
+  .qbackdrop { position: absolute; inset: 0; background: rgba(4,4,8,0.74); backdrop-filter: blur(4px); }
+  .qcard { position: relative; width: min(420px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 2rem 1.9rem 1.9rem; box-shadow: 0 40px 100px rgba(0,0,0,0.65); }
+  .qmodal.open .qcard { animation: qpop 0.28s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes qpop { from { opacity: 0; transform: translateY(14px) scale(0.97); } to { opacity: 1; transform: none; } }
+  .qclose { position: absolute; top: 0.75rem; right: 1rem; background: none; border: none; color: var(--muted); font-size: 1.6rem; line-height: 1; cursor: pointer; padding: 0.2rem 0.35rem; }
+  .qclose:hover { color: #fff; }
+  .qcard h3 { font-size: 1.35rem; margin-bottom: 0.4rem; }
+  .qsub { font-size: 0.92rem; color: var(--body); margin-bottom: 1.3rem; }
+  .qtick { width: 46px; height: 46px; border-radius: 50%; background: rgba(97,211,69,0.14); display: grid; place-items: center; margin-bottom: 1rem; }
+  .qtick::after { content: ""; width: 15px; height: 8px; border-left: 3px solid var(--good); border-bottom: 3px solid var(--good); transform: rotate(-45deg) translateY(-2px); }
+  .hurry { margin-top: 0.85rem; font-size: 0.88rem; }
+  .hurry button { background: none; border: none; font-family: inherit; font-size: inherit; color: #A8A2FF; cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px; }
+  .hurry button:hover { color: #fff; }
+
+
+  footer.site { border-top: 1px solid var(--line); padding: 2.2rem 0 3rem; font-size: 0.85rem; color: var(--muted); margin-top: 3rem; }
+  @media (max-width: 640px) { nav.main a.navlink { display: none; } .hero { padding-top: 3rem; } }
+</style>
+</head>
+<body>
+
+
+<header class="site">
+  <div class="bar">
+    <a class="logo" href="#"><img src="https://www.credflow.ai/images/logo11.webp" alt="Credflow AI"></a>
+    <nav class="main">
+      <a class="navlink" href="#">Home</a>
+      <a class="navlink" href="#">Products</a>
+      <a class="navlink" href="#">Who We Help</a>
+      <a class="navlink" href="#">Resources</a>
+    </nav>
+    <!-- B2: header CTA points to #contact-form, NOT the untracked modal, until B2 is fixed. -->
+    <a class="btn primary small" href="#contact-form" data-cta-id="software-header-book-demo">Book a demo</a>
+  </div>
+</header>
+
+<!-- 1. HERO - server-rendered H1 required; the page has none today. The claim is that the software
+     completes the work rather than tracking it, which is the real differentiator. Do not reintroduce
+     any multiplier claim ("10x" and similar) - a competitor advertises the same number. -->
+<section class="hero">
+  <div class="wrap">
+    <div class="glow a"></div><div class="glow b"></div>
+    <div class="grid">
+      <div class="reveal in">
+        <span class="chip">AI credentialing software &amp; enrollment platform</span>
+        <h1>Provider credentialing software that <span class="grad">finishes the work</span></h1>
+        <p class="sub">Legacy tools track tasks. CredFlow&rsquo;s AI agents complete them &mdash; payer portal applications filled and submitted, payers called for status, CAQH kept in sync &mdash; while your team keeps full control.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#contact-form" data-cta-id="software-hero-book-demo">Book a demo</a>
+          <!-- Replaces the "See the platform" scroll link: opens the 2-field quick-lead modal for visitors
+               who don't want the full form. data-quick-open is the modal trigger hook. -->
+          <button class="btn ghost" type="button" data-quick-open data-cta-id="software-hero-talk-to-specialist">Talk to a Credentialing Specialist</button>
+        </div>
+        <p class="microtrust">Watch the agents run on your own payers, live in the demo.</p>
+      </div>
+      <!-- Illustrative agent-activity views — generic sample rows, no real data. -->
+      <div class="stack" aria-hidden="true">
+        <div class="fcard activity float reveal in">
+          <div class="fh"><span>Agent activity</span><span class="live">Working</span></div>
+          <div class="prow"><div><b>Portal application &mdash; PECOS</b><span class="s2">Filled &amp; submitted &middot; screenshots logged</span></div><span class="pill p1">Web agent</span></div>
+          <div class="prow"><div><b>Status call &mdash; Aetna</b><span class="s2">Effective date verified &middot; transcript saved</span></div><span class="pill p2">Telecaller</span></div>
+          <div class="prow"><div><b>CAQH sync &mdash; 3 providers</b><span class="s2">Attestations current</span></div><span class="pill p3">Complete</span></div>
+        </div>
+        <div class="fcard callcard float f2 reveal in">
+          <div class="fh"><span>Telecaller &mdash; on the line</span></div>
+          <b style="color:var(--ink);font-size:0.9rem;">Verifying application status&hellip;</b>
+          <div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="fh" style="margin:0.6rem 0 0;"><span>Recording + transcript &rarr; enrollment record</span></div>
+        </div>
+        <div class="fcard chipcard float f3 reveal in">
+          <span class="ok-badge"></span>
+          <div><b>CAQH &mdash; attestation current</b><span class="s2">Synced across affected providers</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. THE THREE AGENTS — concrete, not adjectives. Keyword pass: automated provider credentialing. -->
+<section class="block">
+  <div class="wrap reveal">
+    <div class="eyebrow">The AI agents</div>
+    <h2>Three AI agents that do the work your team keys in by hand today</h2>
+    <p class="lead">Automated provider credentialing, end to end &mdash; the portal work, the phone work, and the data reconciliation &mdash; run by agents your team supervises.</p>
+    <!-- Process rail: shows the end-to-end sequence so the three cards read as one flow, not three features. CSS-only motion. -->
+    <div class="flowrail" aria-hidden="true">
+      <div class="fnode"><span class="fdot n1"></span><b>Provider data</b><i>already in the platform</i></div>
+      <div class="fseg g1"></div>
+      <div class="fnode"><span class="fdot n2"></span><b>Agent submits</b><i>payer portal application</i></div>
+      <div class="fseg g2"></div>
+      <div class="fnode"><span class="fdot n3"></span><b>Agent calls payer</b><i>status + effective date</i></div>
+      <div class="fseg g3"></div>
+      <div class="fnode"><span class="fdot n4"></span><b>Evidence logged</b><i>screenshots + transcripts</i></div>
+    </div>
+    <div class="cols">
+      <div class="card">
+        <span class="agent-n">Agent 01 &mdash; Web agent</span>
+        <h3>Portal applications, completed for you</h3>
+        <p>CredFlow fills and submits payer web-portal applications &mdash; Aetna, PECOS, state Medicaid portals, and more &mdash; directly from the provider data already in the platform, with a screenshot evidence trail at every step.</p>
+        <div class="fillmock" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="minirow"><b>Medicaid TX portal</b><span class="pill p1">Submitted + screenshots</span></div>
+      </div>
+      <div class="card">
+        <span class="agent-n">Agent 02 &mdash; Telecaller</span>
+        <h3>An AI telecaller that sits on hold so nobody on your team has to</h3>
+        <p>It calls payers, verifies effective dates and locations on file, checks application status, and logs a recording, transcript, and structured fields back to the enrollment record.</p>
+        <div class="minirow"><b>Call &mdash; 12 min hold</b><span class="pill p2">Transcript saved</span></div>
+      </div>
+      <div class="card">
+        <span class="agent-n">Agent 03 &mdash; Data lake</span>
+        <h3>Enrollment data that reconciles itself against reality</h3>
+        <p>The enrollment data lake compares what your system says against payer directories, rosters, and claims signals &mdash; surfacing stale records, mismatches, and revenue at risk before they cost you.</p>
+        <div class="minirow scanmock"><b>Directory mismatch found</b><span class="pill p4">Flagged for review</span></div>
+      </div>
+    </div>
+
+    <!-- Legacy vs CredFlow — every CredFlow line substantiated above. -->
+    <div class="compare">
+      <div class="col legacy">
+        <h3>Legacy credentialing tools</h3>
+        <ul>
+          <li>Track tasks and due dates</li>
+          <li>Your team fills every payer portal by hand</li>
+          <li>Your team waits on hold with payers</li>
+          <li>Status lives in spreadsheets and inboxes</li>
+        </ul>
+      </div>
+      <div class="col cf">
+        <h3><span class="grad">CredFlow AI</span></h3>
+        <ul>
+          <li>Completes the tasks &mdash; not just tracks them</li>
+          <li>AI web agent fills and submits portal applications, with screenshots</li>
+          <li>AI telecaller calls payers and logs transcripts</li>
+          <li>Live pipeline with evidence for every action</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. PLATFORM - bento layout. These headings deliberately carry the category terms this page is
+     bid on; keep those terms in headings, not only in body copy. -->
+<section class="block" id="platform">
+  <div class="wrap reveal">
+    <div class="eyebrow">Credentialing management &amp; tracking software</div>
+    <h2>A modern system of record for credentialing and enrollment</h2>
+    <p class="lead">CredFlow is provider credentialing management software for the entire lifecycle &mdash; applications, enrollment progress, expirations, and compliance status &mdash; in one place, in real time. If you&rsquo;re comparing provider credentialing solutions, the difference is simple: most track the work; CredFlow&rsquo;s agents do it.</p>
+    <div class="bento">
+      <div class="card span2">
+        <h3>Operational dashboard</h3>
+        <p>Expiring licenses, CAQH/CXE attestations due, overdue workflows, aged enrollments at 30/60/90/120+ days &mdash; real-time credentialing tracking software, not another spreadsheet.</p>
+        <div class="mini-table" aria-hidden="true">
+          <div class="mtr mth"><span>Provider</span><span>Payer</span><span>Status</span><span>Aged</span></div>
+          <div class="mtr"><b>Dr. A. Rivera</b><span>Aetna</span><span><span class="pill p1">Submitted</span></span><span class="aged">12d</span></div>
+          <div class="mtr"><b>Dr. J. Chen</b><span>Medicaid CA</span><span class="pillswap"><span class="pill p4 was">Follow-up</span><span class="pill p3 now">Effective</span></span><span class="aged">34d</span></div>
+          <div class="mtr"><b>Dr. M. Okafor</b><span>Cigna</span><span><span class="pill p3">Effective</span></span><span class="aged">&mdash;</span></div>
+        </div>
+        <div class="synced" aria-hidden="true"><span class="beacon"></span>Statuses update as the agents work &mdash; no manual refresh</div>
+        <p class="outcome">Answer &ldquo;where is this provider stuck?&rdquo; without opening a spreadsheet.</p>
+      </div>
+      <div class="card"><h3>Workflow engine</h3><p>Credentialing workflow software: reusable templates for onboarding, payer enrollment, and group contracting, with owners, steps, and reminders.</p><p class="outcome">Define the process once; run it the same way every time.</p></div>
+      <div class="card"><h3>Continuous monitoring</h3><p>Continuous credential monitoring software watching licenses, DEA/CDS, sanctions and exclusions, board actions, and CAQH attestations.</p><p class="outcome">Know before it lapses, not after a claim denies.</p></div>
+      <div class="card"><h3>Roster management</h3><p>Ingest payer rosters, compare against internal records, produce discrepancy reports; track adds and terms by payer and cycle.</p><p class="outcome">Your roster and the payer&rsquo;s roster, finally in agreement.</p></div>
+      <div class="card"><h3>Revenue at risk</h3><p>Aged and mismatched enrollments expressed in exposure, so the credentialing queue can be prioritized by dollars, not dates.</p><p class="outcome">Work the queue by what it costs you.</p></div>
+      <div class="card span2"><h3>CAQH sync</h3><p>Pull CAQH data into provider records and push bulk updates &mdash; for example a malpractice change across every affected provider &mdash; back out.</p><p class="outcome">One change, everywhere it matters.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. PROVIDER AND PAYER ENROLLMENT SOFTWARE - its own labelled section. The enrollment-software
+     search terms land here, so the heading has to say it plainly. -->
+<section class="block">
+  <div class="wrap reveal">
+    <div class="eyebrow">Provider &amp; payer enrollment software</div>
+    <h2>Run provider enrollment and payer enrollment from <span class="grad">the same platform</span></h2>
+    <p class="lead">Provider enrollment software that runs the whole motion &mdash; from application preparation and payer submission through follow-up and status tracking &mdash; with the AI agents doing the portal work and the phone work. Automated payer enrollment with insurance panel enrollment included, on one provider and payer enrollment platform for commercial payers, Medicare, and Medicaid.</p>
+    <!-- These four capabilities are labelled separately on purpose - each is searched for by name. -->
+    <div class="cols">
+      <div class="card"><h3>Enrollment automation</h3><p>Provider enrollment automation end to end: payer portal applications completed and submitted by the AI web agent, with screenshot evidence.</p></div>
+      <div class="card"><h3>Application tracking</h3><p>Provider enrollment tracking software: every application tracked from preparation through submission to effective date &mdash; by provider, payer, and state.</p></div>
+      <div class="card"><h3>Payer follow-ups</h3><p>The AI telecaller checks status and verifies effective dates, logging recordings and transcripts back to the enrollment record.</p></div>
+      <div class="card"><h3>Status monitoring</h3><p>Aged enrollments flagged at 30/60/90/120+ days, with workflow reminders before go-live dates slip.</p></div>
+      <div class="card"><h3>CAQH synchronization</h3><p>CAQH enrollment software keeps provider information in sync as enrollment workflows progress.</p></div>
+    </div>
+    <div class="cta-row reveal" style="margin-top:2.2rem;">
+      <a class="btn gradient" href="#contact-form" data-cta-id="software-enrollment-book-demo">Book a demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- 4. KEEP YOUR TEAM, ADD AI — anti-BPO positioning. -->
+<section class="block">
+  <div class="wrap reveal">
+    <div class="anti-bpo">
+      <div class="eyebrow">Keep your team, add AI</div>
+      <h2>Built for teams that want to keep credentialing <span class="grad">in-house</span></h2>
+      <p>Outsourced vendors put AI to work for their own margins. CredFlow puts it to work for your team &mdash; same people, same ownership, more throughput. Managers see every workflow, every payer touch, and every piece of evidence in one place.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5. PRIMARY SOURCE VERIFICATION - approved exactly as written. The claim is workflow and
+     data-model support with partner verification sources via API, building toward native coverage. Do
+     not strengthen it to "automated", "full" or "complete" PSV, and do not add NCQA language. -->
+<section class="block" style="padding-top:0;">
+  <div class="wrap reveal">
+    <div class="eyebrow">Primary source verification</div>
+    <h2>PSV workflows with an <span class="grad">audit-ready evidence trail</span></h2>
+    <p class="lead">Primary source verification software workflows run inside the same platform as credentialing and enrollment: PSV checklist templates by provider type, source tracking on every verification, and credential verification records kept by provider and date range &mdash; with screenshots and transcripts attached as evidence. Partner verification sources connect via API, so the sources you already trust feed the same record.</p>
+    <ul class="checks">
+      <li>PSV workflow templates by entity type &mdash; MD, NP, therapist, facility</li>
+      <li>Verification evidence stored per provider, per source, per date range</li>
+      <li>Partner verification sources integrated via API</li>
+      <li>Continuous monitoring of licenses, DEA/CDS, sanctions, and exclusions alongside PSV</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 6. FITS YOUR STACK — keyword pass: credentialing platform. -->
+<section class="block">
+  <div class="wrap reveal">
+    <div class="eyebrow">Integration</div>
+    <h2>Full platform or plug-in layer</h2>
+    <p class="lead">Run CredFlow as your end-to-end credentialing platform and system of record, or connect it by API to the one you already have &mdash; including Salesforce-connected environments. Provider, group, and enrollment data flows in; statuses, outcomes, and evidence flow back.</p>
+  </div>
+</section>
+
+<!-- 7. WHO IT IS FOR - descriptors carry search terms; every claim here is deliberately generic.
+     The links out to /payers and /innetwork exist to keep directory and price-transparency content off
+     this page's theme. -->
+<section class="block">
+  <div class="wrap reveal">
+    <div class="eyebrow">Who it&rsquo;s for</div>
+    <h2>Credentialing software for the teams that run enrollment</h2>
+    <div class="serve">
+      <div><b>Credentialing &amp; enrollment teams</b>The daily queue, minus the keying, portals, and hold music.</div>
+      <div><b>Provider operations</b>Healthcare credentialing software as one live source of truth for provider status across payers.</div>
+      <div><b>Physician groups</b>Physician credentialing software for groups managing multiple providers, payers, and locations. Roster changes, new locations, and payer adds run through the same workflows &mdash; with evidence attached.</div>
+      <div><b>Hospitals &amp; health systems</b>Medical staff credentialing software for large provider networks. Licenses, sanctions, and exclusions monitored continuously at network scale.</div>
+      <div><b>Telehealth providers</b>Telehealth credentialing software and provider enrollment automation for multi-state operations. Every state&rsquo;s enrollment tracked payer by payer, in one queue.</div>
+      <div><b>Medical groups</b>Credentialing software for medical groups scaling providers or locations &mdash; without scaling the back office.</div>
+      <div><b>RCM organizations</b>Enrollment throughput for client rosters without adding headcount. Every payer touch logged, so client reporting writes itself.</div>
+      <div><b>Payers &amp; health plans</b>See <a href="#">/payers</a> and <a href="#">/innetwork</a>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. FAQ - server-rendered, and the FAQPage JSON-LD in the document head must match these
+     questions 1:1. If you edit one, edit both. -->
+<section class="block">
+  <div class="wrap reveal">
+    <div class="eyebrow">FAQ</div>
+    <h2>Credentialing software questions, answered</h2>
+    <div style="margin-top:1.2rem;">
+      <details class="faq"><summary>What is provider credentialing software?</summary><p>Provider credentialing software manages the process of getting healthcare providers credentialed and enrolled with payers: collecting provider data, running credentialing and payer enrollment workflows, keeping CAQH profiles current, and monitoring licenses and sanctions. CredFlow is medical credentialing software whose AI agents complete the work itself &mdash; payer portal applications, status calls, and follow-up &mdash; instead of only tracking it.</p></details>
+      <details class="faq"><summary>What does CredFlow automate?</summary><p>CredFlow&rsquo;s AI agents fill and submit payer web-portal applications, call payers to check application status and verify effective dates, keep CAQH data in sync, and run follow-up cadences &mdash; with evidence logged for every action, including screenshots, recordings, and transcripts &mdash; all inside one credentialing and enrollment software platform.</p></details>
+      <details class="faq"><summary>How is CredFlow different from traditional credentialing software?</summary><p>Traditional credentialing software tracks tasks: it tells your team what to key into payer portals and who to call. CredFlow&rsquo;s AI agents do that work &mdash; filling and submitting portal applications, calling payers for status, syncing CAQH &mdash; and log screenshots, recordings, and transcripts as evidence for every action.</p></details>
+      <details class="faq"><summary>Can CredFlow manage our credentialing workflows?</summary><p>Yes. The credentialing workflow engine ships reusable templates for onboarding, payer enrollment, and group contracting, with owners, steps, and reminders &mdash; so the process runs the same way for every provider, every time.</p></details>
+      <details class="faq"><summary>Does CredFlow replace my credentialing team?</summary><p>No. CredFlow is built for teams that keep credentialing in-house. Your team keeps ownership and control; the AI agents remove the manual keying, portal work, and hold time.</p></details>
+      <details class="faq"><summary>Can CredFlow work alongside our existing system?</summary><p>Yes. Run CredFlow as your end-to-end credentialing platform and system of record, or connect it by API as a plug-in layer to the system you already have &mdash; including Salesforce-connected environments. Provider, group, and enrollment data flows in; statuses, outcomes, and evidence flow back.</p></details>
+      <details class="faq"><summary>How does implementation work?</summary><p>Two paths: adopt CredFlow as your system of record, or start as a plug-in layer connected by API to your existing stack. Provider and enrollment data flows in, statuses and evidence flow back, and your team keeps working while the agents pick up the queue.</p></details>
+      <details class="faq"><summary>Does CredFlow do primary source verification?</summary><p>CredFlow provides PSV workflow and data-model support today &mdash; verification checklists by provider type, source tracking, and audit-ready evidence stored by provider and date range &mdash; and integrates partner verification sources via API. Native PSV coverage continues to expand; for organizations that need a specific verification source, we connect it rather than replace it.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 9. CONTACT FORM — replaces the untracked "Book a demo" modal as the primary conversion path (B2). Same component + contract as /services. -->
+<section class="block" id="contact-form">
+  <div class="wrap reveal">
+    <div class="formband">
+      <div class="formgrid">
+        <div>
+          <div class="eyebrow">Book a demo</div>
+          <h2>See the agents run on <span class="grad">your own payers</span></h2>
+          <p class="lead">Book a demo &mdash; share a few details and pick a time.</p>
+          <ul class="checks" style="margin-top:1.5rem;">
+            <li>Watch the web agent complete a portal application</li>
+            <li>Hear the telecaller verify a status with a payer</li>
+            <li>Your team keeps full control throughout</li>
+          </ul>
+        </div>
+        <div>
+          <!-- FORM CONTRACT. Six fields, and six is deliberate - do not add a seventh without
+               asking. Event names and payload keys are bound to GTM triggers and to the Google Ads
+               conversion actions; renaming any of them silently breaks conversion reporting.
+               There is no SMS consent field and no "how did you hear about us" field. Neither should
+               be reintroduced, and leads from this form must not be sent marketing texts, because
+               no consent for that is collected anywhere on the page.
+               Every data-cta-id follows {page}-{section}-{action}. The live page currently renders a URL
+               path as a cta id; that is a bug, and these values replace it.
+               The POST endpoint is supplied separately. -->
+          <form id="leadform" novalidate>
+            <div class="field"><label for="fn">First name</label><input type="text" id="fn" name="firstName" required autocomplete="given-name"></div>
+            <div class="field"><label for="ln">Last name</label><input type="text" id="ln" name="lastName" required autocomplete="family-name"></div>
+            <div class="field"><label for="em">Work email</label><input type="email" id="em" name="email" required autocomplete="email"></div>
+            <div class="field"><label for="org">Organization name</label><input type="text" id="org" name="organization" required autocomplete="organization"></div>
+            <div class="field">
+              <label for="pc">Approximate provider count</label>
+              <!-- ENG: carry over the existing dropdown options from the live form. -->
+              <select id="pc" name="providerCount" required>
+                <option value="">Select&hellip;</option><option>1&ndash;10</option><option>11&ndash;50</option><option>51&ndash;200</option><option>200+</option>
+              </select>
+            </div>
+            <div class="field"><label for="tp">Target payers or specialty <span class="opt">(optional)</span></label><input type="text" id="tp" name="targetPayers"></div>
+            <!-- Deliberately absent: an SMS consent checkbox and a "how did you hear about us" field.
+                 Do not build either. Nothing that can block a submit may gate this form - it is the
+                 only tracked conversion point on the page. -->
+            <!-- Attribution hidden fields, populated from the cookies rather than the live URL. The two
+                 touch fields are serialised JSON and are sent as a nested
+                 attribution:{first_touch,last_touch} object - do not rename or flatten them.
+                 source_cta records which CTA started the journey, which is what makes "this CTA
+                 produced a lead" answerable rather than guesswork. -->
+            <input type="hidden" name="attribution_first_touch">
+            <input type="hidden" name="attribution_last_touch">
+            <input type="hidden" name="ga_client_id">
+            <input type="hidden" name="ga_session_id">
+            <input type="hidden" name="source_cta">
+            <button class="btn gradient" type="submit" style="width:100%;" data-cta-id="software-contact-form">Next: choose a time. Takes about 20 seconds.</button>
+            <p class="form-note">A specialist reviews your details and you pick the meeting slot.</p>
+            <!-- Outcome region. Render success here ONLY after the POST resolves ok; render the error
+                 branch on failure and leave every field populated so nothing has to be retyped.
+                 aria-live so assistive technology announces the result. -->
+            <div class="form-status" id="form-status" role="status" aria-live="polite" hidden></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">CredFlow AI &mdash; landing page reference build for implementation.</div>
+</footer>
+
+<!-- QUICK-LEAD MODAL - shared component, identical on both landing pages. This is a real lead
+     path, not a soft ask: on submit the live build POSTs to the same lead endpoint as the main
+     form, carrying the same attribution payload (both touch objects, the ga ids, source_cta).
+     THREE RULES, all load-bearing:
+     1. Advance to the confirmation step ONLY after the POST returns ok. On failure, keep the
+        fields filled and render a real error - never show a success screen for a lost lead.
+     2. The confirmation copy promises an email "right now". Wire the autoresponder before this
+        ships, or change the copy. It is the only claim on either page the visitor can verify
+        within a minute, and a broken promise here costs more than no promise.
+     3. Fire quick_lead_submit, NOT contact_form_submit, and give it its OWN conversion action in
+        Google Ads. Reusing the main form's action makes two forms count against one number. -->
+<div class="qmodal" id="quick-modal" aria-hidden="true">
+  <div class="qbackdrop" data-quick-close></div>
+  <div class="qcard" role="dialog" aria-modal="true" aria-labelledby="qtitle">
+    <button class="qclose" type="button" data-quick-close aria-label="Close">&times;</button>
+    <div id="qstep-form">
+      <div class="eyebrow">Quick chat</div>
+      <h3 id="qtitle">Get Started</h3>
+      <p class="qsub">Two details is all we need &mdash; no scheduling, no long form.</p>
+      <form id="quickform" novalidate>
+        <div class="field"><label for="qname">Full name</label><input type="text" id="qname" name="fullName" required autocomplete="name"></div>
+        <div class="field"><label for="qemail">Work email</label><input type="email" id="qemail" name="email" required autocomplete="email"></div>
+        <input type="hidden" name="attribution_first_touch">
+        <input type="hidden" name="attribution_last_touch">
+        <input type="hidden" name="ga_client_id">
+        <input type="hidden" name="ga_session_id">
+        <input type="hidden" name="source_cta">
+        <button class="btn gradient" type="submit" style="width:100%;margin-top:0.4rem;" data-cta-id="software-quick-lead-next">Next</button>
+      </form>
+      <div class="form-status is-error" id="qstep-error" role="status" aria-live="polite" hidden></div>
+    </div>
+    <div id="qstep-done" hidden>
+      <div class="qtick"></div>
+      <h3>Thanks! We have registered your query</h3>
+      <p class="qsub">A mail from our credentialing team would be landing in your inbox just right now!</p>
+      <button class="btn ghost" type="button" data-quick-close style="width:100%;" data-cta-id="software-quick-lead-close">Close</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  (function () {
+    /* =====================================================================
+       TRACKING CONTRACT - do not rename these events or their keys. GTM triggers
+       and the Google Ads conversion actions are bound to them by name.
+
+         Main form:   contact_form_start  (once per page view, on first field focus)
+                      contact_form_submit (ONLY after the POST returns ok)
+                      contact_form_error
+         Quick modal: quick_lead_open / quick_lead_start / quick_lead_submit / quick_lead_error
+                      Never reuse contact_form_* for the modal. The two forms need
+                      separate conversion actions or one lead counts twice.
+         Engagement:  cta_click / form_field_complete / form_submit_attempt
+
+       PII RULE: engagement events carry field NAMES only, never field VALUES. A value
+       pushed to the dataLayer reaches analytics, and some of these fields are personal
+       data. Names answer "where do people stop"; values are a liability.
+       ===================================================================== */
+    var dl = (window.dataLayer = window.dataLayer || []);
+    function push(obj) { dl.push(obj); }
+
+    /* Set to the live GA4 measurement ID (G-XXXXXXXX) before this runs. While it is null
+       the two ga_* fields stay empty - that is expected, not a bug. */
+    var GA4_ID = window.CF_GA4_ID || null;
+
+    /* =====================================================================
+       LEAD SUBMISSION - this is the one function to implement.
+
+       submitLead() must POST the form and resolve ONLY when the response is ok.
+       Everything downstream hangs off that promise: the confirmation screen, the
+       dataLayer event, and therefore the Google Ads conversion.
+
+       Rejecting on failure is not optional. A form that renders success after a failed
+       POST destroys the lead and hides the fact that it did - the visitor leaves
+       satisfied, the record never arrives, and nothing in analytics shows a problem.
+
+       While DEMO_MODE is true nothing is sent and the success path is simulated, so the
+       copy and the flow stay reviewable in a browser. Set it to false when wiring the POST.
+       ===================================================================== */
+    var DEMO_MODE = true;
+
+    function submitLead(form) {
+      if (DEMO_MODE) return Promise.resolve();
+      /* IMPLEMENT:
+           return fetch(LEAD_ENDPOINT, {
+             method: 'POST',
+             headers: { 'Content-Type': 'application/json' },
+             body: JSON.stringify(payloadFrom(form))
+           }).then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); });
+         Do not resolve on a non-2xx, and do not swallow the rejection. */
+      return Promise.reject(new Error('submitLead not implemented'));
+    }
+
+    /* The exact payload shape. `attribution` is a nested object, not flattened keys -
+       the backend field mapping expects it this way, so do not rename or flatten it. */
+    function payloadFrom(form) {
+      var out = {};
+      new FormData(form).forEach(function (v, k) { out[k] = v; });
+      function parse(raw) { try { return raw ? JSON.parse(raw) : null; } catch (e) { return null; } }
+      out.attribution = {
+        first_touch: parse(out.attribution_first_touch),
+        last_touch: parse(out.attribution_last_touch)
+      };
+      delete out.attribution_first_touch;
+      delete out.attribution_last_touch;
+      out.submitted_at = new Date().toISOString();
+      return out;
+    }
+
+    function setStatus(el, msg, isError) {
+      if (!el) return;
+      el.textContent = msg || '';
+      el.hidden = !msg;
+      el.classList.toggle('is-error', !!isError);
+    }
+
+    /* ---- motion: reveal on scroll, count-up on the proof numbers ---- */
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var counted = false;
+    function countUp(el) {
+      var target = +el.getAttribute('data-count');
+      var suffix = el.getAttribute('data-suffix') || '';
+      var prefix = el.getAttribute('data-prefix') || '';
+      if (reduced) { el.textContent = prefix + target + suffix; return; }
+      var start = null, dur = 900;
+      function frame(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        el.textContent = prefix + Math.round(target * (0.2 + 0.8 * p * p)) + suffix;
+        if (p < 1) requestAnimationFrame(frame); else el.textContent = prefix + target + suffix;
+      }
+      requestAnimationFrame(frame);
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        if (!counted && e.target.querySelector && e.target.querySelector('.num')) {
+          counted = true;
+          e.target.querySelectorAll('.num').forEach(countUp);
+        }
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.16 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+    /* =====================================================================
+       ATTRIBUTION ONTO THE LEAD - read the COOKIES, never the URL.
+
+       A visitor clicks an ad, reads three pages, then submits. By then there is no
+       query string; the cookie written on landing is the only record of where they
+       came from. Reading location.search at submit time loses every multi-page visit.
+       ===================================================================== */
+    function gaField(key, cb) {
+      try {
+        if (typeof window.gtag !== 'function' || !GA4_ID) return cb(null);
+        var settled = false;
+        window.gtag('get', GA4_ID, key, function (v) { settled = true; cb(v || null); });
+        setTimeout(function () { if (!settled) cb(null); }, 1000); /* never block a submit on gtag */
+      } catch (e) { cb(null); }
+    }
+
+    function fillAttribution(scope) {
+      if (!scope) return null;
+      var a = (window.cfReadAttribution && window.cfReadAttribution()) || { first_touch: null, last_touch: null };
+      function set(name, val) {
+        var el = scope.querySelector('[name="' + name + '"]');
+        if (!el) return;
+        el.value = (val === null || val === undefined) ? '' : (typeof val === 'string' ? val : JSON.stringify(val));
+      }
+      set('attribution_first_touch', a.first_touch);
+      set('attribution_last_touch', a.last_touch);
+      var lastCta = null;
+      try { lastCta = sessionStorage.getItem('cf_last_cta'); } catch (e) {}
+      set('source_cta', lastCta);
+      gaField('client_id', function (v) { set('ga_client_id', v); });
+      gaField('session_id', function (v) { set('ga_session_id', v); });
+      return a;
+    }
+
+    /* ---- CTA clicks: one delegated listener covers every [data-cta-id] ---- */
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest && e.target.closest('[data-cta-id]');
+      if (!el) return;
+      /* Remember which CTA started this journey so it rides onto the lead as source_cta.
+         Without it, cta_click shows which CTA earned attention but never which earned a
+         lead - and the scheduler hand-off carries no data of its own. */
+      try { sessionStorage.setItem('cf_last_cta', el.getAttribute('data-cta-id')); } catch (e) {}
+      push({
+        event: 'cta_click',
+        cta_id: el.getAttribute('data-cta-id'),
+        cta_text: (el.textContent || '').replace(/\\s+/g, ' ').trim().slice(0, 80)
+      });
+    });
+
+    /* ---- field-level engagement: names only, never values ---- */
+    function trackFields(form, formId) {
+      if (!form) return;
+      var done = Object.create(null), n = 0;
+      form.addEventListener('blur', function (e) {
+        var f = e.target;
+        if (!f || !f.name || done[f.name]) return;
+        if (!(f.value && f.value.trim())) return;
+        done[f.name] = true; n++;
+        push({ event: 'form_field_complete', form_id: formId, field_name: f.name, field_index: n });
+      }, true); /* capture phase - blur does not bubble */
+    }
+
+    /* ---- main form ---- */
+    var form = document.getElementById('leadform');
+    var mainStatus = document.getElementById('form-status');
+    var started = false;
+    form.addEventListener('focusin', function () {
+      if (!started) { started = true; push({ event: 'contact_form_start' }); }
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var valid = form.reportValidity();
+      push({ event: 'form_submit_attempt', form_id: 'main', valid: valid });
+      if (!valid) return;
+      setStatus(mainStatus, '', false);
+      submitLead(form).then(function () {
+        setStatus(mainStatus, 'Thanks - your details are in. Pick a time below and a specialist will review your payer mix before the call.', false);
+        push({ event: 'contact_form_submit' });
+        /* Reveal the scheduler HERE, after this point only. The scheduler carries no data,
+           so identity binds at this form; an abandoned booking then still leaves a captured
+           lead and a counted conversion. */
+      }).catch(function (err) {
+        setStatus(mainStatus, 'We could not send your details just then. Please try again.', true);
+        push({ event: 'contact_form_error', error: String((err && err.message) || err) });
+      });
+    });
+    trackFields(form, 'main');
+
+    /* ---- quick-lead modal ---- */
+    var modal = document.getElementById('quick-modal');
+    var qform = document.getElementById('quickform');
+    var qError = document.getElementById('qstep-error');
+    var qstarted = false, lastFocus = null;
+
+    function openQuick(src) {
+      lastFocus = document.activeElement;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      var first = modal.querySelector('input');
+      if (first) first.focus();
+      push({ event: 'quick_lead_open', source_cta: src });
+    }
+    function closeQuick() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    document.querySelectorAll('[data-quick-open]').forEach(function (b) {
+      b.addEventListener('click', function (e) {
+        e.preventDefault();
+        openQuick(b.getAttribute('data-cta-id') || 'unknown');
+      });
+    });
+    modal.addEventListener('click', function (e) {
+      if (e.target.closest('[data-quick-close]')) closeQuick();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeQuick();
+    });
+    qform.addEventListener('focusin', function () {
+      if (!qstarted) { qstarted = true; push({ event: 'quick_lead_start' }); }
+    });
+    qform.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var valid = qform.reportValidity();
+      push({ event: 'form_submit_attempt', form_id: 'quick', valid: valid });
+      if (!valid) return;
+      setStatus(qError, '', true);
+      submitLead(qform).then(function () {
+        document.getElementById('qstep-form').hidden = true;
+        document.getElementById('qstep-done').hidden = false;
+        push({ event: 'quick_lead_submit' });
+      }).catch(function (err) {
+        setStatus(qError, 'We could not send that. Please try again.', true);
+        push({ event: 'quick_lead_error', error: String((err && err.message) || err) });
+      });
+    });
+    trackFields(qform, 'quick');
+
+    /* Fill the hidden fields on load, and refill in the capture phase immediately before
+       either form's own submit handler runs, so a cookie or gtag value that arrived late
+       still makes it onto the payload. */
+    fillAttribution(form);
+    fillAttribution(qform);
+    document.addEventListener('submit', function (e) {
+      if (e.target === form || e.target === qform) fillAttribution(e.target);
+    }, true);
+  })();
+</script>
+</body>
+</html>
