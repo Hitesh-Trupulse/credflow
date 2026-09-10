@@ -1,5 +1,6 @@
 import Hero from "../components/Hero";
 import HeroStatBand from "../components/HeroStatBand";
+import TrustedLogosSection from "../components/TrustedLogosSection";
 import ProductCardsSection from "../components/ProductCardsSection";
 import ProblemSection from "../components/ProblemSection";
 import WhyCredflowSection from "../components/WhyCredflowSection";
@@ -26,6 +27,7 @@ export default function Home() {
     <div className="min-h-screen">
       <Hero />
       <HeroStatBand />
+      <TrustedLogosSection />
       <ProductCardsSection />
       <ProblemSection />
       <LazyAIFeaturesSection />

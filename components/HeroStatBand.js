@@ -129,7 +129,7 @@ export default function HeroStatBand() {
     <section
       ref={bandRef}
       aria-label="CredFlow operating stats"
-      className="relative overflow-hidden bg-black px-6 py-16 sm:py-20"
+      className="relative overflow-hidden bg-black px-6 pt-16 pb-8 sm:pt-20 sm:pb-10"
     >
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#5063C6]/50 to-transparent"
