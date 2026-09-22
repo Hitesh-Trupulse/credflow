@@ -1,20 +1,15 @@
-import LandingPage from "@/components/landing/LandingPage";
-import { softwareLandingHtml } from "@/lib/landing/softwareHtml";
-import { softwareJsonLd, softwareMeta } from "@/lib/landing/spec";
+import SiteDocument from "@/components/site/SiteDocument";
+import { titles } from "@/lib/site/content";
 
 export const metadata = {
-  title: { absolute: softwareMeta.title },
-  description: softwareMeta.description,
+  title: { absolute: titles.software },
+  description:
+    "AI provider credentialing software and payer enrollment platform for in-house teams.",
   alternates: {
-    canonical: softwareMeta.canonical,
-  },
-  openGraph: {
-    title: softwareMeta.title,
-    description: softwareMeta.description,
-    url: softwareMeta.canonical,
+    canonical: "https://www.credflow.ai/software",
   },
 };
 
 export default function SoftwarePage() {
-  return <LandingPage html={softwareLandingHtml} jsonLd={softwareJsonLd} />;
+  return <SiteDocument slug="software" />;
 }

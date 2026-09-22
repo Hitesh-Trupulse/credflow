@@ -1,22 +1,20 @@
-import React from 'react'
-import BlogHeroSection from './components/BlogHeroSection'
-import BlogGrid from './components/BlogGrid'
-import Navbar from '@/components/Navbar'
+import SiteDocument from "@/components/site/SiteDocument";
+import { titles } from "@/lib/site/content";
+import ResourcesLibrary from "./components/ResourcesLibrary";
 
 export const metadata = {
+  title: { absolute: titles.resources },
+  description:
+    "Practical guides on credentialing, payer enrollment, and the operations behind getting providers billable.",
   alternates: {
-    canonical: 'https://www.credflow.ai/resources',
+    canonical: "https://www.credflow.ai/resources",
   },
 };
 
-const page = () => {
+export default function ResourcesPage() {
   return (
-    <div className="min-h-screen">
-        <BlogHeroSection/>
-        <BlogGrid/>
-    </div>
-  )
+    <SiteDocument slug="resources">
+      <ResourcesLibrary />
+    </SiteDocument>
+  );
 }
-
-export default page
-

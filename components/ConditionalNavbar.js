@@ -2,15 +2,19 @@
 
 import { usePathname } from 'next/navigation';
 import Navbar from './Navbar';
+import { isMarketingPath } from '@/lib/site/paths';
 
 export default function ConditionalNavbar() {
   const pathname = usePathname();
-  
-  // Hide navbar on get-started and thank-you pages
-  if (pathname === '/get-started' || pathname === '/thank-you') {
+
+  if (
+    isMarketingPath(pathname) ||
+    pathname === '/get-started' ||
+    pathname === '/thank-you'
+  ) {
     return null;
   }
-  
+
   return <Navbar />;
 }
 

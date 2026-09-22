@@ -1,0 +1,2485 @@
+
+/* ===========================================================================
+   CREDFLOW AI — VERSION A (agent console hero)
+   Palette trimmed to 15 working values, all verbatim from the brand doc.
+   =========================================================================== */
+.cf-site{
+  --violet:#6C63FF; --indigo:#5063C6; --violet-pale:#B5B0FF;
+  --purple:#B71CD2; --magenta:#FF34DD;
+
+  --bg:#000000; --surf-1:#0F0F17; --surf-2:#1B1B27; --surf-3:#23233A;
+  --deep-purple:#2A154E;
+
+  --fg:#FFFFFF; --fg-2:#D6D6E8; --fg-3:#9797B4;
+  --green:#D2FCD4; --orange:#F5A623;
+
+  --w03:rgba(255,255,255,.03); --w05:rgba(255,255,255,.05);
+  --w10:rgba(255,255,255,.10); --w20:rgba(255,255,255,.20);
+  --k30:rgba(0,0,0,.30);       --k60:rgba(0,0,0,.60);
+  --violet-18:rgba(108,99,255,.18);
+  --green-14:rgba(210,252,212,.14);
+  --orange-15:rgba(245,166,35,.15);
+  --magenta-16:rgba(183,28,210,.16);
+
+  /* FLUID SCALE
+     Every size on the page interpolates between a 360px phone and a 1440px
+     desktop and then holds flat outside that range, so there is no step at a
+     breakpoint — spacing, the page frame, type and the graphics all move
+     together as the window changes. */
+
+  /* Spacing scale — every gap on the page is one of these */
+  --s1:4px;
+  --s2:clamp(7px, calc(6.67px + 0.0926vw), 8px);
+  --s3:clamp(10px, calc(9.33px + 0.1852vw), 12px);
+  --s4:clamp(13px, calc(12px + 0.2778vw), 16px);
+  --s5:clamp(18px, calc(16px + 0.5556vw), 24px);
+  --s6:clamp(22px, calc(18.67px + 0.9259vw), 32px);
+  --s7:clamp(32px, calc(26.67px + 1.4815vw), 48px);
+  --s8:clamp(40px, calc(32px + 2.2222vw), 64px);
+  --s9:clamp(56px, calc(42.67px + 3.7037vw), 96px);
+
+  /* PAGE FRAME: 14px of gutter on a phone easing up to 88px on a desktop */
+  --frame-x:clamp(14px, calc(-10.67px + 6.8519vw), 88px);
+  --frame-y:clamp(14px, calc(10.67px + 0.9259vw), 24px);
+
+  --r-s:10px;
+  --r-m:clamp(12px, calc(10.67px + 0.3704vw), 16px);
+  --r-l:clamp(18px, calc(16px + 0.5556vw), 24px);
+  --r-pill:100px;
+  /* gentler than --ease, whose front-loaded curve fills a shape too fast to
+     show a waterline. Shared by the CTA liquid and the Who-we-help cells. */
+  --e-liquid:cubic-bezier(.37,.14,.32,1);
+  --ease:cubic-bezier(.22,.75,.24,1);
+
+  /* Padding ratio used by EVERY pill-shaped element, without exception:
+     vertical = 1 unit, horizontal = 2 units. Same rhythm at every size. */
+  --cta-h:clamp(46px, calc(43.33px + 0.7407vw), 54px);
+  --cta-px:clamp(18px, calc(16px + 0.5556vw), 24px);
+  --pad-v-sm:clamp(7px, calc(6.67px + 0.0926vw), 8px);
+  --pad-h-sm:clamp(13px, calc(12px + 0.2778vw), 16px);
+  --pad-v-md:clamp(10px, calc(9.33px + 0.1852vw), 12px);
+  --pad-h-md:clamp(18px, calc(16px + 0.5556vw), 24px);
+  --pad-v-lg:clamp(13px, calc(12px + 0.2778vw), 16px);
+  --pad-h-lg:clamp(22px, calc(18.67px + 0.9259vw), 32px);
+}
+
+.cf-site *,.cf-site *::before,.cf-site *::after{box-sizing:border-box}
+
+/* TYPOGRAPHY LOCK
+   Every weight the stylesheet asks for is served by a CDN above, so the
+   browser never has to invent one. font-synthesis:none makes that explicit:
+   if a cut were ever missing, the text renders in the real weight it does
+   have rather than being algorithmically smeared into a fake bold or italic,
+   which is the usual reason the same page looks heavier on one device than
+   another. The fallback lists are ordered so that even with both CDNs
+   unreachable the substitute is a known face rather than whatever the OS
+   nominates as "sans-serif". */
+.cf-site{font-synthesis:none;-webkit-font-synthesis:none}
+.cf-site{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+.cf-site{
+  margin:0;
+  padding:var(--frame-y) var(--frame-x);
+  background:var(--bg);color:var(--fg);
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-size:clamp(15.5px, calc(15px + 0.1389vw), 17px);line-height:1.68;font-weight:300;
+  -webkit-font-smoothing:antialiased;
+}
+.cf-site img{max-width:100%;display:block}
+.cf-site a{color:inherit;text-decoration:none}
+.cf-site button,.cf-site input,.cf-site select{font:inherit;color:inherit}
+.cf-site button{cursor:pointer;border:0;background:none}
+.cf-site ul{margin:0;padding:0;list-style:none}
+.cf-site p{margin:0}
+
+.cf-site h1,.cf-site h2,.cf-site h3,.cf-site h4{
+  margin:0;font-family:'Satoshi','Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-weight:600;line-height:1.1;letter-spacing:-.02em;
+}
+.cf-site h1{font-size:clamp(31px, calc(22.67px + 2.3148vw), 56px);line-height:1.04;letter-spacing:-.032em;font-weight:600}
+.cf-site h2{font-size:clamp(22px, calc(17px + 1.3889vw), 37px);font-weight:600;line-height:1.14}
+.cf-site h3{font-size:clamp(18px, calc(16.33px + 0.463vw), 23px);font-weight:600;letter-spacing:-.014em}
+.cf-site h4{font-size:clamp(16px, calc(15.33px + 0.1852vw), 18px);font-weight:600;letter-spacing:-.01em}
+
+/* Headings wrap naturally — never hard-broken. Short ones stay on one line;
+   long ones fall to two by themselves. */
+.cf-site h1,.cf-site h2{text-wrap:balance;max-width:24ch}
+.cf-site h2{max-width:32ch}
+
+.cf-site .eyebrow{
+  display:inline-block;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-size:0.77rem;font-weight:500;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--violet);
+}
+.cf-site .lede{color:var(--fg-2);font-size:clamp(15.5px, calc(14.67px + 0.2315vw), 18px);
+  line-height:1.68;font-weight:300;max-width:74ch}
+
+/* matches the "Trusted by" label exactly — --violet #6C63FF, not the --purple
+   #B71CD2 used on that section's heading */
+.cf-site .grad{background:var(--violet);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+.cf-site :focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:4px}
+.cf-site ::selection{background:var(--violet-18);color:var(--fg)}
+
+.cf-site .shell{width:100%;max-width:1264px;margin:0 auto}
+/* 96px between sections: was 192px at --s9, then 128px at --s8 */
+.cf-site .sec{padding:var(--s7) 0}
+/* ---------------------------------------------------------------------------
+   SECTION BANDING
+   With the eyebrows gone, every section was heading-then-content on the same
+   black with the same padding, so six in a row read as one flat stack. Every
+   other section now sits on a faintly raised full-bleed band, which groups the
+   page into alternating blocks without adding a single word.
+   --------------------------------------------------------------------------- */
+.cf-site .route>section.sec:nth-of-type(even){
+  position:relative;
+  --bleed:calc((var(--page-w,100vw) - 100%) / 2);
+  margin-inline:calc(-1 * var(--bleed));
+  padding-inline:var(--bleed);
+  padding-block:var(--s8);
+  background:linear-gradient(180deg,var(--w03),rgba(255,255,255,.012));
+  border-top:1px solid var(--w05);border-bottom:1px solid var(--w05)}
+/* two banded sections should never touch — the seam would read as one block */
+.cf-site .route>section.sec:nth-of-type(even)+section.sec:nth-of-type(even){border-top:0}
+
+/* Every section header: eyebrow -> heading -> body text. Same rhythm. */
+/* Eyebrow, heading and supporting line stack in one left-aligned column. */
+.cf-site .head{max-width:none;margin-bottom:var(--s7);
+  display:grid;grid-template-columns:minmax(0,1fr);row-gap:var(--s4);
+  /* the hero is centred on every page, so the section headings sit on the
+     same axis — one column of type down the middle, content beneath it */
+  justify-items:center;text-align:center}
+.cf-site .head .eyebrow{margin-bottom:0}
+.cf-site .head h2{margin-bottom:0;max-width:none}
+.cf-site .head .lede{margin:0;max-width:74ch}
+
+/* ===========================================================================
+   BUTTONS — two waves that cross and fill. No visible shape at rest.
+   =========================================================================== */
+.cf-site .btn{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  padding:8px var(--cta-px);min-height:var(--cta-h);
+  border-radius:var(--r-pill);isolation:isolate;white-space:nowrap;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:clamp(14.5px, calc(13.83px + 0.1852vw), 16px);
+  font-weight:500;line-height:1.4;
+  transition:color .5s var(--ease),border-color .5s var(--ease);
+}
+.cf-site .btn .lbl{position:relative;z-index:2}
+/* The wave fill is retired: the travelling ring is the only thing a CTA does
+   on hover now. The markup stays so nothing else has to move. */
+.cf-site .wv{display:none}
+/* Each <i> is a wide, shallow dome parked just below the button. Raising it
+   through the pill fills it, and the domed top edge crossing the button reads
+   as a waterline. Two of them at different depths, speeds and phases give the
+   crest its double edge; a slow sideways sway keeps the surface moving.
+
+   Two things the geometry has to get right. The travel is only a little more
+   than the button's own height — an earlier pass raised a shape 4x that tall,
+   which covered the pill in the first quarter of the transition and showed no
+   waterline at all. And --e-fill is gentler than --ease, whose front-loaded
+   curve had the pill 65% full inside 150ms. */
+.cf-site .wv{--e-fill:var(--e-liquid)}
+.cf-site .wv i{
+  position:absolute;left:-30%;width:160%;height:300%;top:100%;
+  border-radius:50% 50% 0 0 / 30% 34% 0 0;
+  transition:top 1.15s var(--e-fill);
+}
+.cf-site .wv i:nth-child(1){background:var(--deep-purple)}
+.cf-site .wv i:nth-child(2){background:var(--violet);opacity:.92;left:-44%;width:178%;
+  border-radius:50% 50% 0 0 / 36% 25% 0 0;
+  transition:top 1.4s var(--e-fill)}
+
+/* fill on hover, drain on the way out */
+.cf-site .btn:hover .wv i,.cf-site .btn:focus-visible .wv i{
+  top:-34%;animation:waveSway 3.4s ease-in-out infinite alternate}
+.cf-site .btn:hover .wv i:nth-child(2),.cf-site .btn:focus-visible .wv i:nth-child(2){
+  top:-30%;animation-duration:2.6s;animation-direction:alternate-reverse}
+@keyframes waveSway{from{transform:translateX(-7%)}to{transform:translateX(7%)}}
+
+/* drops to the deep tone so the liquid reads as rising into it */
+.cf-site .btn-primary{background:linear-gradient(135deg,var(--violet),var(--indigo));color:var(--fg);
+  transition:background .32s var(--ease),color .5s var(--ease),border-color .5s var(--ease)}
+/* the primary drops a step on hover so the travelling ring and the shine
+   have something darker to read against */
+.cf-site .btn-primary:hover,.cf-site .btn-primary:focus-visible{background:linear-gradient(135deg,var(--indigo),var(--indigo))}
+.cf-site .btn-ghost{border:1px solid var(--w10);color:var(--fg)}
+.cf-site .btn-ghost:hover{border-color:var(--w20)}
+.cf-site .btn-ghost .wv i:nth-child(1){background:var(--indigo)}
+.cf-site .btn-ghost .wv i:nth-child(2){background:var(--violet)}
+
+/* size variants change type scale only — padding and height stay uniform */
+.cf-site .btn-lg{padding:8px var(--cta-px);font-size:clamp(16px, calc(15px + 0.2778vw), 19px)}
+.cf-site .btn-sm{padding:8px var(--cta-px);font-size:clamp(14px, calc(13.5px + 0.1389vw), 15.5px);
+  min-height:clamp(38px, calc(36.67px + 0.3704vw), 42px)}
+.cf-site .btn-block{width:100%}
+
+.cf-site .tlink{position:relative;display:inline-flex;align-items:center;gap:var(--s2);
+  font-size:.875rem;font-weight:500;color:var(--violet-pale);padding-bottom:2px}
+.cf-site .tlink::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+.cf-site .card:hover .tlink::after{transform:scaleX(1);transform-origin:left}
+.cf-site .tlink svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.8;fill:none;
+  transition:transform .45s var(--ease)}
+.cf-site .card:hover .tlink svg{transform:translateX(4px)}
+
+/* ===========================================================================
+   HEADER — floats inside the page frame
+   =========================================================================== */
+.cf-site .hdr{
+  position:fixed;top:var(--frame-y);left:var(--frame-x);right:var(--frame-x);z-index:900;
+  border-radius:var(--r-pill);
+  /* the pill's own inset is the same on all four sides now — it was 16px
+     left and right against 12px top and bottom */
+  padding:16px;
+  border:1px solid transparent;
+  /* The blur used to be created at the moment .stuck landed. Creating a
+     backdrop-filter promotes the header to its own layer and repaints it in
+     one frame, which is the blink: the background faded over .45s while the
+     blur snapped in. Declaring a zero blur up front keeps that layer alive
+     from the first paint and leaves the browser a value to interpolate from,
+     so the surface now eases in with everything else. */
+  backdrop-filter:blur(0px) saturate(100%);-webkit-backdrop-filter:blur(0px) saturate(100%);
+  transition:background .45s var(--ease),border-color .45s var(--ease),
+    box-shadow .45s var(--ease),backdrop-filter .45s var(--ease),
+    -webkit-backdrop-filter .45s var(--ease);
+}
+.cf-site .hdr.stuck{
+  background:rgba(15,15,23,.72);border-color:var(--w10);
+  backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);
+  box-shadow:0 18px 50px -24px #000;
+}
+/* three tracks so the nav is centred on the header, not on whatever is left
+   over after the logo — the outer tracks stay equal whatever they contain */
+.cf-site .hdr-in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  gap:var(--s6);max-width:1264px;margin:0 auto}
+
+.cf-site .brand{display:inline-flex;align-items:center;justify-self:start}
+.cf-site .brand-logo{display:block;width:156px;height:21px;background:url(data:image/png;base64,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) no-repeat left center;background-size:contain;transition:opacity .4s var(--ease),transform .5s var(--ease)}
+.cf-site .brand:hover .brand-logo{opacity:.85;transform:translateY(-1px)}
+@media(max-width:680px){.cf-site .brand-logo{width:128px;height:17px}}
+
+.cf-site .nav{display:flex;align-items:center;gap:var(--s1);justify-self:center}
+.cf-site .nav>*{position:relative}
+.cf-site .nav-link{display:inline-flex;align-items:center;gap:var(--s2);
+  padding:var(--pad-v-sm) var(--pad-h-sm);border-radius:var(--r-pill);
+  font-size:.9rem;font-weight:400;color:var(--fg-3);
+  transition:color .3s var(--ease),background .3s var(--ease)}
+.cf-site .nav-link:hover{color:var(--fg);background:var(--w05)}
+.cf-site .chev{width:8px;height:8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+  transform:rotate(45deg) translate(-2px,-2px);transition:transform .35s var(--ease)}
+.cf-site .drop:hover .chev,.cf-site .drop:focus-within .chev{transform:rotate(225deg) translate(-1px,-1px)}
+.cf-site .menu{position:absolute;top:calc(100% + var(--s3));left:0;width:336px;
+  background:var(--surf-2);border:1px solid var(--w10);border-radius:var(--r-m);padding:var(--s2);
+  box-shadow:0 32px 72px -28px var(--k60);
+  opacity:0;visibility:hidden;transform:translateY(-8px);
+  transition:opacity .3s var(--ease),transform .3s var(--ease),visibility .3s}
+.cf-site .drop:hover .menu,.cf-site .drop:focus-within .menu{opacity:1;visibility:visible;transform:none}
+.cf-site .menu a{display:block;padding:var(--s3);border-radius:var(--r-s);
+  transition:background .3s,transform .3s var(--ease)}
+.cf-site .menu a:hover{background:var(--w05);transform:translateX(4px)}
+.cf-site .menu strong{display:block;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:.92rem;font-weight:600}
+.cf-site .menu span{display:block;font-size:.8rem;color:var(--fg-3);line-height:1.5;margin-top:2px}
+.cf-site .hdr-cta{display:flex;gap:var(--s2);justify-self:end}
+
+.cf-site .burger{display:none;justify-self:end;width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--w10);position:relative}
+ /* three 2px bars, 6px apart, centred on the 40px button */
+.cf-site .burger i{position:absolute;left:11px;right:11px;height:2px;border-radius:1px;
+  background:var(--fg);transition:transform .4s var(--ease),opacity .25s}
+.cf-site .burger i:nth-child(1){top:13px}.cf-site .burger i:nth-child(2){top:19px}.cf-site .burger i:nth-child(3){top:25px}
+.cf-site .burger.on i:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.cf-site .burger.on i:nth-child(2){opacity:0}
+.cf-site .burger.on i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+/* Sits below the header and is only as tall as its contents. */
+.cf-site .sheet{position:fixed;top:calc(var(--frame-y) + 74px);left:var(--frame-x);right:var(--frame-x);
+  z-index:880;background:var(--surf-1);border:1px solid var(--w10);
+  border-radius:var(--r-l);padding:var(--s4) var(--s5) var(--s5);
+  box-shadow:0 40px 90px -40px #000;
+  max-height:calc(100vh - var(--frame-y) - 96px);overflow-y:auto;
+  opacity:0;visibility:hidden;transform:translateY(-12px) scale(.99);
+  transform-origin:top center;
+  transition:transform .4s var(--e-out),opacity .3s var(--ease),visibility .3s}
+.cf-site .sheet.on{opacity:1;visibility:visible;transform:none}
+.cf-site .sheet-nav{display:grid}
+.cf-site .sheet-nav>a,.cf-site .acc-t{display:flex;align-items:center;justify-content:space-between;
+  width:100%;padding:var(--s4) 0;border-bottom:1px solid var(--w10);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:1.08rem;font-weight:600;
+  color:var(--fg);text-align:left}
+.cf-site .acc-t .chev{transition:transform .35s var(--ease)}
+.cf-site .acc.open .acc-t .chev{transform:rotate(225deg) translate(-1px,-1px)}
+.cf-site .acc-p{display:grid;overflow:hidden;max-height:0;
+  transition:max-height .45s var(--e-out),opacity .3s var(--ease);opacity:0}
+.cf-site .acc.open .acc-p{max-height:320px;opacity:1}
+.cf-site .acc-p a{display:block;padding:var(--s3) 0 var(--s3) var(--s4);border-bottom:0;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:.95rem;font-weight:400;color:var(--fg-2)}
+.cf-site .acc-p a:first-child{padding-top:var(--s4)}
+.cf-site .acc-p a:last-child{padding-bottom:var(--s4)}
+.cf-site .sheet-cta{display:grid;gap:var(--s3);margin-top:var(--s5)}
+.cf-site .sheet-cta .btn{width:100%}
+
+/* ===========================================================================
+   HERO
+   =========================================================================== */
+/* Full-bleed. --bleed is the distance from the shell edge to the viewport
+   edge, so equal negative margin and positive padding push the background out
+   to the window while the content stays on the 1264px grid. --page-w is set in
+   JS to the scrollbar-free width; 100vw is the fallback. */
+.cf-site .hero{
+  position:relative;overflow:hidden;border-radius:0;
+  /* The surface is page background: it runs to the screen edges, independent
+     of the frame. --bleed is the distance from the shell edge out to the
+     viewport, so a negative margin of that size cancels the frame; the same
+     value comes back as padding so the content still lines up with the frame.
+     The header is unaffected — it stays a pill floating inside the margins. */
+  --bleed:calc((var(--page-w,100vw) - 100%) / 2);
+  margin:calc(-1 * var(--frame-y)) calc(-1 * var(--bleed)) 0;
+  padding:calc(80px + var(--s8)) var(--bleed) var(--s8);
+  background:
+    radial-gradient(ellipse 90% 70% at 20% 0%,var(--violet-18),transparent 70%),
+    radial-gradient(ellipse 80% 70% at 85% 5%,var(--magenta-16),transparent 70%),
+    linear-gradient(180deg,var(--deep-purple),transparent 60%);
+}
+.cf-site .aura{position:absolute;pointer-events:none;border-radius:50%;filter:blur(110px)}
+.cf-site .aura-a{top:-340px;left:-180px;width:900px;height:900px;background:var(--violet-18)}
+.cf-site .aura-b{top:-260px;right:-180px;width:820px;height:820px;background:var(--magenta-16)}
+.cf-site .mesh{position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--w03) 1px,transparent 1px),linear-gradient(90deg,var(--w03) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 78% 55% at 50% 18%,#000 5%,transparent 74%);
+  mask-image:radial-gradient(ellipse 78% 55% at 50% 18%,#000 5%,transparent 74%)}
+.cf-site .hero-in{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr);
+  gap:var(--s7);justify-items:center;text-align:center}
+.cf-site .hero-in>div:first-child{max-width:940px}
+.cf-site .hero-in .hero-cta{justify-content:center}
+.cf-site .hero-in .dash{width:100%;max-width:100%;text-align:left}
+
+.cf-site .badge{display:inline-flex;align-items:center;gap:var(--s2);
+  padding:var(--pad-v-sm) var(--pad-h-sm);border:1px solid var(--w10);border-radius:var(--r-pill);
+  background:var(--w03);font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.77rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--s5)}
+.cf-site .ping{position:relative;width:7px;height:7px;border-radius:50%;background:var(--violet);flex:none}
+.cf-site .ping::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--violet);
+  transform:scale(2.6);opacity:.18}
+
+/* 4px down from the global h1 at both ends of its clamp */
+.cf-site .hero h1{font-size:clamp(32px, calc(20.67px + 3.1481vw), 66px);margin-bottom:var(--s5);max-width:22ch;
+  margin-left:auto;margin-right:auto}
+.cf-site .hero .lede{max-width:64ch;margin-left:auto;margin-right:auto}
+.cf-site .hero .badge{margin-left:auto;margin-right:auto}
+.cf-site .hero h1 .ln{display:block;overflow:hidden;
+  padding-bottom:.2em;margin-bottom:-.2em}
+.cf-site .hero h1 .ln>span{display:block;transform:translateY(130%);animation:rise 1s var(--ease) forwards}
+.cf-site .hero h1 .ln:nth-child(1)>span{animation-delay:.10s}
+.cf-site .hero h1 .ln:nth-child(2)>span{animation-delay:.20s}
+.cf-site .hero h1 .ln:nth-child(3)>span{animation-delay:.30s}
+@keyframes rise{to{transform:none}}
+.cf-site .fu{opacity:0;transform:translateY(20px);animation:fu .85s var(--ease) forwards}
+@keyframes fu{to{opacity:1;transform:none}}
+.cf-site .d1{animation-delay:.46s}.cf-site .d2{animation-delay:.58s}
+.cf-site .hero-cta{display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s6)}
+
+/* ---- Agent console ---- */
+.cf-site .panel{background:linear-gradient(165deg,var(--surf-3),var(--surf-1));
+  border:1px solid var(--w10);border-radius:var(--r-l);overflow:hidden;
+  box-shadow:0 40px 100px -46px #000,inset 0 1px 0 var(--w05);
+  opacity:0;transform:translateY(28px);animation:fu 1s var(--ease) .56s forwards}
+.cf-site .panel-top{display:flex;align-items:center;gap:var(--s3);padding:var(--s4) var(--s5);
+  border-bottom:1px solid var(--w10);background:var(--k30)}
+.cf-site .lights{display:flex;gap:6px}
+.cf-site .lights i{width:9px;height:9px;border-radius:50%;background:var(--w20)}
+.cf-site .tag-live{margin-left:auto;display:flex;align-items:center;gap:6px;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.74rem;letter-spacing:.14em;color:var(--green)}
+.cf-site .tag-live i{width:6px;height:6px;border-radius:50%;background:var(--green);flex:none}
+/* the word carries the pulse; the dot is the steady "connected" light and
+   never blinks with it */
+.cf-site .tl-t{animation:tagPulse 2s ease-in-out infinite}
+@keyframes tagPulse{0%,100%{opacity:1}50%{opacity:.34}}
+.cf-site .feed{padding:var(--s2)}
+.cf-site .fitem{display:grid;grid-template-columns:36px 1fr auto;gap:var(--s3);align-items:center;
+  padding:var(--s3);border-radius:var(--r-m);opacity:0;transform:translateX(-12px);
+  animation:slide .6s var(--ease) forwards;transition:background .3s var(--ease)}
+.cf-site .fitem:nth-child(1){animation-delay:1.02s}.cf-site .fitem:nth-child(2){animation-delay:1.18s}
+.cf-site .fitem:nth-child(3){animation-delay:1.34s}.cf-site .fitem:nth-child(4){animation-delay:1.50s}
+@keyframes slide{to{opacity:1;transform:none}}
+.cf-site .fitem:hover{background:var(--w05)}
+.cf-site .fitem .ico{width:clamp(30px, calc(28px + 0.5556vw), 36px);height:clamp(30px, calc(28px + 0.5556vw), 36px);
+  border-radius:var(--r-s);display:grid;place-items:center;flex:none;
+  background:var(--w05);border:1px solid var(--w10)}
+.cf-site .fitem .ico svg{width:16px;height:16px;stroke:var(--violet-pale);fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.cf-site .fitem h4{font-size:.875rem;margin-bottom:2px}
+.cf-site .fitem small{display:block;font-size:.775rem;color:var(--fg-3);font-weight:300}
+.cf-site .pill{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.74rem;font-weight:500;
+  padding:var(--pad-v-sm) var(--pad-h-sm);border-radius:var(--r-pill);white-space:nowrap;line-height:1}
+.cf-site .pill-ok{background:var(--green-14);color:var(--green)}
+.cf-site .pill-run{background:var(--violet-18);color:var(--violet-pale);transition:opacity .22s ease}
+.cf-site .pill-warn{background:var(--orange-15);color:var(--orange)}
+/* A light band passes through each pill in turn and the cycle repeats, so the
+   panel reads as an agent still working the queue rather than four finished
+   rows. Nothing about the pills themselves changes — same text, colour, size
+   and position; the band is an overlay inside the existing shape. */
+.cf-site .panel .feed .pill{position:relative;overflow:hidden}
+.cf-site .panel .feed .pill::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(105deg,
+    rgba(255,255,255,0) 32%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 68%);
+  transform:translateX(-130%);
+  animation:pillSweep 6.4s var(--ease) infinite}
+.cf-site .panel .feed .fitem:nth-child(1) .pill::after{animation-delay:0s}
+.cf-site .panel .feed .fitem:nth-child(2) .pill::after{animation-delay:.55s}
+.cf-site .panel .feed .fitem:nth-child(3) .pill::after{animation-delay:1.1s}
+.cf-site .panel .feed .fitem:nth-child(4) .pill::after{animation-delay:1.65s}
+/* the band crosses in the first sixth of the cycle, then waits its turn again */
+@keyframes pillSweep{
+  0%{transform:translateX(-130%)}
+  17%{transform:translateX(130%)}
+  100%{transform:translateX(130%)}}
+.cf-site .panel-foot{display:flex;align-items:center;gap:var(--s3);padding:var(--s4) var(--s5);
+  border-top:1px solid var(--w10);background:var(--k30)}
+/* Sized off the line it sits beside — at 18px it read as a graphic dropped in
+   next to the sentence rather than part of it. */
+.cf-site .eq{display:flex;gap:2.5px;align-items:flex-end;height:13px;flex:none}
+.cf-site .eq i{width:3px;border-radius:2px;background:var(--violet);
+  transform-origin:bottom;animation:eqBar 1.05s ease-in-out infinite alternate}
+.cf-site .eq i:nth-child(1){height:5px}.cf-site .eq i:nth-child(2){height:11px}
+.cf-site .eq i:nth-child(3){height:7px}.cf-site .eq i:nth-child(4){height:12px}
+.cf-site .eq i:nth-child(5){height:6px}
+/* each bar runs at its own tempo, started mid-cycle, so the five never march
+   in step — negative delays mean the row is already moving on first paint */
+.cf-site .eq i:nth-child(1){animation-duration:.86s;animation-delay:-.20s}
+.cf-site .eq i:nth-child(2){animation-duration:1.14s;animation-delay:-.50s}
+.cf-site .eq i:nth-child(3){animation-duration:.95s;animation-delay:-.05s}
+.cf-site .eq i:nth-child(4){animation-duration:1.28s;animation-delay:-.35s}
+.cf-site .eq i:nth-child(5){animation-duration:.78s;animation-delay:-.62s}
+/* the floor stays high enough that each bar always reads as a bar rather
+   than collapsing to a dot at the bottom of its travel */
+@keyframes eqBar{from{transform:scaleY(.45)}to{transform:scaleY(1)}}
+.cf-site .panel-foot p{font-size:.775rem;color:var(--fg-3)}
+.cf-site .panel-foot b{color:var(--fg);font-weight:500}
+
+/* the services strip carries four figures */
+.cf-site .stats.four{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.cf-site .stats.four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.cf-site .stats.four{grid-template-columns:1fr}}
+.cf-site .num-t{font-size:clamp(1.6rem,3vw,2.2rem)!important}
+
+/* three-up card row and the sample provider cards on the software page */
+.cf-site .cards.three{grid-template-columns:repeat(3,1fr)}
+@media(max-width:1180px){.cf-site .cards.three{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.cf-site .cards.three{grid-template-columns:1fr}}
+.cf-site .npi-card{display:block}
+.cf-site .npi-list{margin-top:var(--s3);display:flex;flex-direction:column;gap:0}
+.cf-site .npi-list li{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
+  padding:8px 0;border-bottom:1px solid var(--w05);font-size:.82rem;color:var(--fg-2)}
+.cf-site .npi-list li:last-child{border-bottom:0}
+.cf-site .npi-list li.npi-alert span:first-child{color:var(--fg-3);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.74rem;letter-spacing:.14em;text-transform:uppercase}
+
+/* the footnote under the modules band */
+.cf-site .foot-note{margin-top:var(--s5);font-size:.85rem;color:var(--fg-3);font-weight:300}
+
+/* the closing block carries copy and buttons but no form */
+.cf-site .cta-in.one{grid-template-columns:minmax(0,1fr);max-width:720px;margin-inline:auto}
+
+/* a first/last name row that collapses on a narrow screen */
+.cf-site .field.two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.cf-site .field.two>span{display:block}
+@media(max-width:560px){.cf-site .field.two{grid-template-columns:1fr}}
+
+/* case-study cards: the metric sits between the heading and the summary */
+.cf-site .case-m{display:block;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:2.2rem;
+  font-weight:600;line-height:1.1;color:var(--violet-pale);margin-top:var(--s3)}
+.cf-site .case-l{display:block;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.78rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--s3)}
+
+/* ===========================================================================
+   HERO CONSOLE
+   ===========================================================================
+   Four tabs, one per agent, on a single 24s loop. Every part of the cycle —
+   which pane shows, which tab lights, where the underline sits, when the bars
+   grow — is driven by CSS keyframes sharing that period, so the console plays
+   identically with scripts on or off. Scripts only add click-to-pick. */
+@property --dp{syntax:'<number>';inherits:false;initial-value:0}
+
+.cf-site .dash{
+  position:relative;border:1px solid var(--w10);border-radius:var(--r-l);
+  background:linear-gradient(168deg,var(--surf-1),var(--bg));
+  box-shadow:0 40px 90px -50px #000;overflow:hidden;isolation:isolate;
+}
+.cf-site .dash-tabs{position:relative;display:grid;grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid var(--w10);background:var(--k30)}
+.cf-site .dtab{padding:var(--s3) var(--s2);text-align:center;
+  font-size:0.81rem;font-weight:500;letter-spacing:-.005em;color:var(--fg-3);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:default;
+  animation:dtabOn 24s steps(1,end) infinite}
+.cf-site .dtab:nth-child(1){animation-delay:0s}
+.cf-site .dtab:nth-child(2){animation-delay:6s}
+.cf-site .dtab:nth-child(3){animation-delay:12s}
+.cf-site .dtab:nth-child(4){animation-delay:18s}
+@keyframes dtabOn{0%{color:var(--fg)}25%{color:var(--fg-3)}100%{color:var(--fg-3)}}
+/* equal columns let the underline travel in whole multiples of its own width */
+.cf-site .dtab-ink{position:absolute;left:0;bottom:-1px;width:25%;height:2px;
+  background:linear-gradient(90deg,var(--violet),var(--magenta));
+  animation:dinkMove 24s infinite}
+@keyframes dinkMove{
+  0%,21%{transform:translateX(0)}       25%,46%{transform:translateX(100%)}
+  50%,71%{transform:translateX(200%)}   75%,96%{transform:translateX(300%)}
+  100%{transform:translateX(0)}}
+
+.cf-site .dash-body{position:relative;height:clamp(560px, calc(494.44px + 18.2vw), 790px)}
+.cf-site .dpane{position:absolute;inset:0;padding:var(--s5);display:flex;flex-direction:column;
+  gap:var(--s3);opacity:0;animation:dpane 24s infinite}
+.cf-site .dpane>.drow2,.cf-site .dpane>.dblock{flex:1;min-height:0}
+.cf-site .dpane>.dstats,.cf-site .dpane>.dready{flex:none}
+/* the source chips are a strip, not a panel — they take only what they need */
+.cf-site .dp4>.dblock:last-child{flex:none}
+.cf-site .dp4>.dblock:last-child .dnote{margin-top:var(--s3)}
+.cf-site .dp1{animation-delay:0s} .cf-site .dp2{animation-delay:6s}
+.cf-site .dp3{animation-delay:12s} .cf-site .dp4{animation-delay:18s}
+@keyframes dpane{
+  0%{opacity:0;transform:translateY(10px)}
+  2.5%,22%{opacity:1;transform:none}
+  25%{opacity:0;transform:translateY(-8px)}
+  100%{opacity:0;transform:translateY(10px)}}
+
+/* --- stat row ------------------------------------------------------------ */
+.cf-site .dstats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3)}
+.cf-site .dstat{display:flex;flex-direction:column;gap:2px;padding:var(--s3);
+  border:1px solid var(--w10);border-radius:var(--r-m);background:var(--w03);min-width:0}
+.cf-site .dk{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.78rem;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--fg-3);line-height:1.5}
+.cf-site .dt{font-size:.8rem;font-weight:500;color:var(--fg);line-height:1.35}
+.cf-site .dt.lg{font-size:.95rem}
+.cf-site .dn{display:flex;align-items:baseline;gap:6px;margin-top:2px;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:1.6rem;font-weight:600;
+  letter-spacing:-.02em;line-height:1.1;color:var(--fg)}
+.cf-site .dn.warn{color:var(--orange)}
+.cf-site .dunit{font-size:.9rem;font-weight:500;color:var(--fg-3);font-style:normal;margin-left:-3px}
+.cf-site .dunit.sp{margin-left:0}
+.cf-site .dsub{font-size:0.81rem;line-height:1.45;color:var(--fg-3);font-weight:300}
+.cf-site .dchip{margin-left:auto;padding:2px 7px;border-radius:var(--r-pill);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.74rem;font-style:normal;
+  align-self:center}
+.cf-site .dchip.up{background:var(--green-14);color:var(--green)}
+.cf-site .dchip.warn{background:var(--orange-15);color:var(--orange)}
+
+.cf-site .dsplit{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:6px}
+.cf-site .dsplit span{display:flex;flex-direction:column;align-items:center;gap:1px;
+  padding-top:2px;border-top:1px solid var(--w10)}
+.cf-site .dsplit b{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:1.05rem;font-weight:600;color:var(--fg)}
+.cf-site .dsplit i{font-size:0.76rem;font-style:normal;color:var(--fg-3)}
+
+/* --- donut --------------------------------------------------------------- */
+.cf-site .ddonut-row{display:flex;align-items:center;gap:var(--s3);margin-top:4px}
+.cf-site .ddonut{position:relative;flex:none;
+  width:clamp(42px, calc(38.67px + 0.9259vw), 52px);
+  height:clamp(42px, calc(38.67px + 0.9259vw), 52px);border-radius:50%;
+  display:grid;place-items:center;
+  background:conic-gradient(var(--violet) calc(var(--dp) * 1%),var(--w05) 0)}
+.cf-site .ddonut.lg{width:clamp(52px, calc(47.33px + 1.2963vw), 66px);height:clamp(52px, calc(47.33px + 1.2963vw), 66px)}
+.cf-site .ddonut::after{content:'';position:absolute;inset:6px;border-radius:50%;
+  background:var(--surf-1)}
+.cf-site .ddonut.lg::after{inset:8px}
+.cf-site .ddonut em{position:relative;z-index:1;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-size:.78rem;font-weight:600;font-style:normal;color:var(--fg)}
+.cf-site .ddonut.lg em{font-size:1.05rem}
+.cf-site .d92{animation:dSweep92 24s infinite}
+.cf-site .d96{animation:dSweep96 24s infinite 18s}
+@keyframes dSweep92{0%,1%{--dp:0}10%,25%{--dp:92}100%{--dp:92}}
+@keyframes dSweep96{0%,1%{--dp:0}10%,25%{--dp:96}100%{--dp:96}}
+
+/* --- meter --------------------------------------------------------------- */
+.cf-site .dmeter{display:block;height:3px;border-radius:2px;background:var(--w05);
+  margin:6px 0 4px;overflow:hidden}
+.cf-site .dmeter i{display:block;height:100%;width:72%;border-radius:2px;
+  background:linear-gradient(90deg,var(--violet),var(--magenta));
+  transform-origin:left;transform:scaleX(0);animation:dGrow 24s ease-out infinite 6s}
+.cf-site .dmeter.wide{margin:8px 0 0}
+.cf-site .dmeter.wide i{width:96%;animation-delay:18s}
+
+/* --- block --------------------------------------------------------------- */
+.cf-site .dblock{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;gap:var(--s3);
+  padding:var(--s4);border:1px solid var(--w10);border-radius:var(--r-m);
+  background:var(--w03)}
+.cf-site .dblock h5{font-size:.8rem;font-weight:500;color:var(--fg);margin:0}
+
+  .cf-site .dbars{display:flex;flex-direction:column;justify-content:space-between;flex:1;
+  min-height:0;gap:0}
+/* every row keeps an equal share of the block, so five bars sit evenly whether
+   the slot is 170px or 400px and none of them is ever cut off */
+.cf-site .dbars>.dbar{flex:1;min-height:0;align-content:center}
+.cf-site .dbar{display:grid;grid-template-columns:104px 1fr 40px;align-items:center;gap:var(--s3)}
+.cf-site .dbl{font-size:0.76rem;color:var(--fg-2);font-weight:300;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cf-site .dbl.wide{flex:1}
+.cf-site .dtrack{height:clamp(12px, calc(10.67px + 0.3704vw), 16px);border-radius:4px;
+  background:var(--w05);overflow:hidden}
+.cf-site .dtrack i{display:block;height:100%;width:var(--w);border-radius:3px;
+  background:linear-gradient(90deg,var(--violet),var(--violet-pale));
+  transform-origin:left;transform:scaleX(0);animation:dGrow 24s ease-out infinite}
+.cf-site .dtrack i.good{background:linear-gradient(90deg,var(--green),var(--green))}
+.cf-site .dp3 .dtrack i{animation-delay:12s}
+@keyframes dGrow{0%,1%{transform:scaleX(0)}11%,25%{transform:scaleX(1)}100%{transform:scaleX(1)}}
+.cf-site .dbv{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.76rem;color:var(--fg);text-align:right}
+.cf-site .dbv.mono{color:var(--fg-2)}
+.cf-site .dbv.good{color:var(--green)} .cf-site .dbv.warnc{color:var(--orange)}
+
+.cf-site .drows{display:flex;flex-direction:column;justify-content:flex-start;flex:1;
+  gap:clamp(2px, calc(-0.67px + 0.7407vw), 10px)}
+.cf-site .drow{flex:1;min-height:0}
+/* six rows in the height the other panes give five */
+.cf-site .drows.tight .drow{padding:4px 0}
+.cf-site .drow{display:flex;align-items:center;gap:var(--s3);padding:6px 0;
+  border-bottom:1px solid var(--w05)}
+.cf-site .drow:last-child{border-bottom:0}
+.cf-site .drow .dbl{flex:none;width:76px;color:var(--fg);font-weight:400}
+.cf-site .drow .dbl.wide{flex:1;width:auto;font-weight:300;color:var(--fg-2)}
+.cf-site .dmid{flex:1;min-width:0;font-size:0.81rem;color:var(--fg-3);font-weight:300;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cf-site .ddot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--fg-3)}
+.cf-site .ddot.g{background:var(--green)} .cf-site .ddot.o{background:var(--orange)}
+.cf-site .ddot.v{background:var(--violet-pale)}
+
+/* --- readiness header (pane 4) ------------------------------------------- */
+.cf-site .dready{display:flex;align-items:center;gap:var(--s4);padding:var(--s3) var(--s4);
+  border:1px solid var(--w10);border-radius:var(--r-m);background:var(--w03)}
+.cf-site .dready-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.cf-site .dready-n{display:flex;gap:var(--s4);flex:none}
+.cf-site .dready-n span{display:flex;flex-direction:column;align-items:flex-end;gap:0}
+.cf-site .dready-n b{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:1.25rem;font-weight:600;color:var(--fg)}
+.cf-site .dready-n i{font-size:0.76rem;font-style:normal;color:var(--fg-3);white-space:nowrap}
+
+/* --- the second and third rows of each pane ------------------------------ */
+.cf-site .drow2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);min-height:0}
+.cf-site .drow2.wide-left{grid-template-columns:1.25fr 1fr}
+.cf-site .dblock.centre{align-items:center;justify-content:center}
+
+/* line and area charts, drawn once as the pane arrives */
+.cf-site .dchart{width:100%;height:100%;min-height:0;flex:1;overflow:visible}
+.cf-site .dgl{stroke:var(--w05);stroke-width:1;vector-effect:non-scaling-stroke}
+.cf-site .dchart-wrap{position:relative;flex:1;min-height:0;display:flex}
+.cf-site .dend{position:absolute;left:var(--x);top:var(--y);width:7px;height:7px;margin:-3.5px 0 0 -3.5px;
+  border-radius:50%;background:var(--c);opacity:0;animation:dFade 24s var(--ease) infinite}
+.cf-site .dp3 .dend{animation-delay:12s}
+.cf-site .dax-row{display:flex;justify-content:space-between;flex:none;margin-top:6px}
+.cf-site .dax-row span{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.74rem;color:var(--fg-3)}
+.cf-site .dax{fill:var(--fg-3);font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:7px;text-anchor:middle}
+.cf-site .dline{fill:none;stroke-width:2;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:420;stroke-dashoffset:420;animation:dDraw 24s var(--ease) infinite}
+.cf-site .dfill{opacity:0;animation:dFade 24s var(--ease) infinite}
+.cf-site .ddot-end{opacity:0;animation:dFade 24s var(--ease) infinite}
+.cf-site .dp3 .dline,.cf-site .dp3 .dfill,.cf-site .dp3 .ddot-end{animation-delay:12s}
+@keyframes dDraw{0%,1%{stroke-dashoffset:420}14%,25%{stroke-dashoffset:0}100%{stroke-dashoffset:0}}
+@keyframes dFade{0%,4%{opacity:0}16%,25%{opacity:1}100%{opacity:1}}
+
+/* compact tables */
+.cf-site .dtable{display:flex;flex-direction:column;flex:1;min-height:0}
+.cf-site .dth,.cf-site .dtr{display:grid;grid-template-columns:1.15fr 1fr .9fr .8fr;gap:var(--s3);align-items:center}
+.cf-site .dtable.three .dth,.cf-site .dtable.three .dtr{grid-template-columns:1.3fr 1fr .8fr}
+.cf-site .dth{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.74rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--fg-3);padding-bottom:6px;border-bottom:1px solid var(--w10)}
+.cf-site .dtr{flex:1;min-height:0;padding:7px 0;border-bottom:1px solid var(--w05);font-size:.74rem;color:var(--fg)}
+.cf-site .dtr:last-child{border-bottom:0}
+.cf-site .dtr .pill{justify-self:start}
+
+/* stacked column chart */
+.cf-site .dvbars{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--s2);flex:1;min-height:0}
+.cf-site .dvb{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;height:100%;justify-content:flex-end}
+/* --h is the column's own share of the plot area, so the six read as a chart
+   rather than six full-height bars */
+.cf-site .dvcol{display:flex;flex-direction:column;justify-content:flex-end;width:100%;max-width:clamp(16px, calc(11.33px + 1.2963vw), 30px);
+  height:var(--h,100%);border-radius:4px;overflow:hidden;gap:2px;
+  transform-origin:bottom;transform:scaleY(0);animation:dGrowY 24s var(--e-out) infinite}
+.cf-site .dp2 .dvcol{animation-delay:6s} .cf-site .dp3 .dvcol{animation-delay:12s}
+@keyframes dGrowY{0%,1%{transform:scaleY(0)}12%,25%{transform:scaleY(1)}100%{transform:scaleY(1)}}
+.cf-site .dvcol i{display:block;width:100%;border-radius:3px}
+.cf-site .dvcol i.s1{background:var(--violet)}
+.cf-site .dvcol i.s2{background:var(--purple)}
+.cf-site .dvcol i.s3{background:var(--magenta)}
+.cf-site .dvl{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.74rem;color:var(--fg-3)}
+
+/* the confidence ring */
+.cf-site .dring-wrap{display:grid;place-items:center;flex:1;min-height:0}
+.cf-site .dring{position:relative;width:clamp(96px, calc(76px + 5.5556vw), 156px);aspect-ratio:1;
+  border-radius:50%;display:grid;place-items:center;
+  background:conic-gradient(var(--green) 0 64%,var(--violet) 64% 82%,
+    var(--orange) 82% 88%,var(--magenta) 88% 100%)}
+.cf-site .dring::after{content:'';position:absolute;inset:18%;border-radius:50%;background:var(--surf-1)}
+.cf-site .dring em{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;
+  font-style:normal;line-height:1.1}
+.cf-site .dring b{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-size:clamp(1rem,1.5vw,1.35rem);font-weight:600;color:var(--fg)}
+.cf-site .dring i{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.74rem;color:var(--fg-3)}
+
+/* the live call list inside a stat card */
+.cf-site .dlive{display:flex;flex-direction:column;gap:5px;margin-top:6px}
+.cf-site .dlive span{display:flex;align-items:center;gap:7px;font-size:0.81rem;color:var(--fg-2);
+  padding:5px var(--s3);border-radius:var(--r-s);background:var(--w03);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* the data-source chips */
+.cf-site .dchips{display:flex;gap:var(--s3);flex-wrap:wrap}
+.cf-site .dchip-s{display:flex;align-items:center;gap:7px;padding:7px var(--s4);border-radius:var(--r-pill);
+  border:1px solid var(--w10);background:var(--w03);font-size:.74rem;color:var(--fg-2)}
+.cf-site .dchip-s em{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-style:normal;font-size:0.74rem;
+  color:var(--violet-pale);padding-left:var(--s2)}
+.cf-site .dnote{font-size:0.78rem;color:var(--fg-3);margin-top:auto}
+
+/* --- narrow: the console keeps its shape, the type and gaps come down ----- */
+/* --- the console narrows in two steps ------------------------------------ */
+@media(max-width:1024px){
+  /* side-by-side charts get too thin to read, so the rows stack; the panes are
+     layered on top of each other, so the body keeps an explicit height */
+  .cf-site .drow2,.cf-site .drow2.wide-left{grid-template-columns:minmax(0,1fr)}
+  .cf-site .dash-body{height:945px}
+}
+@media(max-width:760px){
+  /* Nothing is dropped on a phone — every chart and table a tab carries on the
+     desktop is still here, stacked one under the next, and the body is tall
+     enough to hold the deepest tab. Measured natural heights run to 992px at
+     760 and 1040 at 320, so the steps below clear both. */
+  .cf-site .dth,.cf-site .dtr{grid-template-columns:1.2fr .9fr .8fr}
+  .cf-site .dth>span:nth-child(4),.cf-site .dtr>span:nth-child(4){display:none}
+  .cf-site .dash-body{height:1040px}   /* superseded by the phone block below */
+}
+@media(max-width:1180px){
+  /* once the hero stacks, the console would run the full page width and the
+     bars would stretch into ribbons — it keeps a sensible measure instead */
+  .cf-site .dash{max-width:720px}
+}
+@media(max-width:400px){
+  /* four labels will not share a 370px row, so the row scrolls instead of
+     truncating each of them */
+  .cf-site .dash-tabs{grid-template-columns:repeat(4,minmax(94px,1fr));
+    overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .cf-site .dash-tabs::-webkit-scrollbar{display:none}
+  .cf-site .dtab-ink{width:25%}
+}
+@media(max-width:560px){
+  .cf-site .dtab{font-size:0.74rem;padding:10px 4px;letter-spacing:-.02em}
+  .cf-site .dash-body{height:1040px}
+  /* the stat cards wrap onto more lines below 400px, so the deepest tab wants
+     a little more room than it does between 400 and 760 */
+  @media(max-width:400px){.cf-site .dash-body{height:1075px}}
+  .cf-site .dpane{padding:var(--s4);gap:var(--s3)}
+  .cf-site .dstats{grid-template-columns:1fr;gap:6px}
+  .cf-site .dstat{flex-direction:row;align-items:center;gap:var(--s3);padding:10px var(--s3);flex-wrap:wrap}
+  .cf-site .dstat .dk{display:none}
+  .cf-site .dstat .dt{flex:1;font-size:0.81rem}
+  .cf-site .dstat .dn{margin-top:0;font-size:1.15rem}
+  .cf-site .dstat .dsub,.cf-site .dstat .dmeter,.cf-site .ddonut-row .dsub{display:none}
+  /* the three queue figures run inline rather than as a mini table */
+  .cf-site .dstat .dsplit{display:flex;gap:var(--s3);margin:0}
+  .cf-site .dsplit span{flex-direction:row;align-items:baseline;gap:4px;border-top:0;padding-top:0}
+  .cf-site .dsplit b{font-size:.95rem}
+  .cf-site .ddonut{width:34px;height:34px}
+  .cf-site .ddonut::after{inset:4px}
+  .cf-site .ddonut em{font-size:0.74rem}
+  .cf-site .dbar{grid-template-columns:minmax(0,104px) 1fr 42px;gap:6px}
+  .cf-site .dk{font-size:0.74rem}
+  .cf-site .dready{padding:var(--s3);gap:var(--s3)}
+  .cf-site .ddonut.lg{width:52px;height:52px}
+  .cf-site .ddonut.lg em{font-size:.78rem}
+  .cf-site .dready-n{display:none}
+  .cf-site .drow .dbl{width:62px}
+  .cf-site .dmid{display:none}
+}
+/* Scripts, when they run, let a pointer pick a tab; doing so drops the loop
+   and holds that pane. Without scripts the loop simply keeps playing. */
+.cf-site.js .dtab{cursor:pointer}
+.cf-site .dash.manual .dpane{animation:none;opacity:0;transform:none}
+.cf-site .dash.manual .dpane.on{opacity:1}
+.cf-site .dash.manual .dtab{animation:none;color:var(--fg-3)}
+.cf-site .dash.manual .dtab.on{color:var(--fg)}
+.cf-site .dash.manual .dtab-ink{animation:none;transition:transform .45s var(--e-out)}
+.cf-site .dash.manual .dtrack i,.cf-site .dash.manual .dmeter i{animation:none;transform:none}
+.cf-site .dash.manual .ddonut{animation:none}
+.cf-site .dash.manual .d92{--dp:92}
+.cf-site .dash.manual .d96{--dp:96}
+
+@media(prefers-reduced-motion:reduce){
+  /* the cycle stops on the first tab; everything else rests at its end state */
+  .cf-site .dpane{animation:none;opacity:0}
+  .cf-site .dp1{opacity:1}
+  .cf-site .dtab,.cf-site .dtab-ink,.cf-site .ddonut,.cf-site .dtrack i,.cf-site .dmeter i{animation:none}
+  .cf-site .dtab:nth-child(1){color:var(--fg)}
+  .cf-site .dtrack i,.cf-site .dmeter i{transform:none}
+  .cf-site .d92{--dp:92} .cf-site .d96{--dp:96}
+}
+
+/* ===========================================================================
+   TRUSTED BY
+   =========================================================================== */
+.cf-site .trust .head h2{color:var(--violet)}   /* matches the "Trusted by" label */
+
+/* ===========================================================================
+   STATS
+   =========================================================================== */
+/* Default: figure above its label, hairline rules top and bottom. */
+.cf-site .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);align-items:end;
+  border-top:1px solid var(--w10);border-bottom:1px solid var(--w10);padding:var(--s7) 0}
+/* the label reads first and the figure lands under it */
+.cf-site .stat{display:flex;flex-direction:column-reverse;align-items:center;text-align:center;gap:var(--s3)}
+/* the figure was a white-to-lilac fade that washed out against the dark page;
+   it now runs lilac to magenta, which holds its colour at every size */
+.cf-site .stat .num{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:clamp(28px, calc(22.67px + 1.4815vw), 44px);
+  font-weight:500;letter-spacing:-.04em;line-height:1;
+  background:linear-gradient(96deg,var(--violet-pale),var(--magenta) 92%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+/* if an engine cannot clip a background to text, the figure takes a solid
+   colour rather than painting nothing at all */
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .cf-site .stat .num,.cf-site .stats.tiles .num{-webkit-text-fill-color:var(--magenta);color:var(--magenta)}
+}
+.cf-site .stat-l{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;margin-top:0;font-size:clamp(11px, calc(10.67px + 0.0926vw), 12px);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2)}
+
+/* .tiles: the carded variant, used where a figure needs an icon beside it */
+.cf-site .stats.tiles{gap:var(--s4);border:0;padding:var(--s6) 0}
+.cf-site .stats.tiles .stat{position:relative;padding:var(--s5) var(--s5) var(--s6);
+  border:1px solid var(--w10);border-radius:var(--r-l);
+  background:linear-gradient(165deg,var(--surf-1),var(--bg));
+  transition:border-color .45s var(--ease),background .45s var(--ease)}
+.cf-site .stats.tiles .stat:hover{border-color:var(--w20)}
+.cf-site .stat-top{display:flex;align-items:flex-start;justify-content:space-between;
+  gap:var(--s4);margin-bottom:var(--s6)}
+.cf-site .stats.tiles .stat-l{margin-top:0;font-size:0.81rem;color:var(--fg-2);line-height:1.5}
+.cf-site .stat-ico{flex:none;width:clamp(34px, calc(32px + 0.5556vw), 40px);
+  height:clamp(34px, calc(32px + 0.5556vw), 40px);border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--w10);background:var(--w03);
+  transition:transform .55s var(--ease),background .55s var(--ease)}
+.cf-site .stats.tiles .stat:hover .stat-ico{transform:translateY(-3px) rotate(-6deg);background:var(--deep-purple)}
+.cf-site .stat-ico svg{width:17px;height:17px;stroke:var(--fg-2);fill:none;stroke-width:1.6;
+  stroke-linecap:round;stroke-linejoin:round}
+.cf-site .stats.tiles .num{font-size:clamp(2.4rem,4.4vw,3.4rem);font-weight:300;letter-spacing:-.03em;
+  background:linear-gradient(96deg,var(--violet),var(--purple),var(--magenta));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ===========================================================================
+   TRUST — static, equal-size logos, no marquee, nothing clipped
+   =========================================================================== */
+.cf-site .trust{padding:var(--s8) 0}
+.cf-site .trust .head{display:block;text-align:center;max-width:none;margin:0 auto var(--s7)}
+/* one line, set in the eyebrow's face and size rather than as a display heading */
+.cf-site .trust .head h2.trust-line{max-width:none;margin:0;
+  font-family:'Satoshi','Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  font-weight:600;letter-spacing:-.02em;text-transform:none;color:var(--fg);
+  line-height:1.15;white-space:nowrap}
+.cf-site .logos{position:relative;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+/* Two identical runs sit side by side and the pair slides left by exactly one
+   run's width, so the moment the first run leaves the second is already in its
+   place and the loop never shows a seam. Pure CSS — it turns with scripts off. */
+.cf-site .logo-track{display:flex;width:max-content;animation:logoRoll 38s linear infinite}
+.cf-site .logo-run{display:flex;gap:var(--s4);padding-right:var(--s4)}
+@keyframes logoRoll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.cf-site .logos:hover .logo-track{animation-play-state:paused}
+.cf-site .logo-cell{
+  flex:none;display:flex;align-items:center;gap:var(--s3);
+  min-height:72px;padding:0 var(--s5);
+  background:var(--surf-1);border:1px solid var(--w10);border-radius:var(--r-m);
+  transition:background .32s var(--ease),border-color .32s var(--ease);
+}
+/* each partner carries its own mark, drawn from the name */
+.cf-site .logo-ico{flex:none;width:clamp(28px, calc(26px + 0.5556vw), 34px);
+  height:clamp(28px, calc(26px + 0.5556vw), 34px);border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--w10);background:var(--w03)}
+.cf-site .logo-ico svg{width:17px;height:17px;fill:none;stroke:var(--violet-pale);
+  stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.cf-site .logo-cell:hover .logo-ico svg{stroke:var(--magenta)}
+.cf-site .logo-cell:hover{background:var(--surf-2);border-color:var(--w20)}
+/* The strip is set as type, not artwork, so it needs no plate and no
+   knockout — it simply reads as a quiet row of names on the dark surface. */
+.cf-site .logo-name{
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:.92rem;font-weight:500;
+  letter-spacing:-.01em;line-height:1.35;white-space:nowrap;
+  color:var(--fg-2);opacity:.78;
+  transition:opacity .32s var(--ease),color .32s var(--ease);
+}
+.cf-site .logo-cell:hover .logo-name{opacity:1;color:var(--fg)}
+/* no hover on a phone, so the row stands at full strength from the start */
+@media(hover:none),(pointer:coarse){
+  .cf-site .logo-name{opacity:.92}
+}
+/* The marks are embedded in this file as data URIs, so the row renders with no
+   network access and no scripting — previews, offline and mobile included. */
+
+/* ===========================================================================
+   REVEAL
+   =========================================================================== */
+.cf-site .rev{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.cf-site .rev.in{opacity:1;transform:none}
+.cf-site .rev[data-d="1"]{transition-delay:.08s}
+.cf-site .rev[data-d="2"]{transition-delay:.16s}
+.cf-site .rev[data-d="3"]{transition-delay:.24s}
+
+/* ===========================================================================
+   PRODUCT CARDS — illustrated, animated on hover
+   =========================================================================== */
+.cf-site .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4)}
+/* A six-card group reads better as two rows of three than as 4 + 2, and the
+   wider cell lets every title sit on one line. Desktop only — the narrower
+   breakpoints below keep the two- and one-column stacks they already had. */
+@media(min-width:1181px){
+  .cf-site .cards.six{grid-template-columns:repeat(3,1fr)}
+  /* the widest title, "AI Communication Center", clears the cell by a couple
+     of pixels at 1264px with the 24px inset; the cards are 366px across here,
+     so the side inset steps down one notch and the title keeps its line */
+  .cf-site .cards.six .card{padding-inline:20px}
+}
+.cf-site .card{position:relative;display:block;padding:var(--s5);background:var(--surf-1);
+  border:1px solid var(--w10);border-radius:var(--r-l);overflow:hidden;isolation:isolate;
+  transition:transform .5s var(--ease),border-color .5s var(--ease)}
+/* hover traces a gradient outline around the card — colour on the edge only,
+   so nothing is laid over the words */
+.cf-site .card::before{content:'';position:absolute;inset:0;z-index:3;opacity:0;
+  border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:conic-gradient(from var(--ring-a),
+    var(--violet),var(--magenta),var(--violet-pale),var(--purple),
+    var(--magenta),var(--violet-pale),var(--violet));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  transition:opacity .34s var(--ease)}
+/* and lights one corner behind the icon, well short of the text */
+.cf-site .card::after{content:'';position:absolute;left:0;top:0;width:62%;height:58%;z-index:-1;
+  opacity:0;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(circle at 20% 20%,var(--violet-18),transparent 72%);
+  transition:opacity .5s var(--ease)}
+.cf-site .card:hover{border-color:var(--w20);background:var(--surf-2)}
+.cf-site .card:hover::before,.cf-site .card:focus-visible::before{opacity:1;animation:ringSpin 3.6s linear infinite}
+.cf-site .card:hover::after{opacity:1}
+.cf-site .card-art{
+  width:48px;height:48px;border-radius:var(--r-m);display:grid;place-items:center;
+  background:var(--violet-18);border:1px solid var(--w10);margin-bottom:var(--s4);
+  transition:transform .55s var(--ease),background .55s var(--ease)}
+.cf-site .card:hover .card-art{transform:translateY(-3px) rotate(-6deg);
+  background:linear-gradient(140deg,var(--violet),var(--magenta));border-color:transparent}
+.cf-site .card:hover .card-art svg{stroke:var(--fg)}
+.cf-site .card-art svg{transition:stroke .45s var(--ease)}
+.cf-site .card-art svg{width:22px;height:22px;stroke:var(--violet-pale);fill:none;stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round}
+/* stroke draw-in / hover travel is defined once, in the motion layer below */
+.cf-site .card .eyebrow{margin-bottom:var(--s3)}
+.cf-site .card h3{margin-bottom:var(--s2)}
+/* titles run to one or two lines across a row, so the body copy under them
+   still starts on the same line */
+.cf-site .cards .card h3{min-height:2.1em}
+@media(max-width:760px){.cf-site .cards .card h3{min-height:0}}
+.cf-site .card p{color:var(--fg-3);font-size:.9rem;margin-bottom:var(--s4)}
+
+/* ===========================================================================
+   PROBLEM ROWS
+   =========================================================================== */
+/* A framed panel rather than a stack of floating rules: the old treatment put
+   a border on .rows AND under the header 43px below it (reading as a doubled
+   rule), and left the last row's border closing nothing at the bottom. */
+.cf-site .rows{border:1px solid var(--w10);border-radius:var(--r-l);overflow:hidden}
+
+/* Each row is one problem read twice: how the market handles it, then how
+   CredFlow does. The title spans both columns so the comparison sits under a
+   single heading rather than repeating it. */
+.cf-site .rw-head{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5);
+  padding:var(--s4) var(--s5);border-bottom:1px solid var(--w10);
+  background:var(--w03);border-radius:var(--r-l) var(--r-l) 0 0;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:1.15rem;font-weight:600;
+  letter-spacing:-.015em;line-height:1.3;color:var(--fg-2)}
+.cf-site .rw-head-us{color:var(--violet);padding-left:var(--s5)}
+
+.cf-site .rw{position:relative;display:grid;grid-template-columns:1fr 1fr;
+  gap:var(--s2) var(--s5);align-items:start;
+  padding:var(--s5);border-bottom:1px solid var(--w10);
+  transition:background .45s var(--ease),padding-left .45s var(--ease)}
+.cf-site .rw:last-child{border-bottom:none;border-radius:0 0 var(--r-l) var(--r-l);overflow:hidden}
+.cf-site .rw-t{grid-column:1 / -1}
+.cf-site .rw-a,.cf-site .rw-b{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s3)}
+.cf-site .rw-a h3,.cf-site .rw-b h3{margin:0}
+.cf-site .rw-b h3{color:var(--violet-pale)}
+/* the answer column is lifted out of the surrounding grey */
+.cf-site .rw-b p{color:var(--fg-2)}
+.cf-site .rw-b{position:relative;padding-left:var(--s5)}
+.cf-site .rw-b::before{content:'';position:absolute;left:0;top:2px;bottom:2px;width:1px;
+  background:linear-gradient(180deg,transparent,var(--violet),transparent)}
+.cf-site .flag-ok{background:var(--violet-18);color:var(--violet-pale)}
+.cf-site .rw::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--violet),var(--magenta));
+  transform:scaleY(0);transform-origin:top;transition:transform .5s var(--ease)}
+.cf-site .rw:hover{background:var(--w03);padding-left:var(--s6)}
+.cf-site .rw:hover::before{transform:scaleY(1)}
+.cf-site .rw h3{margin-bottom:var(--s1)}
+.cf-site .rw p{font-size:.9rem;color:var(--fg-3)}
+.cf-site .flag{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.81rem;font-weight:500;line-height:1;
+  padding:var(--pad-v-sm) var(--pad-h-sm);border-radius:var(--r-pill);white-space:nowrap}
+.cf-site .flag-w{background:var(--orange-15);color:var(--orange)}
+.cf-site .flag-m{background:var(--magenta-16);color:var(--violet-pale)}
+
+/* ===========================================================================
+   TRIO
+   =========================================================================== */
+.cf-site .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.cf-site .tile{position:relative;padding:var(--s6);border:1px solid var(--w10);border-radius:var(--r-l);
+  background:linear-gradient(168deg,var(--surf-2),var(--surf-1));
+  overflow:hidden;isolation:isolate;
+  transition:transform .5s var(--ease),border-color .5s var(--ease)}
+/* the traced outline the product cards use */
+.cf-site .tile::before{content:'';position:absolute;inset:0;z-index:3;opacity:0;
+  border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:conic-gradient(from var(--ring-a),
+    var(--violet),var(--magenta),var(--violet-pale),var(--purple),
+    var(--magenta),var(--violet-pale),var(--violet));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  transition:opacity .34s var(--ease)}
+.cf-site .tile::after{content:'';position:absolute;left:0;top:0;width:58%;height:54%;z-index:-1;
+  opacity:0;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(circle at 20% 20%,var(--violet-18),transparent 72%);
+  transition:opacity .5s var(--ease)}
+.cf-site .tile:hover{border-color:var(--w20)}
+.cf-site .tile:hover::before,.cf-site .tile:focus-within::before{opacity:1;animation:ringSpin 3.6s linear infinite}
+.cf-site .tile:hover::after{opacity:1}
+
+.cf-site .tile .idx{position:absolute;top:var(--s4);right:var(--s5);pointer-events:none;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:clamp(2.6rem,4.4vw,3.6rem);
+  font-weight:300;letter-spacing:-.03em;line-height:1;
+  background:linear-gradient(140deg,var(--violet),var(--magenta));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  opacity:0;transform:translateY(-8px);
+  transition:opacity .45s var(--ease),transform .5s var(--e-out)}
+.cf-site .tile:hover .idx,.cf-site .tile:focus-within .idx{opacity:.85;transform:none}
+
+.cf-site .tile .ico{width:52px;height:52px;border-radius:var(--r-m);display:grid;place-items:center;
+  background:var(--violet-18);border:1px solid var(--w10);margin-bottom:var(--s5);
+  transition:transform .55s var(--ease),background .55s var(--ease)}
+/* the same lift-and-lean the product card icons use */
+.cf-site .tile:hover .ico{transform:translateY(-3px) rotate(-6deg);
+  background:linear-gradient(140deg,var(--violet),var(--magenta));border-color:transparent}
+.cf-site .tile:hover .ico svg{stroke:var(--fg)}
+.cf-site .tile .ico svg{transition:stroke .45s var(--ease)}
+.cf-site .tile .ico svg{width:23px;height:23px;stroke:var(--violet-pale);fill:none;stroke-width:1.6;
+  stroke-linecap:round;stroke-linejoin:round}
+.cf-site .tile h3{margin-bottom:var(--s2)}
+.cf-site .tile p{font-size:.9rem;color:var(--fg-3);transition:color .45s var(--ease)}
+.cf-site .tile:hover p{color:var(--fg-2)}
+
+/* ===========================================================================
+   BAND
+   =========================================================================== */
+.cf-site .band{position:relative;overflow:hidden;padding:var(--s9) var(--s7);border-radius:var(--r-l);
+  border:1px solid var(--w10);
+  background:linear-gradient(165deg,var(--surf-1),transparent 62%)}
+/* faint grid, same motif as the hero, so the band reads as its own surface */
+.cf-site .band::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(var(--w03) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--w03) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 30% 40%,#000 5%,transparent 76%);
+          mask-image:radial-gradient(ellipse 70% 60% at 30% 40%,#000 5%,transparent 76%)}
+.cf-site .band-in{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:var(--s7);align-items:center}
+.cf-site .band-in .lede+.lede{margin-top:var(--s4)}
+
+/* A gradient edge around a dark panel, rather than a gradient fill — the fill
+   version washed the type out and fought the band behind it. */
+.cf-site .quote{position:relative;overflow:hidden;
+  padding:var(--s7);border-radius:var(--r-l);border:1px solid transparent;
+  background:
+    linear-gradient(168deg,var(--surf-1),var(--bg)) padding-box,
+    linear-gradient(150deg,var(--indigo),var(--violet),var(--purple),var(--magenta)) border-box;
+  box-shadow:0 40px 90px -50px #000,0 0 60px -30px var(--violet)}
+/* light pooling up from the base, so the panel is not a flat rectangle */
+.cf-site .quote::before{content:'';position:absolute;left:-10%;right:-10%;bottom:-55%;height:100%;
+  border-radius:50%;background:var(--violet-18);filter:blur(58px);pointer-events:none}
+.cf-site .quote-mark{display:block;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-weight:600;
+  font-size:2.4rem;line-height:.5;color:var(--violet);margin-bottom:var(--s5)}
+.cf-site .quote span.q{position:relative;z-index:1;display:block;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:clamp(1.35rem,2.5vw,1.9rem);
+  font-weight:600;line-height:1.16;letter-spacing:-.025em;color:var(--fg-2)}
+/* the payoff clause drops to its own line and takes the accent */
+.cf-site .quote .grad{display:block;margin-top:.3em}
+.cf-site .quote-rule{position:relative;z-index:1;display:block;width:44px;height:2px;
+  margin-top:var(--s6);border-radius:2px;
+  background:linear-gradient(90deg,var(--violet),var(--magenta))}
+
+/* ===========================================================================
+   SEGMENTS
+   =========================================================================== */
+/* Separate cards rather than cells in a shared frame — each one rounds and
+   lifts on its own, which also retires the per-corner radius juggling the
+   seamless grid needed at every breakpoint. */
+.cf-site .segs{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+/* five cards in a three-wide grid leave a hole; run a six-column track instead
+   so the last two share the final row evenly */
+.cf-site .segs.five{grid-template-columns:repeat(6,1fr)}
+.cf-site .segs.five>.seg{grid-column:span 2}
+.cf-site .segs.five>.seg:nth-child(4),.cf-site .segs.five>.seg:nth-child(5){grid-column:span 3}
+.cf-site .seg{position:relative;display:flex;flex-direction:column;
+  padding:var(--s6) var(--s5) var(--s5);border-radius:var(--r-l);
+  border:1px solid var(--w10);background:linear-gradient(168deg,var(--surf-1),var(--bg));
+  overflow:hidden;isolation:isolate;
+  transition:transform .45s var(--e-out),border-color .5s var(--ease)}
+/* accent rail on the bottom edge, matching the product cards */
+.cf-site .seg::before{content:'';position:absolute;left:0;bottom:0;height:2px;width:100%;z-index:4;
+  background:linear-gradient(90deg,var(--indigo),var(--violet),var(--purple),var(--magenta));
+  transform:scaleX(0);transform-origin:left;transition:transform .65s var(--ease)}
+.cf-site .seg:hover::before{transform:scaleX(1)}
+.cf-site .seg:hover{border-color:var(--w20)}
+/* Same liquid as the CTAs, and the same two layers — one dome alone gives a
+   single flat edge, it takes a second at a different width, speed and phase to
+   read as a moving surface. */
+.cf-site .liq{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;
+  border-radius:inherit}
+.cf-site .liq i{position:absolute;left:-30%;width:160%;height:300%;top:100%;
+  border-radius:50% 50% 0 0 / 12% 14% 0 0;
+  transition:top .95s var(--e-liquid)}
+.cf-site .liq i:nth-child(1){background:linear-gradient(165deg,var(--surf-3),var(--deep-purple))}
+.cf-site .liq i:nth-child(2){background:linear-gradient(165deg,var(--deep-purple),var(--violet-18));
+  opacity:.85;left:-46%;width:180%;border-radius:50% 50% 0 0 / 16% 9% 0 0;
+  transition:top 1.2s var(--e-liquid)}
+.cf-site .seg:hover .liq i{top:-34%;animation:waveSway 3.4s ease-in-out infinite alternate}
+.cf-site .seg:hover .liq i:nth-child(2){top:-30%;animation-duration:2.6s;
+  animation-direction:alternate-reverse}
+/* and the CTA's travelling gradient ring, framing the active cell */
+.cf-site .seg::after{content:'';position:absolute;inset:0;z-index:5;pointer-events:none;
+  padding:1.5px;opacity:0;border-radius:inherit;
+  background:conic-gradient(from var(--ring-a),
+    var(--indigo),var(--violet),var(--violet-pale),var(--purple),
+    var(--magenta),var(--purple),var(--violet),var(--indigo));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  transition:opacity .35s var(--ease)}
+.cf-site .seg:hover::after{opacity:1;animation:ringSpin 3s linear infinite}
+.cf-site .seg .ico{width:52px;height:52px;border-radius:var(--r-m);display:grid;place-items:center;
+  background:var(--violet-18);border:1px solid var(--w10);margin-bottom:var(--s5);
+  transition:transform .55s var(--ease),background .55s var(--ease)}
+/* the same lift-and-lean the product card icons use */
+.cf-site .seg:hover .ico{transform:translateY(-3px) rotate(-6deg);background:var(--deep-purple)}
+.cf-site .seg .ico svg{width:23px;height:23px;stroke:var(--violet-pale);fill:none;stroke-width:1.6;
+  stroke-linecap:round;stroke-linejoin:round}
+.cf-site .seg h3{margin-bottom:var(--s3)}
+.cf-site .seg p{font-size:.9rem;color:var(--fg-3);line-height:1.6;transition:color .4s}
+.cf-site .seg:hover p{color:var(--fg-2)}
+
+
+/* ===========================================================================
+   CTA + FORM
+   =========================================================================== */
+.cf-site .cta{position:relative;overflow:hidden;padding:var(--s9) 0;border-radius:var(--r-l)}
+/* the copy sits level with the top of the form, not centred against it */
+.cf-site .cta-in{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr);
+  gap:var(--s6);justify-items:center;text-align:center}
+.cf-site .cta-in>.rev{max-width:70ch}
+.cf-site .cta-in .hero-cta{justify-content:center}
+.cf-site .cta-in.one>.rev{max-width:76ch}
+.cf-site .cta-in .form{width:100%;max-width:680px;text-align:left}
+.cf-site .form{padding:var(--s7);border:1px solid var(--w10);border-radius:var(--r-l);
+  background:var(--surf-1);box-shadow:0 40px 100px -50px #000}
+.cf-site .form h3{margin-bottom:var(--s2)}
+.cf-site .form>form>p{font-size:.875rem;color:var(--fg-3);margin-bottom:var(--s5)}
+.cf-site .field{margin-bottom:var(--s4)}
+.cf-site .field label{display:block;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.76rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--s2)}
+.cf-site .field textarea{width:100%;min-width:0;padding:var(--pad-v-md) var(--pad-h-md);border-radius:var(--r-s);
+  background:var(--surf-2);border:1px solid var(--w10);color:var(--fg);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:.95rem;line-height:1.5;resize:vertical;
+  transition:border-color .35s var(--ease),background .35s var(--ease)}
+.cf-site .field textarea:focus{outline:none;border-color:var(--violet)}
+.cf-site .field textarea::placeholder{color:var(--fg-3)}
+.cf-site .field .opt{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.78rem;font-weight:400;
+  text-transform:none;letter-spacing:0;color:var(--fg-3);margin-left:var(--s2)}
+.cf-site .field input,.cf-site .field select{width:100%;padding:var(--pad-v-md) var(--pad-h-md);border-radius:var(--r-s);
+  background:var(--w03);border:1px solid var(--w10);font-size:1rem;font-weight:300;
+  transition:border-color .35s var(--ease),background .35s var(--ease),box-shadow .35s var(--ease)}
+.cf-site .field input::placeholder{color:var(--fg-3)}
+.cf-site .field input:focus,.cf-site .field select:focus{outline:none;border-color:var(--violet);
+  background:var(--w05);box-shadow:0 0 0 3px var(--violet-18)}
+.cf-site .field select{appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237F7F99' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 20px center;background-size:12px}
+.cf-site .field select option{background:var(--surf-2);color:var(--fg)}
+.cf-site .field.sms label{display:flex;align-items:flex-start;gap:12px;margin-bottom:0;
+  text-transform:none;letter-spacing:0;font-size:.82rem;font-weight:400;line-height:1.45;
+  color:var(--fg-2);cursor:pointer}
+.cf-site .field.sms input[type="checkbox"]{width:16px;height:16px;min-width:16px;margin-top:2px;
+  padding:0;flex:none;accent-color:var(--violet);cursor:pointer}
+.cf-site .form-cta{margin-top:var(--s5)}
+.cf-site .note{font-size:.75rem;color:var(--fg-3);margin-top:var(--s4);line-height:1.55}
+
+/* shown only when scripting is off */
+.cf-site .nojs-note{margin:var(--s5) 0;padding:var(--s4) var(--s5);border-radius:var(--r-m);
+  border:1px solid var(--w10);background:var(--w05);color:var(--fg-2);
+  font-size:.875rem;line-height:1.6}
+
+/* shown after a submit attempt — the form above stays exactly as it was */
+.cf-site .ok{display:none;margin-top:var(--s4);padding:var(--s4) var(--s5);
+  border-radius:var(--r-m);border:1px solid var(--w10);background:var(--w05)}
+.cf-site .ok:focus{outline:2px solid var(--violet);outline-offset:2px}
+.cf-site .ok h3{margin-bottom:var(--s2)}
+.cf-site .ok p{font-size:.85rem;color:var(--fg-3);line-height:1.55}
+.cf-site .ok.on{display:block}
+
+/* ===========================================================================
+   FOOTER
+   =========================================================================== */
+.cf-site .ftr{border-top:1px solid var(--w10);padding:var(--s8) 0 var(--s3)}
+.cf-site .ftr-in{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:var(--s7);
+  padding-bottom:var(--s7);border-bottom:1px solid var(--w10)}
+.cf-site .ftr h4{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.76rem;font-weight:400;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--s4)}
+.cf-site .ftr li{margin-bottom:var(--s3)}
+.cf-site .ftr li a{font-size:.9rem;color:var(--fg-2);display:inline-block;
+  transition:color .3s,transform .3s var(--ease)}
+.cf-site .ftr li a:hover{color:var(--fg);transform:translateX(4px)}
+.cf-site .ftr .blurb{font-size:.9rem;color:var(--fg-3);margin:var(--s4) 0 var(--s5);max-width:32ch}
+/* grid items default to min-width:auto, which let the subscribe row force the
+   whole footer column wider than its track at narrow widths */
+.cf-site .ftr-in>*{min-width:0}
+.cf-site .sub{display:flex;gap:var(--s2);max-width:min(330px,100%)}
+.cf-site .sub input{flex:1;min-width:0;padding:var(--pad-v-sm) var(--pad-h-md);border-radius:var(--r-pill);
+  background:var(--w03);border:1px solid var(--w10);font-size:.875rem;font-weight:300;
+  transition:border-color .35s}
+.cf-site .sub input:focus{outline:none;border-color:var(--violet)}
+.cf-site .ftr-btm{display:flex;justify-content:space-between;gap:var(--s5);flex-wrap:wrap;
+  padding-top:var(--s5);font-size:.8rem;color:var(--fg-3)}
+.cf-site .ftr-btm nav{display:flex;gap:var(--s5);flex-wrap:wrap}
+.cf-site .ftr-btm a,.cf-site .privacy-choices{transition:color .3s}
+.cf-site .ftr-btm a:hover,.cf-site .privacy-choices:hover{color:var(--violet-pale)}
+.cf-site .privacy-choices{cursor:pointer}
+
+/* ===========================================================================
+   COOKIE PREFERENCES
+   ===========================================================================
+   A checkbox drives it rather than a script, so the panel opens and closes
+   identically with scripts on or off. The checkbox sits immediately before the
+   panel purely so a sibling selector can reach it without :has(). */
+.cf-site .cookie-toggle{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;margin:0}
+.cf-site .cookie-wrap{position:fixed;inset:0;z-index:1000;display:none}
+.cf-site .cookie-toggle:checked ~ .cookie-wrap{display:block}
+.cf-site .cookie-scrim{position:absolute;inset:0;background:rgba(0,0,0,.62);cursor:pointer;
+  animation:cookie-fade .3s var(--ease) both}
+.cf-site .cookie-card{position:absolute;left:50%;bottom:var(--s5);transform:translateX(-50%);
+  width:min(520px,calc(100vw - 2 * var(--s5)));
+  padding:var(--s6);border-radius:var(--r-l);
+  background:linear-gradient(168deg,var(--surf-1),var(--bg));
+  border:1px solid var(--w10);box-shadow:0 40px 90px -40px #000;
+  animation:cookie-rise .45s var(--e-out) both}
+.cf-site .cookie-card h3{font-family:'Satoshi','Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:1.24rem;font-weight:600;
+  color:var(--fg);margin-bottom:var(--s3)}
+.cf-site .cookie-card p{font-size:.9rem;line-height:1.65;color:var(--fg-2);margin-bottom:var(--s5)}
+.cf-site .cookie-card p a{color:var(--violet-pale);text-decoration:underline;
+  text-underline-offset:3px;transition:color .3s}
+.cf-site .cookie-card p a:hover{color:var(--fg)}
+.cf-site .cookie-acts{display:flex;gap:var(--s3);justify-content:flex-end;flex-wrap:wrap}
+.cf-site .cookie-acts .btn{cursor:pointer;flex:0 1 auto}
+@keyframes cookie-fade{from{opacity:0}to{opacity:1}}
+@keyframes cookie-rise{from{opacity:0;transform:translate(-50%,16px)}
+  to{opacity:1;transform:translate(-50%,0)}}
+/* full-width sheet on a phone, with the two actions sharing the row */
+@media(max-width:680px){
+  .cf-site .cookie-card{left:14px;right:14px;bottom:14px;width:auto;transform:none;
+    padding:var(--s5);animation-name:cookie-rise-m}
+  .cf-site .cookie-acts{justify-content:stretch}
+  .cf-site .cookie-acts .btn{flex:1 1 0;min-width:0}
+  @keyframes cookie-rise-m{from{opacity:0;transform:translateY(16px)}
+    to{opacity:1;transform:none}}
+}
+@media(prefers-reduced-motion:reduce){
+  .cf-site .logo-track{animation:none}
+  .cf-site .btn::after{animation:none;opacity:0}
+  .cf-site .cookie-scrim,.cf-site .cookie-card{animation:none}
+  /* the panel's continuous loops stop; each element keeps its resting state */
+  .cf-site .eq i{animation:none;transform:none}
+  .cf-site .tl-t{animation:none;opacity:1}
+  .cf-site .panel .feed .pill::after{animation:none;opacity:0}
+  /* The console charts drew themselves in with the animation, so stopping the
+     animation left the line at a full dash offset and the area at zero opacity
+     — the chart simply was not there for anyone with reduced motion on. Each
+     one now rests in its finished state instead. */
+  .cf-site .dline{animation:none;stroke-dashoffset:0}
+  .cf-site .dfill,.cf-site .ddot-end,.cf-site .dend{animation:none;opacity:1}
+  .cf-site .dvcol{animation:none;transform:none}
+  .cf-site .ddonut,.cf-site .dring{animation:none}
+}
+/* a quiet closing signature, well clear of the footer content */
+.cf-site .ftr-sig{display:flex;justify-content:center;margin-top:var(--s7);padding-bottom:0;
+  pointer-events:none}
+/* the wordmark is 156x21 in the header; 40px tall keeps that ratio at 297px */
+/* The source wordmark is a 256px-wide PNG, so it goes soft past roughly 1.6x.
+   440px is as large as it stays clean; a sharper signature needs a bigger
+   asset. The ratio drives the height so only the width is set. */
+.cf-site .ftr-sig .brand-logo{width:min(440px,72%);height:auto;aspect-ratio:156/21;
+  max-width:100%;opacity:.55;background-position:center center;background-size:contain}
+@media(max-width:680px){.cf-site .ftr-sig{margin-top:var(--s8)}
+  .cf-site .ftr-sig .brand-logo{width:78%}}
+
+/* ===========================================================================
+   HEADINGS ONLY
+   ===========================================================================
+   Every section leads with its heading alone: the eyebrow label and the
+   supporting paragraph come out, and the heading holds one line wherever it
+   fits, wrapping again below the breakpoint. This sits at the end of the base
+   styles so it lands after the rules that define those elements. The hero and
+   the closing block keep their paragraph — the document writes that copy. */
+.cf-site .eyebrow,.cf-site .badge,.cf-site .head .lede,.cf-site .head>p{display:none}
+/* A blanket nowrap above a fixed width could not know how long a given
+   heading is: the longest one on For Payers needs about 1170px and ran off
+   the side of a 1024px window. Headings now balance their lines by default,
+   and the script below adds nowrap to each one individually, but only where
+   that heading actually fits — so it is one line wherever one line works, at
+   any width, and never overflows. */
+.cf-site .head h2{text-wrap:balance}
+/* a section made of nothing but its heading would otherwise stand empty, so
+   that one keeps its paragraph — it is the section's content, not a subtitle */
+.cf-site .sec:has(>.head:only-child) .head .lede{display:block;max-width:78ch;
+  color:var(--fg-2);text-align:center;margin-inline:auto}
+.cf-site .head h2.oneline{white-space:nowrap}
+
+/* ===========================================================================
+   RESPONSIVE — the 88/24 frame shrinks in steps, content always follows it
+   =========================================================================== */
+@media(max-width:1180px){
+  .cf-site .hero-in,.cf-site .band-in,.cf-site .cta-in{grid-template-columns:1fr;gap:var(--s7)}
+  .cf-site .cards{grid-template-columns:repeat(2,1fr)}
+  .cf-site .segs{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  .cf-site .nav,.cf-site .hdr-cta{display:none}
+  .cf-site .burger{display:block}
+  .cf-site .hdr-in{grid-template-columns:1fr auto}
+  .cf-site .hdr{padding:10px 14px}
+  .cf-site .trio{grid-template-columns:1fr}
+  .cf-site .ftr-in{grid-template-columns:1fr 1fr;gap:var(--s6)}
+}
+@media(max-width:680px){
+  /* section intros carry only the eyebrow and the heading on a phone */
+  .cf-site .sec .head .lede{display:none}
+  .cf-site .head{row-gap:var(--s3)}
+  .cf-site{font-size:16px}
+  .cf-site .hero{padding:calc(88px + var(--s7)) var(--bleed) var(--s7)}
+  .cf-site .phero{padding:calc(88px + var(--s6)) var(--bleed) var(--s6)}
+  .cf-site .cards,.cf-site .segs{grid-template-columns:1fr}
+  .cf-site .logo-cell{min-height:62px;padding:0 var(--s4)}
+  .cf-site .logo-name{font-size:.82rem}
+  .cf-site .logo-ico{width:28px;height:28px}
+  .cf-site .logo-ico svg{width:15px;height:15px}
+  .cf-site .stats{grid-template-columns:1fr;gap:var(--s6)}
+  .cf-site .rw{grid-template-columns:1fr;gap:var(--s4)}
+  .cf-site .rw-head{display:none}
+  .cf-site .rw-b{padding-left:0;padding-top:var(--s4)}
+  .cf-site .rw-b::before{left:0;right:0;top:0;bottom:auto;width:auto;height:1px;
+    background:linear-gradient(90deg,var(--violet),transparent)}
+  /* with the column headings gone, each side has to say which it is */
+  .cf-site .rw-a::after,.cf-site .rw-b::after{order:-1;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    font-size:0.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  .cf-site .rw-a::after{content:'How it usually works'}
+  .cf-site .rw-b::after{content:'With CredFlow AI';color:var(--violet)}
+  .cf-site .flag{justify-self:start}
+  .cf-site .form,.cf-site .quote{padding:var(--s5)}
+  .cf-site .sec{padding:var(--s6) 0}
+  .cf-site .mini-cta{padding:var(--s6);grid-template-columns:1fr;gap:var(--s5)}
+  .cf-site .blk,.cf-site .seg,.cf-site .tile{padding:var(--s5)}
+  .cf-site .phero-art{margin-top:var(--s2)}
+  .cf-site .ftr-in{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .cf-site *,.cf-site *::before,.cf-site *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .cf-site .hero h1 .ln>span,.cf-site .fu,.cf-site .panel,.cf-site .fitem,.cf-site .rev{opacity:1;transform:none}
+}
+
+/* ===== inner-page hero ===== */
+/* Full-bleed, same as the homepage hero: --bleed is the distance from the
+   shell edge out to the window, so equal negative margin and positive padding
+   push the background to the edges while the copy stays on the 1264px grid.
+   Left as an inset rounded card it showed the same dark corners the homepage
+   hero used to have. */
+.cf-site .phero{
+  position:relative;overflow:hidden;border-radius:0;
+  --bleed:calc((var(--page-w,100vw) - 100%) / 2);
+  margin:calc(-1 * var(--frame-y)) calc(-1 * var(--bleed)) 0;
+  padding:calc(80px + var(--s8)) var(--bleed) var(--s8);
+  background:
+    radial-gradient(ellipse 90% 75% at 18% 0%,var(--violet-18),transparent 70%),
+    radial-gradient(ellipse 80% 70% at 88% 8%,var(--magenta-16),transparent 70%),
+    linear-gradient(180deg,var(--deep-purple),transparent 65%);
+}
+/* Copy centred, the product panel underneath at full width — the same shape
+   the homepage hero uses, so every page opens the same way. */
+.cf-site .phero-in{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr);
+  gap:var(--s7);justify-items:center;text-align:center}
+.cf-site .phero .inner{position:relative;z-index:2;width:100%;max-width:900px}
+/* the article and legal heroes have no .phero-in wrapper, so they centre here */
+.cf-site .phero>.inner{margin-inline:auto;text-align:center}
+.cf-site .phero-art{position:relative;z-index:2;width:100%;max-width:100%;text-align:left}
+.cf-site .phero-art .panel{box-shadow:0 40px 100px -46px #000,inset 0 1px 0 var(--w05);
+  display:flex;flex-direction:column;
+  /* the panel is wider now that it sits under the copy, so it gains height in
+     step with that width and keeps the proportion it had beside the text */
+  /* the panel is full width under the copy now, and its height rises with
+     that width so the shape it had beside the text is kept */
+  min-height:clamp(320px, calc(180px + 26.85vw), 580px)}
+.cf-site .phero-art .panel>.panel-body,.cf-site .phero-art .panel>.feed,.cf-site .phero-art .panel>.meters,.cf-site .phero-art .panel>.npi-body{flex:1;min-height:0;
+  display:flex;flex-direction:column}
+/* the contents grow with the panel rather than floating in the middle of it */
+.cf-site .phero-art .panel>.panel-body>*,.cf-site .phero-art .panel>.meters>*{flex:1;min-height:0}
+.cf-site .phero-art .panel>.feed{gap:var(--s3);justify-content:space-evenly}
+.cf-site .phero-art .panel>.npi-body{justify-content:space-evenly}
+.cf-site .phero-art .ptab{height:100%}
+/* and the type comes up with them, so nothing reads small at full width */
+.cf-site .phero-art .ptab td,.cf-site .phero-art .ptab th{font-size:clamp(.82rem, calc(.72rem + .3vw), 1rem)}
+.cf-site .phero-art .fitem h4{font-size:clamp(1rem, calc(.93rem + .22vw), 1.125rem)}
+.cf-site .phero-art .panel-top{font-size:clamp(.86rem, calc(.8rem + .18vw), 1rem)}
+.cf-site .phero-art .form{min-height:0;max-width:660px;margin:0 auto}
+.cf-site .phero-art .form h3,.cf-site .phero-art .form>p{text-align:center}
+/* ---------------------------------------------------------------------------
+   Sub-page hero panel: rows 12px apart  (desktop only, >=761px)
+   The panel was holding a tall fixed minimum and spreading its contents to
+   fill it, so three feed rows sat ~56px apart and table rows grew to 109px.
+   On desktop the panel now sizes to what is in it and every list row sits a
+   flat 12px from the next. Phone view (<=760px) is untouched.
+   --------------------------------------------------------------------------- */
+@media(min-width:761px){
+  .cf-site .phero-art .panel{min-height:0}
+  .cf-site .phero-art .panel>.panel-body,.cf-site .phero-art .panel>.feed,.cf-site .phero-art .panel>.meters,.cf-site .phero-art .panel>.npi-body{flex:0 0 auto}
+  .cf-site .phero-art .panel>.panel-body>*,.cf-site .phero-art .panel>.meters>*{flex:0 0 auto}
+  .cf-site .phero-art .panel>.feed{gap:12px;justify-content:flex-start;padding:12px}
+  .cf-site .phero-art .panel>.npi-body{gap:12px;justify-content:flex-start}
+  .cf-site .phero-art .panel>.meters{gap:12px}
+  .cf-site .phero-art .ptab{height:auto}
+}
+.cf-site .phero h1{font-size:clamp(31px, calc(22.67px + 2.3148vw), 56px);margin:var(--s4) auto var(--s5);max-width:26ch}
+.cf-site .phero .lede{margin:0 auto var(--s6);max-width:68ch}
+.cf-site .phero .hero-cta{margin-top:0;justify-content:center}
+@media(max-width:1024px){.cf-site .phero-in{gap:var(--s6)}}
+.cf-site .pdate{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.78rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fg-3)}
+
+/* ===== generic content blocks ===== */
+.cf-site .blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.cf-site .blocks.two{grid-template-columns:repeat(2,1fr)}
+.cf-site .blocks.four{grid-template-columns:repeat(4,1fr)}
+.cf-site .blocks.five{grid-template-columns:repeat(5,1fr)}
+@media(max-width:1180px){.cf-site .blocks.four,.cf-site .blocks.five{grid-template-columns:repeat(2,1fr)}}
+.cf-site .blk{padding:var(--s6);background:var(--surf-1);border:1px solid var(--w10);
+  border-radius:var(--r-l);position:relative;overflow:hidden;isolation:isolate;
+  transition:transform .5s var(--ease),border-color .5s var(--ease),background .5s var(--ease)}
+.cf-site .blk::after{content:'';position:absolute;inset:0;z-index:3;opacity:0;
+  border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:conic-gradient(from var(--ring-a),
+    var(--violet),var(--magenta),var(--violet-pale),var(--purple),
+    var(--magenta),var(--violet-pale),var(--violet));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  transition:opacity .34s var(--ease)}
+.cf-site .blk:hover{transform:translateY(-5px);background:var(--surf-2);border-color:var(--w20)}
+.cf-site .blk:hover::after{opacity:1;animation:ringSpin 3.6s linear infinite}
+.cf-site .blk .ico{width:48px;height:48px;border-radius:var(--r-m);display:grid;place-items:center;
+  background:var(--violet-18);border:1px solid var(--w10);margin-bottom:var(--s5);
+  transition:transform .55s var(--ease),background .55s var(--ease)}
+.cf-site .blk:hover .ico{transform:translateY(-3px) rotate(-6deg);
+  background:linear-gradient(140deg,var(--violet),var(--magenta));border-color:transparent}
+.cf-site .blk:hover .ico svg{stroke:var(--fg)}
+.cf-site .blk .ico svg{transition:stroke .45s var(--ease)}
+.cf-site .blk .ico svg{width:22px;height:22px;stroke:var(--violet-pale);fill:none;stroke-width:1.6;
+  stroke-linecap:round;stroke-linejoin:round}
+.cf-site .blk h3{margin-bottom:var(--s3)}
+.cf-site .blk p{font-size:.92rem;color:var(--fg-3)}
+/* flags inside a card carry a sentence, so they must wrap */
+.cf-site .blk>p{margin-bottom:var(--s4)}
+.cf-site .blk .flag{white-space:normal;line-height:1.5;margin-top:var(--s4);display:inline-block;text-align:left}
+.cf-site .blk .n{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:.76rem;letter-spacing:.14em;
+  color:var(--violet-pale);display:block;margin-bottom:var(--s3)}
+
+/* ===== checklist ===== */
+/* numbered steps: index, title and note on a single line */
+.cf-site .steps{display:grid;gap:var(--s2)}
+.cf-site .step{display:grid;grid-template-columns:auto minmax(0,15rem) minmax(0,1fr);
+  align-items:baseline;gap:var(--s4);
+  padding:var(--s4) var(--s5);border:1px solid var(--w10);border-radius:var(--r-m);
+  background:var(--surf-1);
+  transition:background .4s var(--ease),border-color .4s var(--ease),translate .4s var(--e-out)}
+.cf-site .step:hover{background:var(--surf-2);border-color:var(--w20);translate:5px 0}
+.cf-site .step .n{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:.8rem;letter-spacing:.12em;
+  color:var(--violet-pale)}
+.cf-site .step h3{margin:0}
+.cf-site .step p{margin:0;font-size:.9rem;color:var(--fg-3)}
+@media(max-width:680px){
+  .cf-site .step{grid-template-columns:auto minmax(0,1fr);row-gap:var(--s1)}
+  .cf-site .step p{grid-column:2}
+}
+
+/* bullet list inside a card (rule columns) */
+.cf-site .tier-l{display:grid;gap:var(--s3);margin:var(--s4) 0 var(--s5)}
+.cf-site .tier-l li{position:relative;padding-left:var(--s5);font-size:.9rem;color:var(--fg-3);line-height:1.55}
+.cf-site .tier-l li::before{content:'';position:absolute;left:0;top:9px;width:6px;height:6px;
+  border-radius:50%;background:var(--violet)}
+
+/* Data flow: capture -> process -> act, with the stages visibly connected. */
+.cf-site .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);position:relative}
+.cf-site .flow::before{content:'';position:absolute;left:8%;right:8%;top:74px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--w20),var(--w20),transparent)}
+.cf-site .flow-s{position:relative;display:flex;flex-direction:column;align-items:flex-start;
+  gap:var(--s3);padding:var(--s5);border:1px solid var(--w10);border-radius:var(--r-l);
+  background:linear-gradient(168deg,var(--surf-1),var(--bg));
+  transition:border-color .45s var(--ease),transform .45s var(--e-out)}
+.cf-site .flow-s:hover{border-color:var(--w20);transform:translateY(-5px)}
+.cf-site .flow-s .n{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:.76rem;letter-spacing:.14em;
+  color:var(--violet-pale)}
+.cf-site .flow-i{position:relative;z-index:1;width:44px;height:44px;border-radius:50%;
+  display:grid;place-items:center;background:var(--surf-2);border:1px solid var(--w20);
+  transition:transform .55s var(--ease),background .55s var(--ease)}
+.cf-site .flow-s:hover .flow-i{transform:translateY(-3px) rotate(-6deg);background:var(--deep-purple)}
+.cf-site .flow-i svg{width:19px;height:19px;stroke:var(--violet-pale);fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.cf-site .flow-s h3{margin:0}
+.cf-site .flow-s p{margin:0;font-size:.9rem;color:var(--fg-3);line-height:1.6}
+.cf-site .flow-s .flag{margin-top:auto;white-space:normal;text-align:left}
+@media(max-width:1180px){.cf-site .flow{grid-template-columns:repeat(2,1fr)}.cf-site .flow::before{display:none}}
+@media(max-width:680px){.cf-site .flow{grid-template-columns:1fr}}
+
+/* NPI entry row in the lookup panel */
+.cf-site .npi-in{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
+  margin:var(--s5) var(--s5) 0;padding:var(--s4) var(--s5);
+  border:1px solid var(--w10);border-radius:var(--r-m);background:var(--w03)}
+.cf-site .npi-l{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.74rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fg-3)}
+/* ---------------------------------------------------------------------------
+   TECHNICAL IDENTIFIERS
+   The only place the monospace face survives: values a person would read
+   digit by digit or copy verbatim — an NPI, a tax ID, an API key, a snippet.
+   Everything else on the page is Inter.
+   --------------------------------------------------------------------------- */
+/* The mock product UIs are product UI, not page furniture: every string
+   inside a panel or the console is Inter, headings included. */
+.cf-site .panel h3,.cf-site .panel h4,.cf-site .panel h5,.cf-site .dash h3,.cf-site .dash h4,.cf-site .dash h5{
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif}
+
+/* Figures that sit in columns or count up need to hold their width while the
+   digits change; Inter's tabular set does that without the monospace face. */
+.cf-site .stat .num,.cf-site .case-m,.cf-site .dn,.cf-site .dsplit b,.cf-site .ddonut em,.cf-site .dring b,.cf-site .dready-n b,.cf-site .dbv,.cf-site .dvl,.cf-site .dax-row span,.cf-site .dax,.cf-site .dchip,.cf-site .ptab .num-c,.cf-site .meter-h b,.cf-site .tier-n,.cf-site .pdate{
+  font-variant-numeric:tabular-nums;font-feature-settings:'tnum' 1}
+
+.cf-site code,.cf-site kbd,.cf-site samp,.cf-site pre,.cf-site .mono-id{
+  font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+  font-feature-settings:'tnum' 1;letter-spacing:0}
+.cf-site .npi-v{font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;font-size:1.1rem;color:var(--fg);
+  letter-spacing:.04em}
+
+/* compact table inside a hero panel */
+.cf-site .ptab{width:100%;border-collapse:collapse;font-size:.82rem}
+.cf-site .ptab th{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.74rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fg-3);font-weight:500;text-align:left;
+  padding:0 var(--s3) var(--s3);border-bottom:1px solid var(--w10)}
+.cf-site .ptab td{padding:var(--s3);border-bottom:1px solid var(--w05);color:var(--fg-2);
+  vertical-align:middle}
+.cf-site .ptab tr:last-child td{border-bottom:0}
+.cf-site .ptab td b{font-weight:500;color:var(--fg)}
+.cf-site .ptab .num-c{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;color:var(--fg-3);text-align:right}
+.cf-site .panel-body{padding:var(--s5)}
+/* the table keeps its columns readable rather than crushing them, so on a
+   narrow phone it scrolls inside its own card instead of being clipped */
+.cf-site .panel-body{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cf-site .ptab{min-width:300px}
+.cf-site .panel-note{padding:var(--s3) var(--s5) var(--s5);font-size:.75rem;color:var(--fg-3)}
+
+/* meter bars for the directory audit panel */
+.cf-site .meters{display:grid;gap:var(--s4);padding:var(--s5)}
+.cf-site .meter-r{display:grid;gap:var(--s2)}
+.cf-site .meter-h{display:flex;justify-content:space-between;align-items:baseline;
+  font-size:.82rem;color:var(--fg-2)}
+.cf-site .meter-h b{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-weight:500;color:var(--fg)}
+.cf-site .meter{height:6px;border-radius:3px;background:var(--w05);overflow:hidden}
+.cf-site .meter i{display:block;height:100%;border-radius:3px;
+  background:linear-gradient(90deg,var(--indigo),var(--violet),var(--magenta));
+  transform:scaleX(0);transform-origin:left;transition:transform 1.1s var(--e-out)}
+.cf-site .rev.in .meter i{transform:scaleX(var(--v,.5))}
+
+/* short risk labels: chips, not cards with nothing in them */
+.cf-site .risks{display:flex;flex-wrap:wrap;gap:var(--s3)}
+.cf-site .risk{display:inline-flex;align-items:center;gap:var(--s3);
+  padding:var(--s3) var(--s5);border:1px solid var(--w10);border-radius:var(--r-pill);
+  background:var(--surf-1);font-size:.95rem;color:var(--fg-2);
+  transition:border-color .4s var(--ease),background .4s var(--ease),translate .4s var(--e-out)}
+.cf-site .risk:hover{border-color:var(--orange);background:var(--surf-2);translate:0 -3px}
+.cf-site .risk i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--orange)}
+
+/* ---- pricing tiers ---- */
+.cf-site .pricing{position:relative;padding:var(--s7) var(--s6);border-radius:var(--r-l);
+  border:1px solid var(--w10);overflow:hidden;
+  background:
+    radial-gradient(ellipse 70% 90% at 50% 0%,var(--violet-18),transparent 68%),
+    linear-gradient(168deg,var(--surf-1),var(--bg))}
+.cf-site .pricing .blocks{position:relative;z-index:1;align-items:stretch}
+.cf-site .blk.tier{display:flex;flex-direction:column;align-items:stretch;
+  padding:var(--s6) var(--s5) var(--s5);background:linear-gradient(168deg,var(--surf-2),var(--surf-1))}
+.cf-site .tier-n{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.74rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--s3);display:block}
+.cf-site .blk.tier h3{margin-bottom:var(--s2)}
+.cf-site .tier-sum{font-size:.95rem;color:var(--fg-2);line-height:1.5;
+  padding-bottom:var(--s5);margin-bottom:var(--s5);border-bottom:1px solid var(--w10)}
+.cf-site .blk.tier .tier-l{width:100%;margin:0 0 var(--s6)}
+.cf-site .blk.tier .tier-l li{padding-left:30px;color:var(--fg-3)}
+/* ticks rather than dots, so the list reads as what you get */
+.cf-site .blk.tier .tier-l li::before{left:0;top:3px;width:18px;height:18px;border-radius:50%;
+  background:var(--violet-18)}
+.cf-site .blk.tier .tier-l li::after{content:'';position:absolute;left:5px;top:8px;
+  width:8px;height:4px;border-left:1.8px solid var(--violet-pale);
+  border-bottom:1.8px solid var(--violet-pale);transform:rotate(-45deg)}
+.cf-site .blk.tier .btn{margin-top:auto;width:100%}
+/* the middle tier carries the emphasis */
+.cf-site .blk.tier.featured{border-color:var(--violet);
+  background:linear-gradient(168deg,var(--deep-purple),var(--surf-1));
+  box-shadow:0 30px 80px -38px var(--violet)}
+.cf-site .blk.tier.featured .tier-sum{color:var(--fg)}
+.cf-site .blk.tier.featured .tier-n{color:var(--violet-pale)}
+/* the featured tier carries the gradient rail permanently, not just on hover */
+.cf-site .blk.tier.featured::after{transform:scaleX(1)}
+@media(hover:hover) and (pointer:fine){.cf-site .blk.tier.featured{--lift:-6px}}
+
+/* FAQ — native disclosure, so it works with no JS and stays keyboard-usable */
+.cf-site .faq{display:grid;gap:var(--s2)}
+.cf-site .faq details{border:1px solid var(--w10);border-radius:var(--r-m);background:var(--surf-1);
+  transition:border-color .4s var(--ease),background .4s var(--ease)}
+.cf-site .faq details[open]{background:var(--surf-2);border-color:var(--w20)}
+.cf-site .faq summary{list-style:none;cursor:pointer;padding:var(--s4) var(--s5);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s4);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:1.02rem;font-weight:600;
+  line-height:1.4;color:var(--fg)}
+.cf-site .faq summary::-webkit-details-marker{display:none}
+.cf-site .faq summary::after{content:'';flex:none;width:11px;height:11px;margin-top:5px;
+  border-right:1.8px solid var(--violet-pale);border-bottom:1.8px solid var(--violet-pale);
+  transform:rotate(45deg);transition:transform .35s var(--ease)}
+.cf-site .faq details[open] summary::after{transform:rotate(225deg)}
+.cf-site .faq .a{padding:0 var(--s5) var(--s5);color:var(--fg-3);font-size:.92rem;line-height:1.7;
+  max-width:92ch}
+
+.cf-site .disclaimer{padding:var(--s6);border:1px solid var(--w10);border-radius:var(--r-l);
+  background:var(--surf-1)}
+.cf-site .disclaimer p{color:var(--fg-3);font-size:.92rem;line-height:1.7;margin-top:var(--s3);max-width:88ch}
+
+.cf-site .checks{display:grid;gap:var(--s3);max-width:none}
+
+/* ---------------------------------------------------------------------------
+   CASE STUDIES
+   The card is the whole link, so the title, the headline figure and the
+   closing line are all one target. Inside a case study the tables carry the
+   before/after comparisons, which scroll on a narrow screen rather than
+   squeezing four columns into 360px.
+   --------------------------------------------------------------------------- */
+/* A compact card: kicker, title, two lines of description, link — every gap
+   is 4px, so the card is only as tall as its text. The title and the
+   description are both clamped, which keeps the two cards the same size
+   whatever their wording. */
+.cf-site a.blk.case-card{display:flex;flex-direction:column;gap:4px;
+  padding:var(--s5);color:inherit;text-decoration:none;
+  transition:transform .45s var(--e-out),border-color .5s var(--ease),
+    background .5s var(--ease)}
+.cf-site a.blk.case-card>*{margin:0}
+.cf-site a.blk.case-card .n{margin:0 0 2px}
+.cf-site a.blk.case-card h3{max-width:none;line-height:1.28;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cf-site a.blk.case-card p{font-size:.92rem;line-height:1.55;color:var(--fg-3);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  transition:color .4s var(--ease)}
+.cf-site a.blk.case-card .tlink{align-self:flex-start;margin-top:2px}
+
+/* hover: the card lifts and traces its gradient outline (from .blk), the
+   kicker warms up, the description comes forward and the arrow walks on with
+   its rule wiping in underneath */
+.cf-site a.blk.case-card:hover .n{color:var(--violet-pale)}
+.cf-site a.blk.case-card:hover p{color:var(--fg-2)}
+.cf-site a.blk.case-card:hover .tlink svg{transform:translateX(4px)}
+.cf-site a.blk.case-card:hover .tlink::after{transform:scaleX(1);transform-origin:left}
+.cf-site a.blk.case-card .n{transition:color .4s var(--ease)}
+
+.cf-site .stats.stats-4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.cf-site .stats.stats-4{grid-template-columns:repeat(2,1fr);row-gap:var(--s6)}}
+@media(max-width:520px){.cf-site .stats.stats-4{grid-template-columns:1fr}}
+
+.cf-site .ctab-wrap{overflow-x:auto;margin:0 0 var(--s6);
+  -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+  /* the two radial shadows ride the scroll position, so an edge only shadows
+     while there is table left to reach in that direction */
+  background:
+    linear-gradient(90deg,var(--bg) 40%,rgba(0,0,0,0)) left center/26px 100% no-repeat local,
+    linear-gradient(90deg,rgba(0,0,0,0),var(--bg) 60%) right center/26px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%,var(--w20),rgba(0,0,0,0)) left center/13px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%,var(--w20),rgba(0,0,0,0)) right center/13px 100% no-repeat scroll}
+.cf-site .ctab{width:100%;border-collapse:collapse;margin:0 0 var(--s6);
+  font-size:clamp(.88rem, calc(.84rem + .12vw), .96rem);text-align:left}
+.cf-site .ctab-wrap .ctab{margin-bottom:0}
+.cf-site .ctab thead th{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--fg-3);font-weight:500;padding:0 var(--s4) var(--s3) 0;
+  border-bottom:1px solid var(--w20);vertical-align:bottom}
+.cf-site .ctab td{padding:var(--s4) var(--s4) var(--s4) 0;border-bottom:1px solid var(--w05);
+  color:var(--fg-2);vertical-align:top;line-height:1.55}
+.cf-site .ctab td:last-child,.cf-site .ctab th:last-child{padding-right:0}
+.cf-site .ctab tbody tr:last-child td{border-bottom:0}
+.cf-site .ctab td b{color:var(--fg);font-weight:500}
+.cf-site .ctab.ctab-2 td:first-child{width:62%}
+.cf-site .ctab.ctab-2 td:last-child{text-align:right;white-space:nowrap}
+.cf-site .ctab.ctab-3 td:first-child,.cf-site .ctab.ctab-3 th:first-child{width:22%}
+.cf-site .ctab.ctab-4 th:first-child,.cf-site .ctab.ctab-4 td:first-child{width:14%}
+.cf-site .ctab-wrap .ctab-4{min-width:760px}
+.cf-site .ctab-wrap .ctab-3{min-width:560px}
+
+/* the numbered method list keeps its numerals */
+.cf-site ol.steps-n{margin:0 0 var(--s6);padding:0;display:grid;gap:var(--s4);counter-reset:sn}
+.cf-site ol.steps-n>li{position:relative;padding-left:var(--s7);color:var(--fg-2);
+  line-height:1.65;counter-increment:sn;list-style:none}
+.cf-site ol.steps-n>li::before{content:counter(sn,decimal-leading-zero);position:absolute;left:0;top:0;
+  font-size:.8rem;font-weight:500;color:var(--violet-pale);
+  font-variant-numeric:tabular-nums}
+.cf-site ol.steps-n>li b{color:var(--fg);font-weight:500}
+
+.cf-site .prose p.fine{font-size:.88rem;color:var(--fg-3);line-height:1.6;
+  padding-left:var(--s4);border-left:1px solid var(--w10)}
+/* plain items in a checklist get the same tick the boxed ones carry, so a
+   list reads as a list instead of as loose lines of text */
+.cf-site .checks>li:not(.chk){position:relative;padding-left:26px;color:var(--fg-2);font-size:.95rem}
+.cf-site .checks>li:not(.chk)::before{content:'';position:absolute;left:1px;top:.45em;
+  width:9px;height:5px;border-left:1.8px solid var(--violet-pale);
+  border-bottom:1.8px solid var(--violet-pale);transform:rotate(-45deg)}
+.cf-site .chk{display:grid;grid-template-columns:22px 1fr;gap:var(--s3);align-items:start;
+  padding:var(--s3) var(--s4);border:1px solid var(--w10);border-radius:var(--r-m);
+  background:var(--surf-1);font-size:.95rem;
+  transition:transform .4s var(--ease),border-color .4s var(--ease)}
+.cf-site .chk:hover{transform:translateX(5px);border-color:var(--violet)}
+.cf-site .chk i{width:22px;height:22px;border-radius:50%;background:var(--violet-18);
+  display:grid;place-items:center;margin-top:2px}
+.cf-site .chk i::before{content:'';width:9px;height:5px;border-left:1.8px solid var(--violet-pale);
+  border-bottom:1.8px solid var(--violet-pale);transform:rotate(-45deg) translate(1px,-1px)}
+
+/* ===== article layout ===== */
+/* justify-content:center so whatever is left over after the sidebar and the
+   readable measure splits evenly instead of pooling on the right */
+.cf-site .article{display:grid;grid-template-columns:264px minmax(0,88ch);gap:var(--s7);
+  align-items:start;justify-content:center;padding:var(--s8) 0 var(--s9)}
+.cf-site .toc{position:sticky;top:104px;padding:var(--s5);background:var(--surf-1);
+  border:1px solid var(--w10);border-radius:var(--r-l);
+  max-height:calc(100vh - 140px);overflow:auto}
+.cf-site .toc::-webkit-scrollbar{width:6px}
+.cf-site .toc::-webkit-scrollbar-thumb{background:var(--w10);border-radius:3px}
+.cf-site .toc a.toc-sub{padding-left:var(--s5);font-size:.8rem}
+.cf-site .article.no-toc{grid-template-columns:minmax(0,92ch)}
+.cf-site .toc h4{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.76rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fg-3);margin-bottom:var(--s4)}
+.cf-site .toc a{display:block;padding:var(--s2) 0;font-size:.85rem;color:var(--fg-3);line-height:1.45;
+  border-left:2px solid transparent;padding-left:var(--s3);
+  transition:color .3s,border-color .3s,transform .3s var(--ease)}
+.cf-site .toc a:hover{color:var(--fg);border-left-color:var(--violet);transform:translateX(3px)}
+.cf-site .toc a.on{color:var(--violet-pale);border-left-color:var(--violet)}
+
+.cf-site .prose{max-width:none}
+.cf-site .prose h2{font-size:clamp(1.45rem,2.2vw,1.9rem);margin:var(--s8) 0 var(--s4);scroll-margin-top:120px}
+.cf-site .prose h2:first-child{margin-top:0}
+.cf-site .prose h3{margin:var(--s6) 0 var(--s3);scroll-margin-top:120px}
+/* The article bodies came out of the source as one continuous run of
+   paragraphs, so the only hierarchy available is typographic: the opening
+   paragraph reads as a lead, the rest as body on a comfortable measure. */
+.cf-site .prose p{color:var(--fg-2);margin-bottom:var(--s5);line-height:1.72;
+  font-size:clamp(1rem, calc(.97rem + .07vw), 1.06rem)}
+.cf-site .prose>p:first-of-type{font-size:clamp(1.1rem, calc(1.03rem + .21vw), 1.24rem);
+  line-height:1.6;color:var(--fg);margin-bottom:var(--s6)}
+.cf-site .prose ul{margin:0 0 var(--s5);display:grid;gap:var(--s3)}
+.cf-site .prose li{position:relative;padding-left:var(--s5);color:var(--fg-2);font-size:.97rem}
+.cf-site .prose li::before{content:'';position:absolute;left:0;top:.6em;width:7px;height:7px;
+  border-radius:50%;background:var(--violet)}
+.cf-site .prose .pullout{padding:var(--s5);border-left:2px solid var(--violet);
+  background:var(--surf-1);border-radius:0 var(--r-m) var(--r-m) 0;margin:var(--s6) 0}
+.cf-site .prose .pullout p{margin:0;color:var(--fg)}
+
+/* ===== resource cards ===== */
+.cf-site .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);align-items:stretch}
+/* even card heights: the heading block is reserved, the excerpt is clamped, and
+   the link sits on the baseline of every card */
+.cf-site .rcard h3{min-height:2.6em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden}
+.cf-site .rcard p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.cf-site .rcard .tlink{margin-top:auto}
+.cf-site .rcard{display:flex;flex-direction:column;padding:var(--s6);background:var(--surf-1);
+  border:1px solid var(--w10);border-radius:var(--r-l);position:relative;overflow:hidden;
+  isolation:isolate;transition:transform .5s var(--ease),border-color .5s var(--ease)}
+.cf-site .rcard::before{content:'';position:absolute;inset:0;z-index:-1;opacity:0;
+  background:linear-gradient(160deg,var(--surf-3),var(--deep-purple));
+  transition:opacity .5s var(--ease)}
+.cf-site .rcard::after{content:'';position:absolute;inset:0;z-index:3;opacity:0;
+  border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:conic-gradient(from var(--ring-a),
+    var(--violet),var(--magenta),var(--violet-pale),var(--purple),
+    var(--magenta),var(--violet-pale),var(--violet));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  transition:opacity .34s var(--ease)}
+.cf-site .rcard:hover{transform:translateY(-6px);border-color:var(--w20)}
+.cf-site .rcard:hover::before{opacity:1}
+.cf-site .rcard:hover::after{opacity:1;animation:ringSpin 3.6s linear infinite}
+.cf-site .rcard .meta{display:flex;gap:var(--s3);align-items:center;margin-bottom:var(--s4);flex-wrap:wrap}
+.cf-site .rcard h3{margin-bottom:var(--s3);line-height:1.3}
+.cf-site .rcard p{font-size:.9rem;color:var(--fg-3);margin-bottom:var(--s5);flex:1}
+
+/* ===== legal ===== */
+.cf-site .legal{max-width:none;padding:0}
+/* A numbered clause (4.) and its sub-clause (4.1) are different ranks: the
+   clause sets the section, the sub-clause sits inside it. */
+.cf-site .legal h2{font-size:clamp(1.34rem, calc(1.2rem + .4vw), 1.68rem);
+  margin:var(--s8) 0 var(--s4);scroll-margin-top:120px;
+  padding-top:var(--s5);border-top:1px solid var(--w10)}
+.cf-site .legal h2:first-child{padding-top:0;border-top:0}
+.cf-site .legal h2:first-child{margin-top:0}
+.cf-site .legal h3{font-size:clamp(1.02rem, calc(.96rem + .18vw), 1.16rem);font-weight:500;
+  color:var(--fg-2);margin:var(--s6) 0 var(--s3);scroll-margin-top:120px;
+  padding-left:var(--s4);border-left:2px solid var(--violet)}
+.cf-site .legal p{color:var(--fg-2);margin-bottom:var(--s4);font-size:.97rem}
+.cf-site .legal ul{margin:0 0 var(--s5);display:grid;gap:var(--s3)}
+.cf-site .legal li{position:relative;padding-left:var(--s5);color:var(--fg-2);font-size:.95rem}
+.cf-site .legal li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;
+  border-radius:50%;background:var(--violet)}
+
+/* ===== inner CTA ===== */
+.cf-site .mini-cta{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s5);
+  justify-items:center;text-align:center;
+  padding:var(--s7);border-radius:var(--r-l);border:1px solid var(--w10);
+  background:linear-gradient(150deg,var(--deep-purple),var(--surf-1));
+  position:relative;overflow:hidden}
+/* ---------------------------------------------------------------------------
+   CTA BACKDROP
+   A drifting field of dots over a slow grid, with two soft brand washes at the
+   corners. It is absolutely positioned and painted at half strength behind the
+   copy, so it reads as texture without taking a single pixel of layout or
+   sitting over the words.
+   --------------------------------------------------------------------------- */
+.cf-site .cta::before,.cf-site .mini-cta::after{
+  content:'';position:absolute;inset:-1px;z-index:0;pointer-events:none;opacity:.5;
+  background-image:
+    radial-gradient(circle at 50% 50%,var(--violet-pale) 0 1.1px,transparent 1.7px),
+    repeating-linear-gradient(90deg,var(--w05) 0 1px,transparent 1px 74px),
+    repeating-linear-gradient(0deg,var(--w05) 0 1px,transparent 1px 74px),
+    radial-gradient(560px circle at 12% 116%,var(--violet-18),transparent 62%),
+    radial-gradient(500px circle at 88% -16%,var(--magenta-16),transparent 62%);
+  background-size:26px 26px,auto,auto,auto,auto;
+  background-repeat:repeat,repeat,repeat,no-repeat,no-repeat;
+  /* faded at the edges so the texture never meets the section border */
+  -webkit-mask-image:radial-gradient(ellipse 84% 90% at 50% 50%,#000 20%,transparent 80%);
+          mask-image:radial-gradient(ellipse 84% 90% at 50% 50%,#000 20%,transparent 80%);
+  animation:ctaDrift 32s linear infinite}
+/* only the dot field and the grid travel; the two washes hold still */
+@keyframes ctaDrift{
+  from{background-position:0 0,0 0,0 0,0 0,0 0}
+  to{background-position:52px -26px,74px 0,0 74px,0 0,0 0}}
+
+.cf-site .mini-cta::before{content:'';position:absolute;top:-50%;right:-10%;width:320px;height:320px;
+  border-radius:50%;background:var(--magenta-16);filter:blur(60px)}
+.cf-site .mini-cta::before{z-index:0}
+.cf-site .mini-cta>*{position:relative;z-index:1}
+.cf-site .mini-cta h2{margin-bottom:var(--s2)}
+.cf-site .mini-cta p{color:var(--fg-2);font-size:.95rem;max-width:62ch;margin-inline:auto}
+.cf-site .mini-cta .hero-cta,.cf-site .mini-cta .btn-row{justify-content:center}
+.cf-site .mini-cta>.btn,.cf-site .mini-cta>a.btn{justify-self:center}
+
+/* Stacked above the text on a narrow screen the contents rail is a long list
+   to scroll past rather than a way to navigate, so the legal pages drop it. */
+@media(max-width:900px){
+  .cf-site [data-route="terms-and-conditions"] .toc,.cf-site [data-route="privacy-policy"] .toc,.cf-site /* the nine resource articles have a filled rail now,.cf-site and the same reasoning
+     applies to them: stacked on a phone it is 9-19 links to scroll past */
+  .article:has(.prose) .toc,.cf-site [data-route^="case-study-"] .toc{display:none}
+  .cf-site [data-route^="case-study-"] .article{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:1180px){
+  .cf-site .blocks{grid-template-columns:repeat(2,1fr)}
+  .cf-site .rgrid{grid-template-columns:repeat(2,1fr)}
+  .cf-site .article{grid-template-columns:minmax(0,1fr);gap:var(--s6)}
+  .cf-site .toc{position:static;max-height:none}
+  .cf-site .toc{position:static}
+}
+@media(max-width:680px){
+  .cf-site .blocks,.cf-site .blocks.two,.cf-site .rgrid{grid-template-columns:1fr}
+  .cf-site .mini-cta{grid-template-columns:1fr}
+}
+
+/* ===== single-file router ===== */
+.cf-site .route[hidden]{display:none}
+.cf-site #app{min-height:60vh}
+.cf-site .nav-link.active{color:var(--fg);background:var(--w05)}
+.cf-site .menu a.active strong{color:var(--violet-pale)}
+
+/* ===========================================================================
+   MOTION LAYER
+   Added on top of the base sheet. Everything here uses the independent
+   `translate` / `scale` / `rotate` properties rather than `transform`, so
+   entrance motion and hover motion can live on the same element without
+   overwriting each other.
+   =========================================================================== */
+.cf-site{
+  --e-out:cubic-bezier(.16,1,.3,1);      /* entrances — fast out, long settle */
+  --e-io:cubic-bezier(.65,0,.35,1);      /* exits, symmetrical moves          */
+  --e-spring:cubic-bezier(.34,1.4,.64,1);/* pops, ticks                       */
+  --t-fast:.22s; --t-mid:.42s; --t-slow:.72s;
+}
+
+/* ===========================================================================
+   REVEAL — one system, four directions, delay driven by --sd (set in JS)
+   =========================================================================== */
+.cf-site .rev{
+  opacity:0;translate:0 26px;filter:blur(5px);transform:none;
+  transition:
+    opacity   .78s var(--e-out) var(--sd,0s),
+    translate .78s var(--e-out) var(--sd,0s),
+    scale     .78s var(--e-out) var(--sd,0s),
+    filter    .62s var(--e-out) var(--sd,0s);
+}
+.cf-site .rev.in{opacity:1;translate:none;scale:none;filter:none;transform:none}
+.cf-site .rev[data-rev="left"]{translate:-36px 0}
+.cf-site .rev[data-rev="right"]{translate:36px 0}
+.cf-site .rev[data-rev="scale"]{translate:0 14px;scale:.96}
+.cf-site .rev[data-rev="fade"]{translate:none}
+/* hand-authored data-d delays win; --sd is only set on elements without one */
+.cf-site .rev[data-d="1"]{--sd:.08s}
+.cf-site .rev[data-d="2"]{--sd:.16s}
+.cf-site .rev[data-d="3"]{--sd:.24s}
+
+/* a reveal container whose children stagger instead: parent stays put */
+.cf-site .rev.stagger{opacity:1;translate:none;scale:none;filter:none}
+.cf-site .stagger>*{
+  opacity:0;translate:0 22px;
+  transition:opacity .66s var(--e-out) var(--sd,0s),translate .66s var(--e-out) var(--sd,0s);
+}
+.cf-site .stagger.in>*{opacity:1;translate:none}
+
+/* --- line-mask headings: text rises out from behind its own edge ---------- */
+.cf-site .mask{display:block;overflow:hidden;
+  padding-bottom:.2em;margin-bottom:-.2em}
+.cf-site .mask>span{display:block;translate:0 130%;transition:translate .95s var(--e-out) var(--md,.06s)}
+.cf-site .rev.in .mask>span{translate:none}
+.cf-site .phero .mask>span{animation:maskRise .95s var(--e-out) .12s forwards}
+@keyframes maskRise{to{translate:none}}
+@keyframes riseIn{from{opacity:0;translate:0 22px}to{opacity:1;translate:none}}
+
+/* inner-page hero content arrives in sequence, replayed on every visit */
+.cf-site .phero .inner>.eyebrow,.cf-site .phero .inner>.pdate{opacity:0;animation:riseIn .8s var(--e-out) .06s forwards}
+.cf-site .phero .inner>.lede{opacity:0;animation:riseIn .85s var(--e-out) .46s forwards}
+.cf-site .phero .inner>.hero-cta{opacity:0;animation:riseIn .85s var(--e-out) .58s forwards}
+
+/* ===========================================================================
+   ROUTE TRANSITIONS — outgoing page lifts and clears, incoming settles in
+   =========================================================================== */
+.cf-site .route{animation:none}
+.cf-site .route.rt-in{animation:rtIn .58s var(--e-out) both}
+.cf-site .route.rt-out{animation:rtOut .22s var(--e-io) both}
+@keyframes rtIn {from{opacity:0;translate:0 16px;scale:.994}to{opacity:1;translate:none;scale:1}}
+@keyframes rtOut{from{opacity:1;translate:none}to{opacity:0;translate:0 -10px}}
+
+/* ===========================================================================
+   HEADER — sticky surface, animated nav underline
+   =========================================================================== */
+/* the header never moves — only its surface changes as the page scrolls */
+.cf-site .hdr{transition:background .45s var(--ease),border-color .45s var(--ease),
+  box-shadow .45s var(--ease),backdrop-filter .45s var(--ease),
+  -webkit-backdrop-filter .45s var(--ease)}
+
+.cf-site .nav-link{position:relative}
+.cf-site .nav-link::after{content:'';position:absolute;left:var(--pad-h-sm);right:var(--pad-h-sm);bottom:5px;
+  height:1px;background:var(--violet-pale);transform:scaleX(0);transform-origin:right;
+  transition:transform .45s var(--e-out)}
+.cf-site .nav-link:hover::after,.cf-site .nav-link.active::after{transform:scaleX(1);transform-origin:left}
+.cf-site .menu a{transition:background .3s,transform .35s var(--e-out)}
+.cf-site .drop:hover .menu,.cf-site .drop:focus-within .menu{transition-delay:.04s}
+.cf-site .menu a:nth-child(1){transition-delay:.02s}.cf-site .menu a:nth-child(2){transition-delay:.05s}
+.cf-site .menu a:nth-child(3){transition-delay:.08s}.cf-site .menu a:nth-child(4){transition-delay:.11s}
+.cf-site .menu a:nth-child(5){transition-delay:.14s}
+/* Clicking a menu link leaves it focused, so :focus-within held the panel open
+   over the page it had just navigated to. This wins over both :hover and
+   :focus-within until the pointer leaves the menu. */
+.cf-site .drop.closed .menu{opacity:0;visibility:hidden;transform:translateY(-8px);
+  transition:opacity .2s var(--ease),transform .2s var(--ease),visibility .2s}
+.cf-site .drop.closed .menu a{transition-delay:0s}
+
+/* mobile sheet: links cascade in behind the panel */
+.cf-site .sheet a{transform:translateY(20px);opacity:0;
+  transition:transform .55s var(--e-out),opacity .45s var(--e-out)}
+.cf-site .sheet.on a{transform:none;opacity:1}
+.cf-site .sheet.on a:nth-child(1){transition-delay:.16s}.cf-site .sheet.on a:nth-child(2){transition-delay:.22s}
+.cf-site .sheet.on a:nth-child(3){transition-delay:.28s}.cf-site .sheet.on a:nth-child(4){transition-delay:.34s}
+.cf-site .sheet.on a:nth-child(5){transition-delay:.40s}
+
+/* ===========================================================================
+   BUTTONS — a gradient ring travels the perimeter on hover
+   ===========================================================================
+   --ring-a is registered so the browser can interpolate it as a real angle;
+   without @property a custom property animates as a string and the sweep
+   would jump rather than travel. Unsupported browsers get a static ring. */
+@property --ring-a{syntax:'<angle>';inherits:false;initial-value:0deg}
+
+.cf-site .btn::before{
+  content:'';position:absolute;inset:-2px;border-radius:inherit;z-index:3;
+  padding:2px;pointer-events:none;opacity:0;
+  /* First and last stop are the same colour, so the sweep has no seam. The
+     drop-shadow that used to sit here bloomed unevenly around the pill's ends
+     — that is the odd edge on the right of the hero button and the left of the
+     header one — so the glow moved to the button itself, where it is even. */
+  background:conic-gradient(from var(--ring-a),
+    var(--violet),var(--magenta),var(--violet-pale),var(--purple),
+    var(--magenta),var(--violet-pale),var(--violet));
+  /* paint the border band only: fill minus content box */
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  transition:opacity .28s var(--ease);
+}
+.cf-site .btn:hover,.cf-site .btn:focus-visible{box-shadow:0 0 22px -6px rgba(108,99,255,.55)}
+.cf-site .btn:hover::before,.cf-site .btn:focus-visible::before{
+  opacity:1;animation:ringSpin 3s linear infinite;
+}
+@keyframes ringSpin{to{--ring-a:360deg}}
+
+/* A shine crosses the face once per hover. It lives on ::after so the ring on
+   ::before is untouched, and it is clipped to the pill by the button's own
+   radius rather than by an extra wrapper. */
+.cf-site .btn::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;z-index:1;
+  pointer-events:none;opacity:0;overflow:hidden;
+  /* A narrow band swept across the button's face once. It is clipped to the
+     pill and sits at z-index 1 — under the label, which is at 2 — so it reads
+     as light moving through the button's background rather than a flash
+     thrown over the top of it. */
+  background:linear-gradient(100deg,
+    transparent 0%,rgba(255,255,255,.34) 38%,rgba(255,255,255,.78) 50%,
+    rgba(255,255,255,.34) 62%,transparent 100%);
+  background-size:56% 240%;background-repeat:no-repeat;background-position:-80% 50%;
+}
+.cf-site .btn:hover::after,.cf-site .btn:focus-visible::after{
+  opacity:1;animation:btnShine .75s var(--ease) .05s}
+@keyframes btnShine{
+  from{background-position:-80% 50%}
+  to{background-position:180% 50%}}
+
+/* ===========================================================================
+   BUTTONS — the wave fill does the work; press gives a small give
+   =========================================================================== */
+.cf-site .btn{transition:color .5s var(--ease),border-color .5s var(--ease),
+    scale .2s var(--e-out),box-shadow .45s var(--e-out)}
+.cf-site .btn:active{scale:.985}
+/* no glow either — the ring carries the whole hover */
+
+.cf-site .tlink svg{transition:translate .45s var(--e-out)}
+.cf-site .card:hover .tlink svg{transform:none;translate:5px 0}
+
+/* ===========================================================================
+   CARDS — a single lift on hover, no tilt
+   =========================================================================== */
+@media(hover:hover) and (pointer:fine){
+  /* Every one of these carries .rev, and .rev.in sets transform:none at
+     (0,2,0) — higher than a bare .card — so the plain selectors alone were
+     silently cancelled and the cards neither lifted nor tilted. The .rev.in
+     variants below land at (0,3,0) and win it back. */
+  .cf-site .card,.cf-site .rcard,.cf-site .blk,.cf-site .tile,.cf-site .logo-cell,.cf-site .card.rev.in,.cf-site .rcard.rev.in,.cf-site .blk.rev.in,.cf-site .tile.rev.in,.cf-site .logo-cell.rev.in{
+    --lift:0px;--tilt:0deg;
+    transform:translateY(var(--lift)) rotate(var(--tilt));
+    transition:transform .45s var(--e-out),border-color .5s var(--ease),background .5s var(--ease);
+  }
+  /* the card leans the same way its icon does. 1.5deg, not the icon's 6deg —
+     the icon is 48px, a card is ~300px, and the same angle reads as broken
+     at that size rather than as the same gesture. */
+  .cf-site .card:hover,.cf-site .card.rev.in:hover,.cf-site .rcard:hover,.cf-site .rcard.rev.in:hover{--lift:-6px;--tilt:-1.5deg}
+  .cf-site .seg{--lift:0px;transform:translateY(var(--lift));
+    transition:transform .45s var(--e-out),border-color .5s var(--ease)}
+  .cf-site .seg:hover{--lift:-5px}
+  .cf-site .blk:hover,.cf-site .blk.rev.in:hover,.cf-site .tile:hover,.cf-site .tile.rev.in:hover{--lift:-5px}
+  .cf-site .logo-cell:hover,.cf-site .logo-cell.rev.in:hover{--lift:-4px}
+  /* the colour swap should feel instant; the lift keeps a little travel */
+  .cf-site .logo-cell,.cf-site .logo-cell.rev.in{
+    transition:transform .36s var(--e-out),border-color .32s var(--ease),background .32s var(--ease)}
+}
+
+/* Product cards rest at half strength and come up to full on hover. The
+   resting value has to out-specify .rev.in{opacity:1}, which the reveal
+   system owns, or the reveal would immediately undo it. */
+.cf-site .cards .card:not(.rev),.cf-site .cards .card.rev.in{opacity:1;
+  transition:transform .45s var(--e-out),
+    border-color .5s var(--ease),background .5s var(--ease)}
+
+/* Icon artwork draws itself in as the card arrives, then travels on hover.
+   Keyed off .rev.in only — never off :hover, which made every hover redraw.
+
+   The hidden state is scoped to .rev exactly like the drawn state, and both
+   cover the case where the element IS the .rev rather than sitting inside one
+   (.tile carries .rev itself, .card and .segs wrap theirs). Hiding on a looser
+   selector than the one that draws leaves those icons invisible for good. */
+.cf-site .rev .card-art svg *,.cf-site .rev .tile .ico svg *,.cf-site .tile.rev .ico svg *,.cf-site .rev .seg .ico svg *,.cf-site .seg.rev .ico svg *{
+  stroke-dasharray:120;stroke-dashoffset:120;
+  transition:stroke-dashoffset 1.1s var(--e-out) calc(var(--sd,0s) + .16s);
+}
+.cf-site .rev.in .card-art svg *,.cf-site .rev.in .tile .ico svg *,.cf-site .tile.rev.in .ico svg *,.cf-site .rev.in .seg .ico svg *,.cf-site .seg.rev.in .ico svg *{stroke-dashoffset:0}
+.cf-site .card:hover .card-art svg *{stroke-dashoffset:240;transition:stroke-dashoffset .9s var(--ease)}
+
+/* problem rows: the accent rail wipes in with the row itself */
+.cf-site .rw{transition:background .45s var(--ease),padding-left .45s var(--e-out)}
+.cf-site .rw:hover{padding-left:var(--s6)}
+
+/* ===========================================================================
+   STATS — digits settle with a small scale as the count lands
+   =========================================================================== */
+.cf-site .stat .num{display:inline-block;transition:scale .5s var(--e-spring)}
+.cf-site .stat .num.counting{scale:1.03}
+
+/* ===========================================================================
+   FORM
+   =========================================================================== */
+.cf-site .field input,.cf-site .field select{transition:border-color .35s var(--ease),background .35s var(--ease),
+  box-shadow .35s var(--ease),translate .35s var(--e-out)}
+.cf-site .field input:focus,.cf-site .field select:focus{translate:0 -1px}
+.cf-site .field label{transition:color .3s var(--ease)}
+.cf-site .field:focus-within label{color:var(--violet-pale)}
+.cf-site .sub input{transition:border-color .35s var(--ease),translate .35s var(--e-out)}
+.cf-site .sub input:focus{translate:0 -1px}
+
+.cf-site .ok.on{animation:riseIn .45s var(--e-out) both}
+
+/* ===========================================================================
+   BACK TO TOP
+   =========================================================================== */
+.cf-site .totop{position:fixed;right:var(--frame-x);bottom:26px;z-index:890;
+  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(15,15,23,.78);border:1px solid var(--w10);
+  backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
+  opacity:0;translate:0 16px;scale:.9;pointer-events:none;visibility:hidden;
+  transition:opacity .45s var(--e-out),translate .45s var(--e-out),scale .45s var(--e-out),
+    background .3s var(--ease),border-color .3s var(--ease),visibility 0s linear .45s}
+.cf-site .totop.on{opacity:1;translate:none;scale:1;pointer-events:auto;visibility:visible;
+  transition-delay:0s,0s,0s,0s,0s,0s}
+.cf-site .totop:hover{background:var(--violet);border-color:var(--violet);translate:0 -3px}
+.cf-site .totop svg{width:17px;height:17px;stroke:var(--fg);fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;transition:translate .35s var(--e-out)}
+.cf-site .totop:hover svg{translate:0 -2px}
+@media(max-width:680px){.cf-site .totop{width:42px;height:42px;bottom:18px}}
+
+/* ===========================================================================
+   SMALL HOVER NUDGES
+   =========================================================================== */
+.cf-site .toc a{transition:color .3s,border-color .3s,translate .3s var(--e-out)}
+.cf-site .toc a:hover{transform:none;translate:3px 0}
+.cf-site .toc a.on{translate:3px 0}
+.cf-site .ftr li a{transition:color .3s,translate .3s var(--e-out)}
+.cf-site .ftr li a:hover{transform:none;translate:4px 0}
+.cf-site .chk{transition:translate .4s var(--e-out),border-color .4s var(--ease),background .4s var(--ease)}
+.cf-site .chk:hover{transform:none;translate:5px 0;background:var(--surf-2)}
+.cf-site .menu a:hover{transform:none;translate:4px 0}
+.cf-site .fitem{transition:background .3s var(--ease),translate .35s var(--e-out)}
+.cf-site .fitem:hover{translate:2px 0}
+
+/* ===========================================================================
+   REDUCED MOTION — everything above collapses to a plain, instant page
+   =========================================================================== */
+/* ===========================================================================
+   TOUCH / SMALL-SCREEN BEHAVIOUR
+
+   Two jobs here.
+
+   1. Nothing on a touch screen may depend on :hover. Any state that hover
+      revealed — opacity, text colour, accent rails, index numbers — is simply
+      the resting state, and the decoration that only a pointer could trigger
+      is removed rather than left dead in the layer tree.
+
+   2. iOS Safari was painting long stretches of the page as solid black under
+      momentum scrolling. Every property dropped below allocates its own GPU
+      layer: per-element blur filters, gradient text through background-clip,
+      masked conic rings, oversized liquid fills, backdrop-filter on fixed
+      elements, and ~20 simultaneously animating reveal layers. None of them
+      are perceptible at phone size.
+   =========================================================================== */
+@media (hover:none),(max-width:900px){
+
+  /* --- content is simply present; no scroll-reveal layers at all --- */
+  /* the partner row is a loop, not a scroll-reveal, so it is carved out of
+     the blanket transform reset — an !important transform of any value beats
+     a keyframe animation and was stopping the row dead on every phone */
+  .cf-site .rev,.cf-site .rev.in,.cf-site .stagger>*:not(.logo-track),.cf-site .stagger.in>*:not(.logo-track){
+    opacity:1!important;translate:none!important;scale:none!important;
+    filter:none!important;transform:none!important;transition:none!important}
+  .cf-site .stagger>.logo-track{opacity:1!important;filter:none!important}
+  .cf-site .mask>span,.cf-site .phero .mask>span{translate:none!important;animation:none!important}
+  .cf-site .phero .inner>*{opacity:1!important;animation:none!important}
+  .cf-site .hero h1 .ln>span,.cf-site .fu,.cf-site .panel,.cf-site .fitem{
+    animation:none!important;opacity:1!important;transform:none!important}
+  .cf-site .route,.cf-site .route.rt-in,.cf-site .route.rt-out{
+    animation:none!important;opacity:1!important;translate:none!important}
+
+  /* --- gradient text ---
+     The figures were being flattened to flat magenta on every phone by a
+     blanket fallback for an old iOS blank-paint bug. background-clip:text has
+     been solid on iOS Safari for years, so the counters keep their gradient
+     here exactly as they do on the desktop; the @supports guard further down
+     covers any engine that genuinely cannot clip to text. */
+  .cf-site .grad,.cf-site .tile .idx{
+    background:none!important;-webkit-text-fill-color:currentColor!important}
+  .cf-site .grad{color:var(--violet)}
+  .cf-site .tile .idx{color:var(--violet)}
+
+  /* --- pointer-only decoration, removed rather than left inert --- */
+  .cf-site .seg .liq,.cf-site .seg::after,.cf-site .card::before,.cf-site .tile::before,.cf-site .blk::after,.cf-site .rcard::after{display:none!important}
+  .cf-site .card::after,.cf-site .tile::after{opacity:1}
+  .cf-site .card,.cf-site .tile,.cf-site .rcard,.cf-site .seg,.cf-site .blk{isolation:auto}
+
+  /* --- hover states become resting states --- */
+  .cf-site .cards .card:not(.rev),.cf-site .cards .card.rev.in{opacity:1!important}
+  .cf-site .tile .idx{opacity:.5;transform:none}
+  .cf-site .tile p,.cf-site .seg p,.cf-site .card p{color:var(--fg-2)}
+  .cf-site .seg{background:linear-gradient(168deg,var(--surf-2),var(--bg))}
+  .cf-site .rcard::before{opacity:0}
+  /* icon artwork is drawn, not waiting on a reveal */
+  .cf-site .card-art svg *,.cf-site .tile .ico svg *,.cf-site .seg .ico svg *{
+    stroke-dashoffset:0!important;transition:none!important}
+
+  /* --- remaining paint hazards --- */
+  .cf-site .aura{filter:blur(56px)}
+  .cf-site .aura-a{width:480px;height:480px}
+  .cf-site .aura-b{width:420px;height:420px}
+  .cf-site .quote::before,.cf-site .mini-cta::before{filter:blur(40px)}
+  /* the backdrop stays, its drift does not — it is not worth the paint here */
+  .cf-site .cta::before,.cf-site .mini-cta::after{animation:none}
+  .cf-site .hdr,.cf-site .hdr.stuck{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .cf-site .hdr.stuck{background:rgba(15,15,23,.95)}
+  .cf-site .totop{backdrop-filter:none;-webkit-backdrop-filter:none;
+    background:rgba(15,15,23,.95)}
+  .cf-site .quote{box-shadow:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .cf-site .rev,.cf-site .rev.in,.cf-site .stagger>*,.cf-site .stagger.in>*{opacity:1!important;translate:none!important;
+    scale:none!important;filter:none!important;transition:none!important}
+  .cf-site .cards .card.rev,.cf-site .cards .card.rev.in{opacity:1!important}
+  .cf-site .mask>span,.cf-site .phero .mask>span{translate:none!important;animation:none!important}
+  .cf-site .phero .inner>*{opacity:1!important;animation:none!important}
+  .cf-site .route.rt-in,.cf-site .route.rt-out{animation:none!important;opacity:1!important;translate:none!important}
+  .cf-site .card,.cf-site .rcard,.cf-site .blk,.cf-site .tile,.cf-site .logo-cell{transform:none!important}
+  .cf-site .tile .idx{transition:none!important;transform:none!important}
+  .cf-site .btn:hover::before,.cf-site .btn:focus-visible::before{animation:none!important}
+  .cf-site .card:hover::before,.cf-site .tile:hover::before,.cf-site .blk:hover::after,.cf-site .rcard:hover::after{animation:none!important}
+  .cf-site .btn:hover .wv i,.cf-site .btn:focus-visible .wv i{animation:none!important;transition:none!important}
+  .cf-site .seg:hover .liq i{animation:none!important;transition:none!important}
+  .cf-site .seg:hover::after{animation:none!important}
+  .cf-site .totop{transition:opacity .01ms,visibility 0s}
+  .cf-site .ok.on{animation:none!important;opacity:1!important;translate:none!important}
+  .cf-site .rev .card-art svg *,.cf-site .rev .tile .ico svg *,.cf-site .tile.rev .ico svg *,.cf-site .rev .seg .ico svg *,.cf-site .seg.rev .ico svg *,.cf-site .card:hover .card-art svg *{stroke-dashoffset:0!important;transition:none!important}
+  .cf-site .hero h1 .ln>span,.cf-site .fu,.cf-site .panel,.cf-site .fitem{animation:none!important;opacity:1!important;
+    transform:none!important}
+}
+/* ===========================================================================
+   NO-SCRIPT NAVIGATION
+   ===========================================================================
+   Routing is normally a script. Where scripts do not run — an in-app or Files
+   preview, a hardened browser, a blocked inline script — every link would be
+   inert and the site would be stuck on the home page. Each route also carries
+   its own fragment as an id, so these rules alone can route the site: the
+   targeted route shows, the rest are hidden, and the mobile menu is rendered
+   open rather than waiting on a button that has nothing bound to it.
+   All of it is scoped to html:not(.js), so it never competes with the router. */
+.cf-site:not(.js) .route:target{display:block}
+.cf-site:not(.js) body:has(.route:target) .route:not(:target){display:none}
+.cf-site:not(.js) .frag{display:block;height:0;scroll-margin-top:120px}
+.cf-site:not(.js) .rev,.cf-site:not(.js) .stagger>*,.cf-site:not(.js) .sheet a,.cf-site:not(.js) .fu,.cf-site:not(.js) .panel,.cf-site:not(.js) .fitem,.cf-site:not(.js) .hero h1 .ln>span,.cf-site:not(.js) .phero .inner>*{
+  opacity:1;transform:none;translate:none;animation:none}
+/* The drawer without a script.
+   A checkbox would stay checked across a link tap and leave the drawer hanging
+   open over the new page, so the open state is a fragment instead: every route
+   carries its own #/<slug>/menu target and its own pair of controls, pinned
+   over the header. Opening the drawer keeps you on the page you were reading —
+   the route is matched through the targeted fragment it contains — and tapping
+   any link retargets a different route, which closes the drawer on its own.
+   The X targets the route itself, so closing returns you to where you were. */
+.cf-site .nojs-nav{display:none}
+/* both controls share the scripted burger's slot; which one shows is decided
+   in the breakpoint below, so neither can stack over the other */
+.cf-site:not(.js) .burger-nojs{display:none;position:fixed;z-index:920;
+  top:calc(var(--frame-y) + 13px);right:calc(var(--frame-x) + 17px);background:transparent}
+/* keep the route whose own menu fragment is targeted, and only that one */
+.cf-site:not(.js) body:has(.menufrag:target) .route:has(.menufrag:target){display:block}
+.cf-site:not(.js) body:has(.menufrag:target) .route:not(:has(.menufrag:target)){display:none}
+.cf-site:not(.js) body:has(.menufrag:target) .sheet{opacity:1;visibility:visible;transform:none}
+/* Deep links point at a fragment inside a page rather than at the page itself
+   — #/services/contact, #/modules/request. Without scripts the page has to be
+   found through the fragment it contains, or the link lands on the homepage. */
+.cf-site:not(.js) body:has(.frag:target) .route:has(.frag:target){display:block}
+.cf-site:not(.js) body:has(.frag:target) .route:not(:has(.frag:target)){display:none}
+.cf-site:not(.js) body:has(.menufrag:target) .nojs-close i:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.cf-site:not(.js) body:has(.menufrag:target) .nojs-close i:nth-child(2){opacity:0}
+.cf-site:not(.js) body:has(.menufrag:target) .nojs-close i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media(max-width:900px){
+  .cf-site:not(.js) #burger{visibility:hidden}
+  .cf-site:not(.js) .nojs-nav{display:block}
+  .cf-site:not(.js) .nojs-open{display:block}
+  .cf-site:not(.js) body:has(.menufrag:target) .nojs-open{display:none}
+  .cf-site:not(.js) body:has(.menufrag:target) .nojs-close{display:block}
+  /* Products sits open inside the drawer — the accordion is a script too. */
+  .cf-site:not(.js) .acc-p{max-height:none;opacity:1}
+  .cf-site:not(.js) .acc-t .chev{display:none}
+}
+
+/* ===========================================================================
+   PHONE
+   Everything below applies at phone widths only. Nothing here changes the
+   desktop layout.
+   =========================================================================== */
+@media(max-width:900px){
+  /* --- the open menu blurs the page behind it ---------------------------- */
+  /* No extra markup: the veil is drawn on <body> and sits under the sheet
+     (880) and under the header (900), so the close button stays reachable. */
+  .cf-site:has(.sheet.on)::after,.cf-site:not(.js) body:has(.menufrag:target)::after{
+    content:'';position:fixed;inset:0;z-index:870;pointer-events:none;
+    background:rgba(0,0,0,.15);
+    /* the tint is the 15%; the blur is only there to soften what shows
+       through it, so it stays light enough to still read the page behind */
+    -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+    animation:menuVeil .3s var(--ease) both}
+  @keyframes menuVeil{from{opacity:0}to{opacity:1}}
+  /* the sheet itself must not be blurred by its own veil */
+  .cf-site .sheet{z-index:885}
+}
+
+@media(max-width:760px){
+  /* --- console: four tabs that fit, and no cards inside cards ------------ */
+  .cf-site .dash-tabs{grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible}
+  /* each label sits on two lines: the two words are separate spans, and the
+     tab stacks them. On every wider screen the spans are plain inline text
+     with a space between them, exactly as before. */
+  .cf-site .dtab{font-size:.72rem;padding:9px 4px;letter-spacing:-.01em;
+    white-space:normal;line-height:1.2;text-overflow:clip;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    min-height:42px}
+  .cf-site .dtab .tw{white-space:nowrap}
+
+  /* the nested panels were reading as cards stacked inside a card; on a phone
+     they become plain bands separated by a hairline */
+  .cf-site .dpane{padding:var(--s4) var(--s4) var(--s3);gap:0}
+  .cf-site .dblock{border:0;border-radius:0;background:none;padding:var(--s4) 0;
+    border-top:1px solid var(--w05)}
+  .cf-site .drow2{gap:0}
+  .cf-site .dpane>.drow2:first-of-type>.dblock:first-child,.cf-site .dpane>.dblock:first-of-type{border-top:0}
+  .cf-site .dblock h5{font-size:.8rem;color:var(--fg-2)}
+
+  /* the charts keep their shape but stop eating the page */
+  .cf-site .dchart-wrap{max-height:128px}
+  .cf-site .dvbars{max-height:128px}
+  .cf-site .dring{width:104px}
+  .cf-site .dbars{gap:0}
+  .cf-site .dash-body{height:860px}
+
+  /* The tables were showing three headings over one column of data, because
+     the middle cells were hidden but their headings were not. On a phone each
+     table keeps the row it names and the state it ends with — heading and
+     cells together — so nothing is orphaned. */
+  .cf-site .dth>span,.cf-site .dtr>span{display:none}
+  .cf-site .dth>span:first-child,.cf-site .dtr>span:first-child,.cf-site .dth>span:last-child,.cf-site .dtr>span:last-child{display:block}
+  .cf-site .dth,.cf-site .dtr,.cf-site .dtable.three .dth,.cf-site .dtable.three .dtr{
+    grid-template-columns:minmax(0,1fr) auto;gap:var(--s3)}
+  .cf-site .dth>span:last-child,.cf-site .dtr>span:last-child{justify-self:end;text-align:right}
+  .cf-site .dtr{padding:6px 0;flex:0 0 auto;min-height:0;align-content:center}
+  /* On a phone the panes size to their content instead of stretching to fill.
+     Rows sat far apart because every block was flex:1 and every row inside it
+     spread to match — the console read as a long, airy list rather than a
+     compact panel. */
+  .cf-site .dtable,.cf-site .drows,.cf-site .dbars{justify-content:space-between}
+  .cf-site .dbars{gap:7px}
+
+  /* Every block a tab carries on the desktop is here too. The panes share the
+     height, so the blocks flex to fill it rather than each demanding its full
+     natural height — the charts get a little shorter, nothing is dropped. */
+  .cf-site .dpane>.drow2,.cf-site .dpane>.dblock,.cf-site .drow2>.dblock{flex:1 1 auto;min-height:0}
+  .cf-site .dchart-wrap,.cf-site .dvbars{min-height:92px}
+  .cf-site .dmid{display:none}
+  /* the feed rows in the mock panels keep a sensible height too */
+  .cf-site .drow{flex:0 0 auto;min-height:26px;padding:2px 0}
+  .cf-site .dchip-s{padding:5px 10px;font-size:.72rem}
+  .cf-site .dnote{font-size:.72rem;line-height:1.45}
+  .cf-site .dchips{gap:6px}
+  .cf-site .drows{justify-content:space-between}
+  .cf-site .dring{width:92px}
+  .cf-site .dready{padding:var(--s3) var(--s4)}
+}
+
+@media(max-width:560px){
+  .cf-site .dtab{font-size:.68rem;padding:8px 3px}
+}
+@media(max-width:400px){
+  /* the stat cards take another line at this width */
+  .cf-site .dash-body{height:900px}
+}
+
+@media(max-width:760px){
+  /* --- partners: a tighter cell so three sit in view at once ------------- */
+  .cf-site .logo-cell{min-height:50px;padding:0 10px;gap:6px;border-radius:var(--r-m)}
+  .cf-site .logo-ico{width:20px;height:20px}
+  .cf-site .logo-ico svg{width:11px;height:11px}
+  .cf-site .logo-name{font-size:.74rem;letter-spacing:-.015em}
+  .cf-site .logo-run{gap:8px;padding-right:8px}
+  /* the row runs at half the desktop duration so a short loop still reads
+     as motion rather than as drift */
+  .cf-site .logo-track{animation-duration:24s}
+
+  /* --- cards read as panels, not as shapes lost in the black ------------- */
+  /* #0F0F17 on #000000 is a 6% lift — fine on a calibrated desktop screen,
+     close to invisible on a phone at low brightness. On a phone the surfaces
+     come up a step and the borders double. */
+  /* .acc is the drawer's Products accordion, not a card on the page — it
+     was picking up a resting fill from this rule and reading as a pressed
+     button next to Who We Help and Resources */
+  .cf-site .card,.cf-site .blk,.cf-site .rcard,.cf-site .seg,.cf-site .step,.cf-site .flow-s,.cf-site .form,.cf-site .rows,.cf-site .faq{
+    background:var(--surf-2);border-color:var(--w20)}
+  .cf-site .tile{background:linear-gradient(168deg,var(--surf-3),var(--surf-2));
+    border-color:var(--w20)}
+  .cf-site .rw-head{background:var(--w05)}
+  .cf-site .rw{border-bottom-color:var(--w10)}
+  .cf-site .step:hover,.cf-site .blk:hover,.cf-site .card:hover{background:var(--surf-3)}
+
+  /* --- two card groups in one section must not read as one list ---------- */
+  /* Stacked on a phone, the feature cards ran straight into the provider
+     cards with nothing between them. A rule and real space separate them. */
+  .cf-site .sec:not(.sec-weave) .blocks + .cards,.cf-site .sec:not(.sec-weave) .cards + .blocks,.cf-site .sec:not(.sec-weave) .blocks + .blocks,.cf-site .sec:not(.sec-weave) .cards + .cards,.cf-site .sec:not(.sec-weave) .rgrid + .cards,.cf-site .sec:not(.sec-weave) .cards + .rgrid,.cf-site .sec:not(.sec-weave) .blocks + .rows,.cf-site .sec:not(.sec-weave) .rows + .blocks{
+    margin-top:var(--s8)!important;padding-top:var(--s7);
+    border-top:1px solid var(--w10)}
+
+  /* --- the pull quote traces its own edge -------------------------------- */
+  .cf-site .quote{
+    background:
+      linear-gradient(168deg,var(--surf-1),var(--bg)) padding-box,
+      conic-gradient(from var(--ring-a),
+        var(--indigo),var(--violet),var(--purple),var(--magenta),
+        var(--purple),var(--violet),var(--indigo)) border-box;
+    border-width:1.5px;
+    animation:ringSpin 6s linear infinite}
+
+  /* --- features and provider cards belong together, pair by pair --------- */
+  /* Side by side on the desktop they read as one row of three over another.
+     Stacked on a phone the two groups came out as two separate lists, so each
+     feature is now followed by the provider card it goes with. The two
+     wrappers step out of the box tree and the section lays the six out
+     itself; nothing here reaches the desktop layout. */
+  @media(max-width:680px){
+    .cf-site .sec-weave{display:flex;flex-direction:column;gap:var(--s4)}
+    .cf-site .sec-weave>.head{margin-bottom:calc(var(--s7) - var(--s4))}
+    .cf-site .sec-weave>.blocks,.cf-site .sec-weave>.cards{display:contents}
+    .cf-site .sec-weave>.blocks>.blk:nth-child(1){order:1}
+    .cf-site .sec-weave>.cards>.card:nth-child(1){order:2}
+    .cf-site .sec-weave>.blocks>.blk:nth-child(2){order:3}
+    .cf-site .sec-weave>.cards>.card:nth-child(2){order:4}
+    .cf-site .sec-weave>.blocks>.blk:nth-child(3){order:5}
+    .cf-site .sec-weave>.cards>.card:nth-child(3){order:6}
+    /* the pair is one unit: the provider card sits tight under its feature
+       and the next pair starts after a clear break */
+    .cf-site .sec-weave>.cards>.card{margin-top:calc(-1 * var(--s4) + 6px)}
+    .cf-site .sec-weave>.blocks>.blk:nth-child(n+2){margin-top:var(--s5)}
+  }
+}
+@media(max-width:760px) and (prefers-reduced-motion:reduce){
+  .cf-site .quote{animation:none}
+}
+
+.cf-site .route [id]{scroll-margin-top:120px}
+.cf-site .privacy-choices{font:inherit;color:inherit;padding:0}
+
+html:has(.cf-site){scroll-behavior:smooth}
+body:has(.cf-site){background:#000;overflow-x:hidden;margin:0}
