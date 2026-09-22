@@ -1,17 +1,4 @@
-import Hero from "../components/Hero";
-import HeroStatBand from "../components/HeroStatBand";
-import TrustedLogosSection from "../components/TrustedLogosSection";
-import ProductCardsSection from "../components/ProductCardsSection";
-import ProblemSection from "../components/ProblemSection";
-import WhyCredflowSection from "../components/WhyCredflowSection";
-import TeamEmpowermentSection from "../components/TeamEmpowermentSection";
-import WhoWeHelpSection from "../components/WhoWeHelpSection";
-import CTASection from "../components/CTASection";
-import Footer from "../components/Footer";
-import {
-  LazyAIFeaturesSection,
-  LazyPlatformSection,
-} from "../components/HomeLazySections";
+import SiteDocument from "@/components/site/SiteDocument";
 
 export const metadata = {
   title: "CredFlow AI - Healthcare Credentialing Management Software",
@@ -23,20 +10,5 @@ export const metadata = {
 };
 
 export default function Home() {
-  return (
-    <div className="min-h-screen">
-      <Hero />
-      <HeroStatBand />
-      <TrustedLogosSection />
-      <ProductCardsSection />
-      <ProblemSection />
-      <LazyAIFeaturesSection />
-      <WhyCredflowSection />
-      <TeamEmpowermentSection />
-      <LazyPlatformSection />
-      <WhoWeHelpSection />
-      <CTASection />
-      <Footer />
-    </div>
-  );
+  return <SiteDocument slug="index" />;
 }

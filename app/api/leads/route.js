@@ -12,12 +12,81 @@ function asText(value) {
   }
 }
 
+function appendAttribution(body, payload) {
+  const attribution = payload.attribution || {};
+  body.append("attribution", JSON.stringify(attribution));
+
+  const lastTouch = attribution.last_touch || {};
+  const firstTouch = attribution.first_touch || {};
+  [
+    "gclid",
+    "gbraid",
+    "wbraid",
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+    "landing_page",
+    "referrer",
+  ].forEach((key) => {
+    if (lastTouch[key]) body.append(key, asText(lastTouch[key]));
+  });
+  if (firstTouch.utm_source) {
+    body.append("first_touch_source", asText(firstTouch.utm_source));
+  }
+  if (firstTouch.utm_campaign) {
+    body.append("first_touch_campaign", asText(firstTouch.utm_campaign));
+  }
+  if (firstTouch.landing_page) {
+    body.append("first_touch_landing_page", asText(firstTouch.landing_page));
+  }
+}
+
+/** Same keys the old /get-started form posted straight to Zapier. */
+function toGetStartedFormData(payload) {
+  const body = new FormData();
+  body.append("firstName", asText(payload.firstName));
+  body.append("lastName", asText(payload.lastName));
+  body.append("email", asText(payload.email));
+  body.append("companyName", asText(payload.organization));
+  body.append("numberOfProviders", asText(payload.providerCount));
+  body.append("organizationType", "");
+  body.append("howDidYouHear", "Get Started Page");
+  body.append("query", asText(payload.targetPayers));
+  return body;
+}
+
+/** Same keys the old software/services contact form posted straight to Zapier. */
+function toContactFormData(payload) {
+  const body = new FormData();
+  const targetPayers = asText(payload.targetPayers);
+  body.append("firstName", asText(payload.firstName));
+  body.append("lastName", asText(payload.lastName));
+  body.append("email", asText(payload.email));
+  body.append("companyName", asText(payload.organization));
+  body.append("numberOfProviders", asText(payload.providerCount));
+  body.append("organizationType", "Credentialing services");
+  body.append("howDidYouHear", asText(payload.howDidYouHear));
+  body.append("formType", "Talk to a specialist");
+  body.append(
+    "smsOptIn",
+    payload.smsOptIn === true || payload.smsOptIn === "true" ? "true" : "false"
+  );
+  body.append("query", `Target payers / specialty: ${targetPayers || "N/A"}`);
+  appendAttribution(body, payload);
+  return body;
+}
+
 /**
  * Zapier Catch Hook already maps the old FormData names from other site forms.
  * Forward both the new names and those aliases so the existing Zap can see a
  * normal sample (and so “Find new records” matches what you already have).
  */
 function toZapierFormData(payload) {
+  if (payload.leadProfile === "get-started") return toGetStartedFormData(payload);
+  if (payload.leadProfile === "contact") return toContactFormData(payload);
+
   const body = new FormData();
   const firstName = asText(payload.firstName);
   const lastName = asText(payload.lastName);
@@ -37,8 +106,26 @@ function toZapierFormData(payload) {
   body.append("providerCount", providerCount);
   body.append("numberOfProviders", providerCount);
   body.append("targetPayers", targetPayers);
-  body.append("query", targetPayers ? `Target payers / specialty: ${targetPayers}` : "");
+  const isContactForm = Boolean(firstName);
+  body.append(
+    "query",
+    targetPayers
+      ? `Target payers / specialty: ${targetPayers}`
+      : isContactForm
+        ? "Target payers / specialty: N/A"
+        : ""
+  );
   body.append("formType", isQuickLead ? "Quick Chat" : "Talk to a specialist");
+  if (isContactForm) {
+    body.append(
+      "smsOptIn",
+      payload.smsOptIn === true || payload.smsOptIn === "true" ? "true" : "false"
+    );
+    body.append(
+      "organizationType",
+      asText(payload.organizationType) || "Credentialing services"
+    );
+  }
   body.append("source_cta", asText(payload.source_cta));
   body.append("ga_client_id", asText(payload.ga_client_id));
   body.append("ga_session_id", asText(payload.ga_session_id));

@@ -1,4 +1,5 @@
 import { getAllBlogs } from "@/lib/getBlogs";
+import { MARKETING_SLUGS } from "@/lib/site/paths";
 
 const BASE_URL = "https://www.credflow.ai";
 
@@ -54,6 +55,23 @@ export default async function sitemap() {
       changeFrequency: "yearly",
       priority: 0.3,
     },
+    ...MARKETING_SLUGS.filter(
+      (slug) =>
+        ![
+          "software",
+          "services",
+          "payers",
+          "innetwork",
+          "resources",
+          "privacy-policy",
+          "terms-and-conditions",
+        ].includes(slug)
+    ).map((slug) => ({
+      url: `${BASE_URL}/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    })),
   ];
 
   const normalizeDate = (value) => {

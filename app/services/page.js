@@ -1,20 +1,15 @@
-import LandingPage from "@/components/landing/LandingPage";
-import { servicesLandingHtml } from "@/lib/landing/servicesHtml";
-import { servicesJsonLd, servicesMeta } from "@/lib/landing/spec";
+import SiteDocument from "@/components/site/SiteDocument";
+import { titles } from "@/lib/site/content";
 
 export const metadata = {
-  title: { absolute: servicesMeta.title },
-  description: servicesMeta.description,
+  title: { absolute: titles.services },
+  description:
+    "Done-for-you credentialing and payer enrollment services, tracked live in CredFlow.",
   alternates: {
-    canonical: servicesMeta.canonical,
-  },
-  openGraph: {
-    title: servicesMeta.title,
-    description: servicesMeta.description,
-    url: servicesMeta.canonical,
+    canonical: "https://www.credflow.ai/services",
   },
 };
 
 export default function ServicesPage() {
-  return <LandingPage html={servicesLandingHtml} jsonLd={servicesJsonLd} />;
+  return <SiteDocument slug="services" />;
 }
