@@ -228,6 +228,7 @@
    =========================================================================== */
 .cf-site .hdr{
   position:fixed;top:var(--frame-y);left:var(--frame-x);right:var(--frame-x);z-index:900;
+  max-width:calc(var(--page-w, 100vw) - (var(--frame-x) * 2));
   border-radius:var(--r-pill);
   /* the pill's own inset is the same on all four sides now — it was 16px
      left and right against 12px top and bottom */
@@ -293,6 +294,7 @@
 .cf-site .burger.on i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 /* Sits below the header and is only as tall as its contents. */
 .cf-site .sheet{position:fixed;top:calc(var(--frame-y) + 74px);left:var(--frame-x);right:var(--frame-x);
+  max-width:calc(var(--page-w, 100vw) - (var(--frame-x) * 2));
   z-index:880;background:var(--surf-1);border:1px solid var(--w10);
   border-radius:var(--r-l);padding:var(--s4) var(--s5) var(--s5);
   box-shadow:0 40px 90px -40px #000;
