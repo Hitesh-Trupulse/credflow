@@ -191,14 +191,16 @@ function initRoute(root, ios) {
 function fitHeadings() {
   document.querySelectorAll(".route .head h2").forEach((h) => {
     h.classList.remove("oneline");
-    const avail = h.parentNode.getBoundingClientRect().width;
+    const parent = h.parentNode;
+    const host = h.closest(".cf-site") || parent;
+    const avail = parent.getBoundingClientRect().width;
     const probe = h.cloneNode(true);
     probe.style.cssText =
-      "position:absolute;visibility:hidden;white-space:nowrap;max-width:none;left:-9999px";
-    document.body.appendChild(probe);
+      "position:absolute;visibility:hidden;white-space:nowrap;max-width:none;width:max-content;left:0;top:0;pointer-events:none";
+    host.appendChild(probe);
     const need = probe.getBoundingClientRect().width;
-    probe.parentNode.removeChild(probe);
-    if (need <= avail - 1) h.classList.add("oneline");
+    probe.remove();
+    if (need > 0 && need <= avail - 1) h.classList.add("oneline");
   });
 }
 
