@@ -83,8 +83,12 @@ export default function PreviewPage({ posts }) {
 
   return (
     <div className="bg-black min-h-screen">
-      {/* Publish/Unpublish Button - Fixed Position - Only for authorized users */}
-      {user && (user.email === 'hitesh@credflow.ai' || user.email === 'satwant@credflow.ai') && (
+      {/* Publish/Unpublish Button - Fixed Position - Available to any signed-in user */}
+      {user && (
+        // Previously gated to specific emails only:
+        // (user.email === 'hitesh@credflow.ai' || user.email === 'satwant@credflow.ai' || user.email === 'deepak@credflow.ai') &&
+        true
+      ) && (
         <div className="fixed bottom-6 right-6 z-50">
           <button
             type="button"
