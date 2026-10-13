@@ -17,17 +17,17 @@ const nextConfig = {
   },
   async headers() {
     // Report-only for now: logs violations to the browser console without
-    // blocking anything. Covers GTM, Zapier form posts, Firebase (auth +
-    // Firestore + storage, incl. Google sign-in popup), and Fontshare.
+    // blocking anything. Covers GTM, Leadfeeder, Zapier form posts, Firebase
+    // (auth + Firestore + storage, incl. Google sign-in popup), and Fontshare.
     // Browse the site with devtools open and watch for CSP warnings before
     // switching this to an enforcing `Content-Security-Policy` header.
     const cspReportOnly = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://apis.google.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://apis.google.com https://sc.lfeeder.com https://lftracker.leadfeeder.com",
       "style-src 'self' 'unsafe-inline' https://api.fontshare.com",
       "font-src 'self' https://api.fontshare.com data:",
-      "img-src 'self' data: blob: https://firebasestorage.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com",
-      "connect-src 'self' https://hooks.zapier.com https://www.googletagmanager.com https://www.google-analytics.com https://region1.google-analytics.com https://firestore.googleapis.com https://firebasestorage.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com",
+      "img-src 'self' data: blob: https://firebasestorage.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com https://*.lfeeder.com https://*.leadfeeder.com",
+      "connect-src 'self' https://hooks.zapier.com https://www.googletagmanager.com https://www.google-analytics.com https://region1.google-analytics.com https://firestore.googleapis.com https://firebasestorage.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com https://*.lfeeder.com https://*.leadfeeder.com",
       "frame-src 'self' https://credflow-blog-7425f.firebaseapp.com https://accounts.google.com https://calendar.google.com",
       "object-src 'none'",
       "base-uri 'self'",
