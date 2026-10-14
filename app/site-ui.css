@@ -1191,6 +1191,7 @@
 .cf-site .field textarea::placeholder{color:var(--fg-3)}
 .cf-site .field .opt{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:0.78rem;font-weight:400;
   text-transform:none;letter-spacing:0;color:var(--fg-3);margin-left:var(--s2)}
+.cf-site .field label .phone-note{font-size:0.78rem;font-weight:400;text-transform:none;letter-spacing:0;color:var(--fg-3)}
 .cf-site .field input,.cf-site .field select{width:100%;padding:var(--pad-v-md) var(--pad-h-md);border-radius:var(--r-s);
   background:var(--w03);border:1px solid var(--w10);font-size:1rem;font-weight:300;
   transition:border-color .35s var(--ease),background .35s var(--ease),box-shadow .35s var(--ease)}

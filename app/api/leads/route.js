@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { cleanUsPhone } from "@/lib/phone";
 
 const ZAPIER_HOOK = "https://hooks.zapier.com/hooks/catch/27515226/4ytw9iy/";
 
@@ -10,6 +11,17 @@ function asText(value) {
   } catch {
     return "";
   }
+}
+
+function appendPhone(body, payload) {
+  body.append("phone", cleanUsPhone(payload.phone));
+}
+
+function appendSubmittedAt(body, payload) {
+  body.append(
+    "submitted_at",
+    asText(payload.submitted_at) || new Date().toISOString()
+  );
 }
 
 function appendAttribution(body, payload) {
@@ -49,11 +61,13 @@ function toGetStartedFormData(payload) {
   body.append("firstName", asText(payload.firstName));
   body.append("lastName", asText(payload.lastName));
   body.append("email", asText(payload.email));
+  appendPhone(body, payload);
   body.append("companyName", asText(payload.organization));
   body.append("numberOfProviders", asText(payload.providerCount));
   body.append("organizationType", "");
   body.append("howDidYouHear", "Get Started Page");
   body.append("query", asText(payload.targetPayers));
+  appendSubmittedAt(body, payload);
   return body;
 }
 
@@ -64,6 +78,7 @@ function toContactFormData(payload) {
   body.append("firstName", asText(payload.firstName));
   body.append("lastName", asText(payload.lastName));
   body.append("email", asText(payload.email));
+  appendPhone(body, payload);
   body.append("companyName", asText(payload.organization));
   body.append("numberOfProviders", asText(payload.providerCount));
   body.append("organizationType", "Credentialing services");
@@ -74,6 +89,7 @@ function toContactFormData(payload) {
     payload.smsOptIn === true || payload.smsOptIn === "true" ? "true" : "false"
   );
   body.append("query", `Target payers / specialty: ${targetPayers || "N/A"}`);
+  appendSubmittedAt(body, payload);
   appendAttribution(body, payload);
   return body;
 }
@@ -100,6 +116,7 @@ function toZapierFormData(payload) {
   body.append("firstName", firstName || fullName.split(" ")[0] || "");
   body.append("lastName", lastName || fullName.split(" ").slice(1).join(" "));
   body.append("email", asText(payload.email));
+  appendPhone(body, payload);
   body.append("fullName", fullName);
   body.append("organization", organization);
   body.append("companyName", organization);
@@ -129,7 +146,7 @@ function toZapierFormData(payload) {
   body.append("source_cta", asText(payload.source_cta));
   body.append("ga_client_id", asText(payload.ga_client_id));
   body.append("ga_session_id", asText(payload.ga_session_id));
-  body.append("submitted_at", asText(payload.submitted_at));
+  appendSubmittedAt(body, payload);
 
   const attribution = payload.attribution || {};
   body.append("attribution", JSON.stringify(attribution));

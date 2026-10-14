@@ -124,6 +124,8 @@ const FIELD_NAMES = {
   em: "email",
   sem: "email",
   mem: "email",
+  ph: "phone",
+  sph: "phone",
   co: "organization",
   sor: "organization",
   mco: "organization",
