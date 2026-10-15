@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import SchedulingModal from "@/components/SchedulingModal";
 import { submitLead } from "@/lib/leadSubmit";
+import { normalizeLeadPhone, phoneCountryOptions } from "@/lib/phone";
 import { bootSite, destroySite } from "./runtime";
 
 function ensure(form, name, value) {
@@ -16,6 +17,35 @@ function ensure(form, name, value) {
     form.appendChild(el);
   }
   el.value = value == null ? "" : String(value);
+}
+
+function fillPhoneCountries(root) {
+  if (!root || typeof Intl === "undefined" || !Intl.DisplayNames) return;
+  const options = phoneCountryOptions();
+  root.querySelectorAll('select[name="phoneCountry"]').forEach((sel) => {
+    const selected = sel.value || "US";
+    sel.replaceChildren();
+    options.forEach((option) => {
+      const el = document.createElement("option");
+      el.value = option.iso;
+      el.textContent = `${option.name} (+${option.dial})`;
+      const isSelected = option.iso === selected;
+      el.selected = isSelected;
+      el.defaultSelected = option.iso === "US";
+      sel.appendChild(el);
+    });
+    if (![...sel.options].some((option) => option.value === selected)) {
+      sel.value = "US";
+    }
+  });
+}
+
+function applyPhoneValidity(form) {
+  const input = form.querySelector('input[name="phone"]');
+  if (!input) return;
+  const country = form.querySelector('select[name="phoneCountry"]');
+  const result = normalizeLeadPhone(input.value, country && country.value);
+  input.setCustomValidity(result.ok ? "" : result.message);
 }
 
 function fillAttribution(form) {
@@ -51,6 +81,11 @@ export default function SiteRuntime({ slug, children }) {
   useEffect(() => {
     const root = document.querySelector("main#app .route");
     bootSite(root, pathname);
+    try {
+      fillPhoneCountries(root);
+    } catch {
+      /* The markup already defaults the selector to United States. */
+    }
     return () => {
       destroySite();
       document.documentElement.classList.remove("cf-site");
@@ -117,6 +152,7 @@ export default function SiteRuntime({ slug, children }) {
 
       if (!form.classList.contains("cf-form")) return;
       e.preventDefault();
+      applyPhoneValidity(form);
       if (!form.checkValidity()) {
         form.reportValidity();
         push({ event: "form_submit_attempt", form_id: slug, valid: false });
@@ -161,11 +197,23 @@ export default function SiteRuntime({ slug, children }) {
         });
     };
 
+    const onPhoneInput = (e) => {
+      const field = e.target;
+      if (!field || !field.form || !field.form.classList.contains("cf-form")) return;
+      if (field.name !== "phone" && field.name !== "phoneCountry") return;
+      const input = field.form.querySelector('input[name="phone"]');
+      if (input) input.setCustomValidity("");
+    };
+
     document.addEventListener("click", onClick);
     document.addEventListener("submit", onSubmit);
+    document.addEventListener("input", onPhoneInput);
+    document.addEventListener("change", onPhoneInput);
     return () => {
       document.removeEventListener("click", onClick);
       document.removeEventListener("submit", onSubmit);
+      document.removeEventListener("input", onPhoneInput);
+      document.removeEventListener("change", onPhoneInput);
     };
   }, [pathname, router, slug]);
 

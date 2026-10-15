@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { cleanUsPhone } from "@/lib/phone";
+import { normalizeLeadPhone } from "@/lib/phone";
 
 const ZAPIER_HOOK = "https://hooks.zapier.com/hooks/catch/27515226/4ytw9iy/";
 
@@ -14,7 +14,7 @@ function asText(value) {
 }
 
 function appendPhone(body, payload) {
-  body.append("phone", cleanUsPhone(payload.phone));
+  body.append("phone", asText(payload.phone));
 }
 
 function appendSubmittedAt(body, payload) {
@@ -63,6 +63,7 @@ function toGetStartedFormData(payload) {
   body.append("email", asText(payload.email));
   appendPhone(body, payload);
   body.append("companyName", asText(payload.organization));
+  body.append("providerCount", asText(payload.providerCount));
   body.append("numberOfProviders", asText(payload.providerCount));
   body.append("organizationType", "");
   body.append("howDidYouHear", "Get Started Page");
@@ -80,6 +81,7 @@ function toContactFormData(payload) {
   body.append("email", asText(payload.email));
   appendPhone(body, payload);
   body.append("companyName", asText(payload.organization));
+  body.append("providerCount", asText(payload.providerCount));
   body.append("numberOfProviders", asText(payload.providerCount));
   body.append("organizationType", "Credentialing services");
   body.append("howDidYouHear", asText(payload.howDidYouHear));
@@ -194,6 +196,12 @@ export async function POST(request) {
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
+
+  const phoneResult = normalizeLeadPhone(payload.phone, payload.phoneCountry);
+  if (!phoneResult.ok) {
+    return NextResponse.json({ error: phoneResult.message }, { status: 400 });
+  }
+  payload.phone = phoneResult.phone;
 
   try {
     const res = await fetch(ZAPIER_HOOK, {
