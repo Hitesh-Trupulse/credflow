@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { FaX } from "react-icons/fa6";
 
+// Embed form of https://calendar.app.google/GnrQg4LqwMhJD7Tw5 (30 min with Elizabeth).
 export const SCHEDULING_URL =
-  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0knczz5nNG_KOsbzh2qFozjRQK9FdkyYAp-tQjQNgskN_e4F2gCuAY9SQNljrA4rlTb0xbqaFa?gv=true";
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ2ygfJMyZdfPyikAeAiXCxkyGo6AteiHdnhENj33tiQ2lip3HMwxRT4MQ--pG8JR_cCfbFc5MRY?gv=true";
 
 /**
  * In-page Google Calendar Appointment Schedule popup (iframe).
